@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Image, { StaticImageData } from 'next/image';
 import { Box } from '@mui/material';
 
@@ -10,6 +10,27 @@ import MapTest2 from '@/assets/images/map-test2.jpg';
 import MapTest3 from '@/assets/images/map-test3.jpg';
 
 export default function Map() {
+  const mapTestData = [
+    {
+      id: 1,
+      staticImageData: MapTest1,
+      imageWidth: 1965,
+      imageHeight: 1275,
+    },
+    {
+      id: 2,
+      staticImageData: MapTest2,
+      imageWidth: 3401,
+      imageHeight: 8192,
+    },
+    // {
+    //   id: 3,
+    //   staticImageData: MapTest3,
+    //   imageWidth: 5292,
+    //   imageHeight: 4926,
+    // },
+  ];
+
   return (
     <Box
       sx={{
@@ -17,20 +38,14 @@ export default function Map() {
         background: '#ddd'
       }}
     >
-      <Box>Map Test1</Box>
-      <MapAreaTest
-        mapImageSrc={MapTest1}
-      />
-
-      <Box>Map Test2</Box>
-      <MapAreaTest
-        mapImageSrc={MapTest2}
-      />
-
-      <Box>Map Test3</Box>
-      <MapAreaTest
-        mapImageSrc={MapTest3}
-      />
+      { mapTestData.map(data =>
+        <MapAreaTest
+          key={data.id}
+          staticImageData={data.staticImageData}
+          imageWidth={data.imageWidth}
+          imageHeight={data.imageHeight}
+        />
+      )}
 
       <Box
         sx={{
@@ -63,10 +78,58 @@ export default function Map() {
 
 function MapAreaTest (
   props: {
-    mapImageSrc: StaticImageData;
+    staticImageData: StaticImageData;
+    imageWidth: number;
+    imageHeight: number;
   }
 ) {
-  // 이미지 크기에 따라 maxScale 정하기
+  const IMAGE_SCALE_UNIT = 0.2; // TODO 스케일 단위를 고정? or 가변? / 어떤게 좋으려나?
+  const MIN_IMAGE_SCALE = 1;
+
+  const mapViewerRef = useRef<HTMLElement | null>(null);
+  const maxImageScaleRef = useRef<number>(4); // TODO
+  const imageScaleRef = useRef<number>(MIN_IMAGE_SCALE);
+
+  const [mapViewerWidth, setMapViewerWidth] = useState<number>(0);
+  const [mapViewerHeight, setMapViewerHeight] = useState<number>(0);
+  const [imageScale, setImageScale] = useState<number>(MIN_IMAGE_SCALE);
+
+  useEffect(() => {
+    const mapViewerElm = mapViewerRef.current;
+    if (mapViewerElm === null) return;
+
+    // TODO maxScale을 어떻게 정할까??
+    const mapViewerWidth = mapViewerElm.clientWidth;
+    const mapViewerHeight = mapViewerElm.clientHeight;
+    setMapViewerWidth(mapViewerWidth);
+    setMapViewerHeight(mapViewerHeight);
+
+    // TODO onWheel로는 처리 안됨(preventDefault가 안먹힘) / 왜 이 형식으로만 되는거지??
+    mapViewerElm.addEventListener('wheel', handleWheelMapViewer);
+    
+    return () => {
+      mapViewerElm.removeEventListener('wheel', handleWheelMapViewer);
+    }
+  }, []);
+
+  function handleWheelMapViewer(e: WheelEvent) {
+    e.preventDefault();
+
+    const curImageScale = imageScaleRef.current;
+
+    // TODO 소수점 계산시 오차 발생
+    if (e.deltaY < 0 && curImageScale < maxImageScaleRef.current) {
+      imageScaleRef.current = Number((curImageScale + IMAGE_SCALE_UNIT).toFixed(2));
+
+    } else if (e.deltaY > 0 && curImageScale > MIN_IMAGE_SCALE) {
+      imageScaleRef.current = Number((curImageScale - IMAGE_SCALE_UNIT).toFixed(2));
+
+    } else {
+      return;
+    }
+
+    setImageScale(imageScaleRef.current);
+  }
 
   return (
     <>
@@ -78,6 +141,8 @@ function MapAreaTest (
         }}
       >
         <Box
+          ref={mapViewerRef}
+          // onWheelCapture={handleWheelMapViewer}
           sx={{
             position: 'relative',
             width: '100%',
@@ -95,15 +160,18 @@ function MapAreaTest (
             }}
           >
             <Image
-              src={props.mapImageSrc}
+              src={props.staticImageData}
               alt='test-map'
               // priority={true}
               draggable={false}
+              width={props.imageWidth}
+              height={props.imageHeight}
               style={{
                 display: 'block',
                 width: '100%',
                 height: '100%',
                 objectFit: 'contain',
+                transform: `scale(${imageScale})`
               }}
             />
           </Box>
@@ -116,7 +184,11 @@ function MapAreaTest (
           marginBottom: '16px'
         }}
       >
-        맵 정보 - 좌표 등등
+        <Box>현재 이미지 scale : { imageScale }</Box>
+        <Box>이미지 가로 : { props.imageWidth }px</Box>
+        <Box>이미지 세로 : { props.imageHeight }px</Box>
+        <Box>맵뷰어 가로 : { mapViewerWidth }px</Box>
+        <Box>맵뷰어 세로 : { mapViewerHeight }px</Box>
       </Box>
     </>
   );
