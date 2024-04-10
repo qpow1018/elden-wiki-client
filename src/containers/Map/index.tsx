@@ -1,9 +1,11 @@
-
+import { Box } from '@mui/material';
 import './index.css';
 
 export default function Map() {
   return (
     <div className='test-container'>
+
+
 
       고민해야 하는 이슈
       <div>
@@ -20,6 +22,9 @@ export default function Map() {
       </div>
       <div>
         지도 자료를 어떻게 구할까?
+      </div>
+      <div>
+        지도 이미지가 클텐데 로딩 부담을 줄이는 방법 찾기
       </div>
     </div>
   );
