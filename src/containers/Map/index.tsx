@@ -23,12 +23,12 @@ export default function Map() {
       imageWidth: 3401,
       imageHeight: 8192,
     },
-    // {
-    //   id: 3,
-    //   staticImageData: MapTest3,
-    //   imageWidth: 5292,
-    //   imageHeight: 4926,
-    // },
+    {
+      id: 3,
+      staticImageData: MapTest3,
+      imageWidth: 5292,
+      imageHeight: 4926,
+    },
   ];
 
   return (
@@ -83,34 +83,35 @@ function MapAreaTest (
     imageHeight: number;
   }
 ) {
-  const IMAGE_SCALE_UNIT = 0.2; // TODO 스케일 단위를 고정? or 가변? / 어떤게 좋으려나?
+  const IMAGE_SCALE_UNIT = 0.4;
   const MIN_IMAGE_SCALE = 1;
 
   const mapViewerRef = useRef<HTMLElement | null>(null);
-  const maxImageScaleRef = useRef<number>(4); // TODO
+  const maxImageScaleRef = useRef<number>(4);
   const imageScaleRef = useRef<number>(MIN_IMAGE_SCALE);
 
-  const [mapViewerWidth, setMapViewerWidth] = useState<number>(0);
-  const [mapViewerHeight, setMapViewerHeight] = useState<number>(0);
   const [imageScale, setImageScale] = useState<number>(MIN_IMAGE_SCALE);
 
   useEffect(() => {
     const mapViewerElm = mapViewerRef.current;
     if (mapViewerElm === null) return;
 
-    // TODO maxScale을 어떻게 정할까??
-    const mapViewerWidth = mapViewerElm.clientWidth;
-    const mapViewerHeight = mapViewerElm.clientHeight;
-    setMapViewerWidth(mapViewerWidth);
-    setMapViewerHeight(mapViewerHeight);
+    setupMaxImageScale(mapViewerElm);
 
     // TODO onWheel로는 처리 안됨(preventDefault가 안먹힘) / 왜 이 형식으로만 되는거지??
     mapViewerElm.addEventListener('wheel', handleWheelMapViewer);
-    
+
     return () => {
       mapViewerElm.removeEventListener('wheel', handleWheelMapViewer);
     }
   }, []);
+
+  function setupMaxImageScale(viewerElm: HTMLElement) {
+    const num1 = props.imageWidth / viewerElm.clientWidth;
+    const num2 = props.imageHeight / viewerElm.clientHeight;
+    const largestNum = Math.max(num1, num2);
+    maxImageScaleRef.current = Number(largestNum.toFixed(1));
+  }
 
   function handleWheelMapViewer(e: WheelEvent) {
     e.preventDefault();
@@ -142,7 +143,6 @@ function MapAreaTest (
       >
         <Box
           ref={mapViewerRef}
-          // onWheelCapture={handleWheelMapViewer}
           sx={{
             position: 'relative',
             width: '100%',
@@ -181,14 +181,20 @@ function MapAreaTest (
       <Box
         sx={{
           marginTop: '8px',
-          marginBottom: '16px'
+          marginBottom: '16px',
+          display: 'flex',
         }}
       >
-        <Box>현재 이미지 scale : { imageScale }</Box>
-        <Box>이미지 가로 : { props.imageWidth }px</Box>
-        <Box>이미지 세로 : { props.imageHeight }px</Box>
-        <Box>맵뷰어 가로 : { mapViewerWidth }px</Box>
-        <Box>맵뷰어 세로 : { mapViewerHeight }px</Box>
+        <Box sx={{ flex: 1 }}>
+          <Box>현재 이미지 scale : { imageScale }</Box>
+          <Box>이미지 가로 : { props.imageWidth }px</Box>
+          <Box>이미지 세로 : { props.imageHeight }px</Box>
+        </Box>
+        <Box sx={{ flex: 1 }}>
+          좌표
+        </Box>
+        <Box sx={{ flex: 1 }}>
+        </Box>
       </Box>
     </>
   );
