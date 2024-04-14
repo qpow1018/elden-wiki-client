@@ -1,5 +1,5 @@
 class Utils {
-  public convertNumberWithDecimal2(num: number, decimal: number) {
+  public convertNumberWithDecimal(num: number, decimal: number) {
     return Number(num.toFixed(decimal));
   }
 
