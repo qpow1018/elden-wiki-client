@@ -2,14 +2,7 @@ import { useState, useRef, useEffect } from 'react';
 
 import { utils } from '@/libs';
 
-export default function useMapMovement(data: {
-  containerWidth: number;
-  containerHeight: number;
-  mapWidth: number;
-  mapHeight: number;
-}) {
-  const { containerWidth, containerHeight, mapWidth, mapHeight } = data;
-
+export default function useMapMovement(wheelCoord: { x: number; y: number } | null) {
   const MIN_MOVE_DISTANCE = 4;
 
   const refMoveStartPointX = useRef<number>(0);
@@ -19,24 +12,18 @@ export default function useMapMovement(data: {
   const refLastMovePointX = useRef<number>(0);
   const refLastMovePointY = useRef<number>(0);
 
-  const [mapMovementPoint, setMapMovementPoint] = useState<{ x: number, y: number }>({ x: 0, y: 0 });
+  const [imageMovementCoord, setImageMovementCoord] = useState<{ x: number, y: number }>({ x: 0, y: 0 });
 
-  // 초기 중앙 정렬
-  useEffect(() => {
-    setupInitMapMovementPoint((containerWidth - mapWidth) / 2, (containerHeight - mapHeight) / 2);
-  }, [containerWidth, containerHeight, mapWidth, mapHeight]);
 
-  function setupInitMapMovementPoint(x: number, y: number) {
+  function updateImageMovementCoord(x: number, y: number) {
     refLastMovePointX.current = x;
     refLastMovePointY.current = y;
 
-
-    setMapMovementPoint({
+    setImageMovementCoord({
       x: refLastMovePointX.current,
       y: refLastMovePointY.current
     });
   }
-
 
   // TODO 이동 관련해서 생각해 봐야할 이슈
   // addEventListener, removeEventListener 적절하게 작동하는지 확인 필요 - 필요한만큼(1개겠지) 추가되고 삭제된다.
@@ -69,7 +56,7 @@ export default function useMapMovement(data: {
     refMovePointX.current = refLastMovePointX.current - movePointX;
     refMovePointY.current = refLastMovePointY.current - movePointY;
 
-    setMapMovementPoint({
+    setImageMovementCoord({
       x: refMovePointX.current,
       y: refMovePointY.current
     });
@@ -90,6 +77,7 @@ export default function useMapMovement(data: {
 
   return {
     handleMouseDownMap,
-    mapMovementPoint,
+    imageMovementCoord,
+    updateImageMovementCoord,
   };
 }
