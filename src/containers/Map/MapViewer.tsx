@@ -12,7 +12,6 @@ import MapTest1 from '@/assets/images/map-test1.jpg';
 import MapTest2 from '@/assets/images/map-test2.jpg';
 import MapTest3 from '@/assets/images/map-test3.jpg';
 
-
 export default function MapViewer(
   props: {
     map: Map;
@@ -20,22 +19,20 @@ export default function MapViewer(
     mapContainer: MapContainer;
   }
 ) {
-  // const mapViewerInfo = props.mapViewerInfo;
-
   const refMapViewer = useRef<HTMLDivElement | null>(null);
 
-  const { handleWheelMap, imageSize, wheelCoord } = useMapZoom({
+  const { handleWheelMap, initImageSize, imageSize, wheelCoord } = useMapZoom({
     originImageWidth: props.map.width,
     originImageHeigth: props.map.height,
     containerWidth: props.mapContainer.width,
     containerHeight: props.mapContainer.height
   });
+  const { handleMouseDownMap, movementCoord, updateImageMovementCoord } = useMapMovement(wheelCoord);
 
-  const { handleMouseDownMap, imageMovementCoord, updateImageMovementCoord } = useMapMovement(wheelCoord);
-
-  // useEffect(() => {
-  //   setupImageAlignCenter();
-  // }, []);
+  useEffect(() => {
+    if (initImageSize === null) return;
+    setupImageAlignCenter(initImageSize.width, initImageSize.height);
+  }, [initImageSize]);
 
   // useEffect(() => {
   //   console.log('wheelCoord 변경 테스트', wheelCoord);
@@ -43,11 +40,11 @@ export default function MapViewer(
   //   setupImageMovementByWheelCoord(wheelCoord);
   // }, [wheelCoord]);
 
-  // function setupImageAlignCenter() {
-  //   const x = (mapViewerInfo.containerWidth - mapViewerInfo.minImageWidth) / 2;
-  //   const y = (mapViewerInfo.containerHeight - mapViewerInfo.minImageHeight) / 2;
-  //   updateImageMovementCoord(x, y);
-  // }
+  function setupImageAlignCenter(imageWidth: number, imageHeight: number) {
+    const centerX = utils.convertNumberWithDecimal((props.mapContainer.width - imageWidth) / 2, 2);
+    const centerY = utils.convertNumberWithDecimal((props.mapContainer.height - imageHeight) / 2, 2);
+    updateImageMovementCoord(centerX, centerY);
+  }
 
   // function setupImageMovementByWheelCoord(wheelCoord: { x: number; y: number; isScaleUp: boolean; }) {
   //   const mouseX = wheelCoord.x - mapViewerInfo.containerOffsetLeft;
@@ -62,32 +59,25 @@ export default function MapViewer(
   //   updateImageMovementCoord(newX, newY);
   // }
 
-  // function handleMouseMoveImage(e: React.MouseEvent) {
-  //   const mouseX = e.clientX - mapViewerInfo.containerOffsetLeft - imageMovementCoord.x;
-  //   const mouseY = e.clientY - mapViewerInfo.containerOffsetTop
+  function handleMouseMoveImage(e: React.MouseEvent, curScale: number) {
+    const x = e.clientX - props.mapContainer.offsetLeft;
+    const y = e.clientY - props.mapContainer.offsetTop;
 
-  //   const testX = mouseX * mapViewerInfo.maxImageScale;
+    // movementCoord 값의 소수점을 버리는 이유는
+    // e.clientX 와 offsetLeft는 정수지만 movementCoord값은 소수점이 포함이 됨
+    // mouseX 계산식에서 최소값은 0이지만 해당 소수점이 있기때문에 음수가 나오는 경우가 생김
+    // 음수는 해당 좌표 정의상 존재 할 수 없음
+    const mouseX = x - Math.floor(movementCoord.x);
+    const mouseY = y - Math.floor(movementCoord.y);
 
-  //   console.log('testX', testX);
+    const resultX = utils.convertNumberWithDecimal(mouseX / curScale, 2);
+    const resultY = utils.convertNumberWithDecimal(mouseY / curScale, 2);
 
-  //   setMapCoord({
-  //     x: mouseX,
-  //     y: mouseY
-  //   });
-  // }
-
-  // function handleClickImage(e: React.MouseEvent) {
-  //   const mouseX = e.clientX - mapViewerInfo.containerOffsetLeft - imageMovementCoord.x;
-  //   const mouseY = e.clientY - mapViewerInfo.containerOffsetTop - imageMovementCoord.y;
-
-  //   const testX = mapViewerInfo.originImageWidth * mouseX / (mapViewerInfo.minImageWidth * curImageScale);
-  //   const testY = mapViewerInfo.originImageHeight * mouseY / (mapViewerInfo.minImageHeight * curImageScale);
-
-  //   setMarkerCoord({
-  //     x: mouseX,
-  //     y: mouseY
-  //   });
-  // }
+    setMapCoord({
+      x: resultX,
+      y: resultY
+    });
+  }
 
   // -------- Test용
   const [mapCoord, setMapCoord] = useState({ x: 0, y: 0 });
@@ -109,21 +99,13 @@ export default function MapViewer(
         { imageSize !== null &&
           <MapImage
             imageUrl={props.map.imageUrl}
-            imageWidth={imageSize.width}
-            imageHeight={imageSize.height}
-            imageScale={imageSize.scale}
-
-
-            // minImageWidth={props.mapViewerInfo.minImageWidth}
-            // minImageHeight={props.mapViewerInfo.minImageHeight}
-            // imageScale={curImageScale}
+            width={imageSize.width}
+            height={imageSize.height}
+            scale={imageSize.scale}
+            movementCoord={movementCoord}
             // imageMovementCoord={imageMovementCoord}
-
-            // originImageWidth={mapViewerInfo.originImageWidth}
-            // originImageHeight={mapViewerInfo.originImageHeight}
+            handleMouseMoveImage={(e) => handleMouseMoveImage(e, imageSize.scale)}
             // onClickImage={handleClickImage}
-            // handleMouseMoveImage={handleMouseMoveImage}
-
             markerCoord={markerCoord}
           />
         }
@@ -152,12 +134,12 @@ export default function MapViewer(
           }
         </Box>
         <Box sx={{ flex: 1 }}>
-          <Box>이미지 이동 X : { imageMovementCoord.x }px</Box>
-          <Box>이미지 이동 Y : { imageMovementCoord.y }px</Box>
+          <Box>이미지 이동 X : { movementCoord.x }px</Box>
+          <Box>이미지 이동 Y : { movementCoord.y }px</Box>
         </Box>
         <Box sx={{ flex: 1 }}>
-          <Box>맵좌표 X : { mapCoord.x }px</Box>
-          <Box>맵좌표 Y : { mapCoord.y }px</Box>
+          <Box>이미지 마우스 좌표 X : { mapCoord.x }px</Box>
+          <Box>이미지 마우스 좌표 Y : { mapCoord.y }px</Box>
           <Box>마커 X : { markerCoord !== null ? `${markerCoord.x}px` : 'null' }</Box>
           <Box>마커 Y : { markerCoord !== null ? `${markerCoord.y}px` : 'null' }</Box>
         </Box>
@@ -169,15 +151,15 @@ export default function MapViewer(
 function MapImage(
   props: {
     imageUrl: StaticImageData;
-    imageWidth: number;
-    imageHeight: number;
-    imageScale: number;
+    width: number;
+    height: number;
+    scale: number;
+    movementCoord: { x: number; y: number };
 
-    // imageMovementCoord: { x: number, y: number };
     // originImageWidth: number;
     // originImageHeight: number;
     // onClickImage: (e: React.MouseEvent) => void;
-    // handleMouseMoveImage: (e: React.MouseEvent) => void;
+    handleMouseMoveImage: (e: React.MouseEvent) => void;
 
     markerCoord: { x: number, y: number } | null;
   }
@@ -186,16 +168,16 @@ function MapImage(
     <Box
       sx={{
         position: 'relative',
-        width: props.imageWidth,
-        height: props.imageHeight,
+        width: props.width,
+        height: props.height,
         transformOrigin: '0 0',
-        // transform: `translate(${props.imageMovementCoord.x}px, ${props.imageMovementCoord.y}px)`,
+        transform: `translate(${props.movementCoord.x}px, ${props.movementCoord.y}px)`,
         background: 'red'
       }}
     >
       <Image
         // onClick={props.onClickImage}
-        // onMouseMove={props.handleMouseMoveImage}
+        onMouseMove={props.handleMouseMoveImage}
         src={props.imageUrl}
         alt='map-image'
         draggable={false}
@@ -204,7 +186,7 @@ function MapImage(
         style={{
           display: 'block',
           transformOrigin: '0 0',
-          transform: `scale(${props.imageScale})`,
+          transform: `scale(${props.scale})`,
         }}
       />
 
@@ -212,8 +194,8 @@ function MapImage(
         <Box
           sx={{
             position: 'absolute',
-            top: `calc(${props.markerCoord.y * props.imageScale}px - 6px)`,
-            left: `calc(${props.markerCoord.x * props.imageScale}px - 6px)`,
+            top: `calc(${props.markerCoord.y * props.scale}px - 6px)`,
+            left: `calc(${props.markerCoord.x * props.scale}px - 6px)`,
             background: 'red',
             borderRadius: '50%',
             width: '12px',

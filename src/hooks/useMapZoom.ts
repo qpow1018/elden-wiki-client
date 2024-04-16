@@ -24,16 +24,17 @@ export default function useMapZoom(params: {
   const refCurScale = useRef<number>(MAX_SCALE);
   const refWheelCoord = useRef<{ x: number, y: number, isScaleUp: boolean } | null>(null);
 
+  const [initImageSize, setInitImageSize] = useState<ImageSize | null>(null);
   const [imageSize, setImageSize] = useState<ImageSize | null>(null);
   const [wheelCoord, setWheelCoord] = useState<{ x: number, y: number, isScaleUp: boolean } | null>(null);
 
-  // TODO 함수 naming 변경, useEffect deps 체크
+  // TODO useEffect deps 체크
   useEffect(() => {
-    init();
+    setupInitImageSizeInfo();
   }, []);
 
   // 초기 이미지 사이즈에 대한 정의
-  function init() {
+  function setupInitImageSizeInfo() {
     const imageSizeMap = new Map<number, ImageSize>();
 
     const scale = MAX_SCALE;
@@ -61,6 +62,7 @@ export default function useMapZoom(params: {
     const minImageSize = Array.from(imageSizeMap)[imageSizeMap.size-1][1];
     refMinScale.current = minImageSize.scale;
     refCurScale.current = minImageSize.scale;
+    setInitImageSize(minImageSize);
     setImageSize(minImageSize);
   }
 
@@ -94,6 +96,7 @@ export default function useMapZoom(params: {
 
   return {
     handleWheelMap,
+    initImageSize,
     imageSize,
     wheelCoord,
   };
