@@ -5,7 +5,7 @@ import { Box } from '@mui/material';
 import { utils } from '@/libs';
 import useMapZoom from '@/hooks/useMapZoom';
 import useMapMovement from '@/hooks/useMapMovement';
-import { MapViewerInfo } from './types';
+import { Map, Item, MapContainer } from './types';
 
 import MapTestImage from '@/assets/images/map-test-img.jpg';
 import MapTest1 from '@/assets/images/map-test1.jpg';
@@ -15,83 +15,83 @@ import MapTest3 from '@/assets/images/map-test3.jpg';
 
 export default function MapViewer(
   props: {
-    mapViewerInfo: MapViewerInfo;
+    map: Map;
+    items: Item[];
+    mapContainer: MapContainer;
   }
 ) {
-  const mapViewerInfo = props.mapViewerInfo;
+  // const mapViewerInfo = props.mapViewerInfo;
 
   const refMapViewer = useRef<HTMLDivElement | null>(null);
 
-  const { handleWheelMap, curImageScale, wheelCoord } = useMapZoom(mapViewerInfo.minImageScale, mapViewerInfo.maxImageScale);
+  const { handleWheelMap, imageSize, wheelCoord } = useMapZoom({
+    originImageWidth: props.map.width,
+    originImageHeigth: props.map.height,
+    containerWidth: props.mapContainer.width,
+    containerHeight: props.mapContainer.height
+  });
+
   const { handleMouseDownMap, imageMovementCoord, updateImageMovementCoord } = useMapMovement(wheelCoord);
 
-  useEffect(() => {
-    setupImageAlignCenter();
-  }, []);
+  // useEffect(() => {
+  //   setupImageAlignCenter();
+  // }, []);
 
-  useEffect(() => {
-    console.log('wheelCoord 변경 테스트', wheelCoord);
-    if (wheelCoord === null) return;
-    setupImageMovementByWheelCoord(wheelCoord);
-  }, [wheelCoord]);
+  // useEffect(() => {
+  //   console.log('wheelCoord 변경 테스트', wheelCoord);
+  //   if (wheelCoord === null) return;
+  //   setupImageMovementByWheelCoord(wheelCoord);
+  // }, [wheelCoord]);
 
-  function setupImageAlignCenter() {
-    const x = (mapViewerInfo.containerWidth - mapViewerInfo.minImageWidth) / 2;
-    const y = (mapViewerInfo.containerHeight - mapViewerInfo.minImageHeight) / 2;
-    updateImageMovementCoord(x, y);
-  }
+  // function setupImageAlignCenter() {
+  //   const x = (mapViewerInfo.containerWidth - mapViewerInfo.minImageWidth) / 2;
+  //   const y = (mapViewerInfo.containerHeight - mapViewerInfo.minImageHeight) / 2;
+  //   updateImageMovementCoord(x, y);
+  // }
 
-  function setupImageMovementByWheelCoord(wheelCoord: { x: number; y: number; isScaleUp: boolean; }) {
-    const mouseX = wheelCoord.x - mapViewerInfo.containerOffsetLeft;
-    const mouseY = wheelCoord.y - mapViewerInfo.containerOffsetTop;
+  // function setupImageMovementByWheelCoord(wheelCoord: { x: number; y: number; isScaleUp: boolean; }) {
+  //   const mouseX = wheelCoord.x - mapViewerInfo.containerOffsetLeft;
+  //   const mouseY = wheelCoord.y - mapViewerInfo.containerOffsetTop;
 
-    const diffImageWidthByScale = mapViewerInfo.diffImageWidthByScale * (mouseX / mapViewerInfo.containerWidth);
-    const diffImageHeightByScale = mapViewerInfo.diffImageHeightByScale * (mouseY / mapViewerInfo.containerHeight);
+  //   const diffImageWidthByScale = mapViewerInfo.diffImageWidthByScale * (mouseX / mapViewerInfo.containerWidth);
+  //   const diffImageHeightByScale = mapViewerInfo.diffImageHeightByScale * (mouseY / mapViewerInfo.containerHeight);
 
-    const newX = imageMovementCoord.x - (wheelCoord.isScaleUp === true ? diffImageWidthByScale : -diffImageWidthByScale);
-    const newY = imageMovementCoord.y - (wheelCoord.isScaleUp === true ? diffImageHeightByScale : -diffImageHeightByScale);
+  //   const newX = imageMovementCoord.x - (wheelCoord.isScaleUp === true ? diffImageWidthByScale : -diffImageWidthByScale);
+  //   const newY = imageMovementCoord.y - (wheelCoord.isScaleUp === true ? diffImageHeightByScale : -diffImageHeightByScale);
 
-    updateImageMovementCoord(newX, newY);
-  }
+  //   updateImageMovementCoord(newX, newY);
+  // }
 
+  // function handleMouseMoveImage(e: React.MouseEvent) {
+  //   const mouseX = e.clientX - mapViewerInfo.containerOffsetLeft - imageMovementCoord.x;
+  //   const mouseY = e.clientY - mapViewerInfo.containerOffsetTop
 
+  //   const testX = mouseX * mapViewerInfo.maxImageScale;
 
-  function handleClickImage(e: React.MouseEvent) {
-    const mouseX = e.clientX - mapViewerInfo.containerOffsetLeft - imageMovementCoord.x;
-    const mouseY = e.clientY - mapViewerInfo.containerOffsetTop - imageMovementCoord.y;
+  //   console.log('testX', testX);
 
-    const testX = mapViewerInfo.originImageWidth * mouseX / (mapViewerInfo.minImageWidth * curImageScale);
-    const testY = mapViewerInfo.originImageHeight * mouseY / (mapViewerInfo.minImageHeight * curImageScale);
-
-    setMarkerCoord({
-      x: mouseX,
-      y: mouseY
-    });
-  }
-
-
-
-  // -------- Test용
-  // const [mapCoord, setMapCoord] = useState({ x: 0, y: 0 });
-  const [markerCoord, setMarkerCoord] = useState<{ x: number, y: number } | null>(null);
-
-  // function handleMouseMoveMap(e: React.MouseEvent) {
   //   setMapCoord({
-  //     x: e.clientX - props.containerOffsetLeft,
-  //     y: e.clientY - props.containerOffsetTop,
+  //     x: mouseX,
+  //     y: mouseY
   //   });
   // }
 
-  // function testMarkUp(e: React.MouseEvent) {
-  //   // TODO
-  //   console.log('onClick - 해당 이벤트는 movement 시 동작하지 않아야 한다.');
-  //   // if (markerCoord !== null) return;
+  // function handleClickImage(e: React.MouseEvent) {
+  //   const mouseX = e.clientX - mapViewerInfo.containerOffsetLeft - imageMovementCoord.x;
+  //   const mouseY = e.clientY - mapViewerInfo.containerOffsetTop - imageMovementCoord.y;
+
+  //   const testX = mapViewerInfo.originImageWidth * mouseX / (mapViewerInfo.minImageWidth * curImageScale);
+  //   const testY = mapViewerInfo.originImageHeight * mouseY / (mapViewerInfo.minImageHeight * curImageScale);
 
   //   setMarkerCoord({
-  //     x: e.clientX - props.containerOffsetLeft,
-  //     y: e.clientY - props.containerOffsetTop,
+  //     x: mouseX,
+  //     y: mouseY
   //   });
   // }
+
+  // -------- Test용
+  const [mapCoord, setMapCoord] = useState({ x: 0, y: 0 });
+  const [markerCoord, setMarkerCoord] = useState<{ x: number, y: number } | null>(null);
 
   return (
     <>
@@ -106,26 +106,34 @@ export default function MapViewer(
           height: '100%',
         }}
       >
-        <Map
-          imageUrl={props.mapViewerInfo.imageUrl}
-          minImageWidth={props.mapViewerInfo.minImageWidth}
-          minImageHeight={props.mapViewerInfo.minImageHeight}
-          imageScale={curImageScale}
-          imageMovementCoord={imageMovementCoord}
+        { imageSize !== null &&
+          <MapImage
+            imageUrl={props.map.imageUrl}
+            imageWidth={imageSize.width}
+            imageHeight={imageSize.height}
+            imageScale={imageSize.scale}
 
-          originImageWidth={mapViewerInfo.originImageWidth}
-          originImageHeight={mapViewerInfo.originImageHeight}
-          onClickImage={handleClickImage}
 
-          markerCoord={markerCoord}
-        />
+            // minImageWidth={props.mapViewerInfo.minImageWidth}
+            // minImageHeight={props.mapViewerInfo.minImageHeight}
+            // imageScale={curImageScale}
+            // imageMovementCoord={imageMovementCoord}
+
+            // originImageWidth={mapViewerInfo.originImageWidth}
+            // originImageHeight={mapViewerInfo.originImageHeight}
+            // onClickImage={handleClickImage}
+            // handleMouseMoveImage={handleMouseMoveImage}
+
+            markerCoord={markerCoord}
+          />
+        }
       </Box>
 
       {/* 개발 참고 영역 */}
       <Box
         sx={{
           position: 'fixed',
-          bottom: 120,
+          bottom: 60,
           left: 180,
           width: '100%',
           maxWidth: '1000px',
@@ -133,37 +141,43 @@ export default function MapViewer(
         }}
       >
         <Box sx={{ flex: 1 }}>
-          <Box>원본 이미지 가로 : { props.mapViewerInfo.originImageWidth }px</Box>
-          <Box>원본 이미지 세로 : { props.mapViewerInfo.originImageHeight }px</Box>
-          <Box>현재 배율 : { curImageScale }</Box>
-          <Box>현재 이미지 가로 : { props.mapViewerInfo.minImageWidth * curImageScale }px</Box>
-          <Box>현재 이미지 세로 : { props.mapViewerInfo.minImageHeight * curImageScale }px</Box>
+          <Box>원본 이미지 가로 : { props.map.width }px</Box>
+          <Box>원본 이미지 세로 : { props.map.height }px</Box>
+          { imageSize !== null &&
+            <>
+              <Box>현재 배율 : { imageSize.scale }</Box>
+              <Box>현재 이미지 가로 : { imageSize.width }px</Box>
+              <Box>현재 이미지 세로 : { imageSize.height }px</Box>
+            </>
+          }
         </Box>
         <Box sx={{ flex: 1 }}>
           <Box>이미지 이동 X : { imageMovementCoord.x }px</Box>
           <Box>이미지 이동 Y : { imageMovementCoord.y }px</Box>
         </Box>
         <Box sx={{ flex: 1 }}>
-          {/* <Box>맵좌표 X : { mapCoord.x }px</Box>
+          <Box>맵좌표 X : { mapCoord.x }px</Box>
           <Box>맵좌표 Y : { mapCoord.y }px</Box>
           <Box>마커 X : { markerCoord !== null ? `${markerCoord.x}px` : 'null' }</Box>
-          <Box>마커 Y : { markerCoord !== null ? `${markerCoord.y}px` : 'null' }</Box> */}
+          <Box>마커 Y : { markerCoord !== null ? `${markerCoord.y}px` : 'null' }</Box>
         </Box>
       </Box>
     </>
   );
 }
 
-function Map(
+function MapImage(
   props: {
     imageUrl: StaticImageData;
-    minImageWidth: number;
-    minImageHeight: number;
+    imageWidth: number;
+    imageHeight: number;
     imageScale: number;
-    imageMovementCoord: { x: number, y: number };
-    originImageWidth: number;
-    originImageHeight: number;
-    onClickImage: (e: React.MouseEvent) => void;
+
+    // imageMovementCoord: { x: number, y: number };
+    // originImageWidth: number;
+    // originImageHeight: number;
+    // onClickImage: (e: React.MouseEvent) => void;
+    // handleMouseMoveImage: (e: React.MouseEvent) => void;
 
     markerCoord: { x: number, y: number } | null;
   }
@@ -172,15 +186,16 @@ function Map(
     <Box
       sx={{
         position: 'relative',
-        width: props.minImageWidth * props.imageScale,
-        height: props.minImageHeight * props.imageScale,
+        width: props.imageWidth,
+        height: props.imageHeight,
         transformOrigin: '0 0',
-        transform: `translate(${props.imageMovementCoord.x}px, ${props.imageMovementCoord.y}px)`,
+        // transform: `translate(${props.imageMovementCoord.x}px, ${props.imageMovementCoord.y}px)`,
         background: 'red'
       }}
     >
       <Image
-        onClick={props.onClickImage}
+        // onClick={props.onClickImage}
+        // onMouseMove={props.handleMouseMoveImage}
         src={props.imageUrl}
         alt='map-image'
         draggable={false}
@@ -188,10 +203,6 @@ function Map(
         // quality={100}
         style={{
           display: 'block',
-          // width: '100%',
-          // height: '100%',
-          width: props.minImageWidth,
-          height: props.minImageHeight,
           transformOrigin: '0 0',
           transform: `scale(${props.imageScale})`,
         }}

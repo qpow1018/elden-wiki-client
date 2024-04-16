@@ -1,24 +1,29 @@
 import { StaticImageData } from "next/image";
 
-type MapViewerInfo = {
-  containerWidth: number;
-  containerHeight: number;
-  containerOffsetTop: number;
-  containerOffsetLeft: number;
+type Map = {
   imageUrl: StaticImageData;
-  originImageWidth: number;
-  originImageHeight: number;
-  minImageScale: number;
-  minImageWidth: number;
-  minImageHeight: number;
-  maxImageScale: number;
-  maxImageWidth: number;
-  maxImageHeight: number;
-  imageScaleUnit: number;
-  diffImageWidthByScale: number;
-  diffImageHeightByScale: number;
+  width: number;
+  height: number;
+}
+
+type Item = {
+  id: number;
+  name: string;
+  coord: {
+    x: number;
+    y: number;
+  }
+}
+
+type MapContainer = {
+  width: number;
+  height: number;
+  offsetTop: number;
+  offsetLeft: number;
 }
 
 export type {
-  MapViewerInfo
+  Map,
+  Item,
+  MapContainer,
 }
