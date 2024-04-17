@@ -3,7 +3,7 @@ import Image, { StaticImageData } from 'next/image';
 import { Box } from '@mui/material';
 
 import { utils } from '@/libs';
-import useMapZoom from '@/hooks/useMapZoom';
+import useMapZoom, { WheelCoord } from '@/hooks/useMapZoom';
 import useMapMovement from '@/hooks/useMapMovement';
 import { Map, Item, MapContainer } from './types';
 
@@ -34,11 +34,11 @@ export default function MapViewer(
     setupImageAlignCenter(initImageSize.width, initImageSize.height);
   }, [initImageSize]);
 
-  // useEffect(() => {
-  //   console.log('wheelCoord 변경 테스트', wheelCoord);
-  //   if (wheelCoord === null) return;
-  //   setupImageMovementByWheelCoord(wheelCoord);
-  // }, [wheelCoord]);
+  useEffect(() => {
+    console.log('wheelCoord 변경 테스트', wheelCoord);
+    if (wheelCoord === null) return;
+    setupImageMovementByWheelCoord(wheelCoord);
+  }, [wheelCoord]);
 
   function setupImageAlignCenter(imageWidth: number, imageHeight: number) {
     const centerX = utils.convertNumberWithDecimal((props.mapContainer.width - imageWidth) / 2, 2);
@@ -46,18 +46,15 @@ export default function MapViewer(
     updateImageMovementCoord(centerX, centerY);
   }
 
-  // function setupImageMovementByWheelCoord(wheelCoord: { x: number; y: number; isScaleUp: boolean; }) {
-  //   const mouseX = wheelCoord.x - mapViewerInfo.containerOffsetLeft;
-  //   const mouseY = wheelCoord.y - mapViewerInfo.containerOffsetTop;
+  function setupImageMovementByWheelCoord(wheelCoord: WheelCoord) {
+    const mouseX = wheelCoord.x - props.mapContainer.offsetLeft;
+    const mouseY = wheelCoord.y - props.mapContainer.offsetTop;
 
-  //   const diffImageWidthByScale = mapViewerInfo.diffImageWidthByScale * (mouseX / mapViewerInfo.containerWidth);
-  //   const diffImageHeightByScale = mapViewerInfo.diffImageHeightByScale * (mouseY / mapViewerInfo.containerHeight);
+    const testNewX = (-movementCoord.x + mouseX) * (wheelCoord.newScale / wheelCoord.oldScale) - mouseX;
+    const testNewY = (-movementCoord.y + mouseY) * (wheelCoord.newScale / wheelCoord.oldScale) - mouseY;
 
-  //   const newX = imageMovementCoord.x - (wheelCoord.isScaleUp === true ? diffImageWidthByScale : -diffImageWidthByScale);
-  //   const newY = imageMovementCoord.y - (wheelCoord.isScaleUp === true ? diffImageHeightByScale : -diffImageHeightByScale);
-
-  //   updateImageMovementCoord(newX, newY);
-  // }
+    updateImageMovementCoord(-testNewX, -testNewY);
+  }
 
   function handleMouseMoveImage(e: React.MouseEvent, curScale: number) {
     const x = e.clientX - props.mapContainer.offsetLeft;
@@ -90,7 +87,6 @@ export default function MapViewer(
         onWheel={handleWheelMap}
         onMouseDown={handleMouseDownMap}
         // onMouseMove={handleMouseMoveMap}
-        // onClick={testMarkUp}
         sx={{
           width: '100%',
           height: '100%',
@@ -105,8 +101,9 @@ export default function MapViewer(
             movementCoord={movementCoord}
             // imageMovementCoord={imageMovementCoord}
             handleMouseMoveImage={(e) => handleMouseMoveImage(e, imageSize.scale)}
-            // onClickImage={handleClickImage}
-            markerCoord={markerCoord}
+            // onClickImage={testMarkUp}
+            // markerCoord={markerCoord}
+            items={props.items}
           />
         }
       </Box>
@@ -140,8 +137,8 @@ export default function MapViewer(
         <Box sx={{ flex: 1 }}>
           <Box>이미지 마우스 좌표 X : { mapCoord.x }px</Box>
           <Box>이미지 마우스 좌표 Y : { mapCoord.y }px</Box>
-          <Box>마커 X : { markerCoord !== null ? `${markerCoord.x}px` : 'null' }</Box>
-          <Box>마커 Y : { markerCoord !== null ? `${markerCoord.y}px` : 'null' }</Box>
+          {/* <Box>마커 X : { markerCoord !== null ? `${markerCoord.x}px` : 'null' }</Box>
+          <Box>마커 Y : { markerCoord !== null ? `${markerCoord.y}px` : 'null' }</Box> */}
         </Box>
       </Box>
     </>
@@ -155,13 +152,10 @@ function MapImage(
     height: number;
     scale: number;
     movementCoord: { x: number; y: number };
-
-    // originImageWidth: number;
-    // originImageHeight: number;
-    // onClickImage: (e: React.MouseEvent) => void;
     handleMouseMoveImage: (e: React.MouseEvent) => void;
-
-    markerCoord: { x: number, y: number } | null;
+    // onClickImage: (e: React.MouseEvent) => void;
+    // markerCoord: { x: number, y: number } | null;
+    items: Item[];
   }
 ) {
   return (
@@ -190,23 +184,37 @@ function MapImage(
         }}
       />
 
-      { props.markerCoord !== null &&
+      { props.items.map(item =>
         <Box
+          key={item.id}
           sx={{
             position: 'absolute',
-            top: `calc(${props.markerCoord.y * props.scale}px - 6px)`,
-            left: `calc(${props.markerCoord.x * props.scale}px - 6px)`,
+            top: `calc(${item.coord.y * props.scale}px - 4px)`,
+            left: `calc(${item.coord.x * props.scale}px - 4px)`,
             background: 'red',
             borderRadius: '50%',
-            width: '12px',
-            height: '12px'
+            width: '8px',
+            height: '8px'
           }}
-        />
-      }
+        >
+          <Box
+            sx={{
+              position: 'absolute',
+              top: 8,
+              left: 0,
+              width: '80px',
+              fontSize: '10px',
+              fontWeight: 700,
+              color: 'red'
+            }}
+          >
+            { item.name }
+          </Box>
+        </Box>
+      )}
     </Box>
   );
 }
-
 
 
 function MapAreaTest (

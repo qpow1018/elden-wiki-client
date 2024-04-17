@@ -8,6 +8,14 @@ type ImageSize = {
   height: number;
 }
 
+export type WheelCoord = {
+  x: number;
+  y: number;
+  isScaleUp: boolean;
+  oldScale: number;
+  newScale: number;
+}
+
 export default function useMapZoom(params: {
   originImageWidth: number;
   originImageHeigth: number;
@@ -22,11 +30,11 @@ export default function useMapZoom(params: {
   const refImageSizeMap = useRef<Map<number, ImageSize> | null>(null);
   const refMinScale = useRef<number>(0);
   const refCurScale = useRef<number>(MAX_SCALE);
-  const refWheelCoord = useRef<{ x: number, y: number, isScaleUp: boolean } | null>(null);
+  const refWheelCoord = useRef<WheelCoord | null>(null);
 
   const [initImageSize, setInitImageSize] = useState<ImageSize | null>(null);
   const [imageSize, setImageSize] = useState<ImageSize | null>(null);
-  const [wheelCoord, setWheelCoord] = useState<{ x: number, y: number, isScaleUp: boolean } | null>(null);
+  const [wheelCoord, setWheelCoord] = useState<WheelCoord | null>(null);
 
   // TODO useEffect deps 체크
   useEffect(() => {
@@ -90,7 +98,13 @@ export default function useMapZoom(params: {
     const imageSize = getImageSizeByScale(refCurScale.current) || null;
     setImageSize(imageSize);
 
-    refWheelCoord.current = { x: e.clientX, y: e.clientY, isScaleUp }
+    refWheelCoord.current = {
+      x: e.clientX,
+      y: e.clientY,
+      isScaleUp,
+      oldScale: curScale,
+      newScale: refCurScale.current
+    }
     setWheelCoord(refWheelCoord.current);
   }
 
