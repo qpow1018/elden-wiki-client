@@ -1,7 +1,11 @@
-import Map from '@/containers/Map';
+import { resMapList } from '@/api/tempData';
 
-export default function MapPage() {
+import MapContainer from '@/containers/Map';
+
+export default function Map() {
   return (
-    <Map />
+    <MapContainer
+      mapList={resMapList}
+    />
   );
 }
