@@ -1,36 +1,53 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+## 프로젝트 소개
+게임 [엘든링](https://namu.wiki/w/%EC%97%98%EB%93%A0%20%EB%A7%81)의 아이템 DB, 지도 정보, 진행 체크리스트 등
+게임 플레이 시 유용한 기능 제공
 
-## Getting Started
+## 왜 만드는가?
+가장 큰 이유는 취업 포트폴리오와 개발 연습용 프로젝트다.
+이왕 진행하는거 의미있게 진행하는게 도움이 될것이다.
 
-First, run the development server:
+의미있게 프로젝트를 진행하려면 실제 사용하는 유저를 생각해야 한다고 생각한다.
+과거 작은 토이 프로젝트를 몇 번 진행 했었지만, 실제 사용보단 완성만 생각하다 보니
+빠르게 완성 시키기 위해 기능 동작만 되게끔 구현하고 그 뒤로 쳐다보지 않고
+기억에서 잊혀진 프로젝트가 되어버렸다.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+다만, 실제 사용 유저를 얻기 위해선 아직 없는 서비스를 찾거나 기존 서비스보다 강점이 있어야 한다.
+서비스 기획부터 숨이 막힌다.
+그러면 가장 확실하게 실제 사용 유저를 얻을 수 있는 방법은 내가 사용 유저가 되는 거고
+나늘 위한 서비스를 만들면 된다.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+나는 평소에 게임하는걸 좋아한다.
+요즘 엘든링을 주로 플레이하고 플레이를 할 때 마다
+나무위키에서 아이템 정보를 보고, 엘든링 인벤에서 아이템 지도를 본다.
+지도 정보가 없을 땐 유튜브를 검색하고, 진행 체크리스트를 엑셀에 정리한다.
+그렇게 진행하고 엔딩을 보면 다른 무기를 검색하고 새롭게 시작하고 이걸 반복한다.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+이 모든걸 한곳에 정리하고 사용할 수 있게 하고
+내가 원하는 기능을 추가하고, 기존에 아쉬웠던 기능을 보완한다면
+정말 내가 만족하고 쓸 수 있는 서비스가 완성될 것이라고 생각한다.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+## 사용된 기술 - 추가 정리 필요
+- NextJs
+- Typescript
+- MUI
 
-## Learn More
+## 개발 순서
+현재 대략적으로 생각한 순서
 
-To learn more about Next.js, take a look at the following resources:
+1. Map 기본 기능 테스트
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+2. Map에 표시할 아이템 UI 테스트
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+3. 관리자 기능
 
-## Deploy on Vercel
+4. 필요 DB 정리
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+5. 아이템 DB 개발
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+6. 체크리스트 개발
+
+7. 메모 기능 개발
+
+
+## 발견된 이슈 및 개선 필요 사항
+- Map 성능 관련
