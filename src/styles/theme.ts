@@ -32,6 +32,8 @@ const theme = {
   },
   size: {
     headerHeight: 56,
+    bottomNaviHeight: 64,
+
     buttonHeight: 36,
     inputHeight: 40,
     modalHeaderHeight: 48,

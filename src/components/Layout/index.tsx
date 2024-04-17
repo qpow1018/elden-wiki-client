@@ -1,4 +1,9 @@
+import { Box } from '@mui/material';
 
+import theme from '@/styles/theme';
+
+import Header from './Header';
+import BottomNavigation from './BottomNavigation';
 
 export default function Layout(
   props: {
@@ -6,12 +11,25 @@ export default function Layout(
   }
 ) {
   return (
-    <div>
-      레이아웃
+    <Box
+      sx={{
+        height: '100vh',
+        display: 'flex',
+        flexDirection: 'column',
+      }}
+    >
+      <Header />
 
-      <div>
+      <Box
+        sx={{
+          flex: 1,
+          marginBottom: `${theme.size.bottomNaviHeight}px`,
+        }}
+      >
         { props.children }
-      </div>
-    </div>
+      </Box>
+
+      <BottomNavigation />
+    </Box>
   );
 }
