@@ -1,8 +1,7 @@
+import HomeContainer from '@/containers/Home';
 
 export default function Home() {
   return (
-    <main>
-      Home
-    </main>
+    <HomeContainer />
   );
 }
