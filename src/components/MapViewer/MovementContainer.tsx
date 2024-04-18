@@ -1,8 +1,19 @@
-import { useState, useRef, useEffect } from 'react';
+import { useEffect, useRef } from 'react';
+import { Box } from '@mui/material';
 
 import { utils } from '@/libs';
+import { TypeMapViewer, TypeMapImageSize, TypeZoomPoint, TypeMovementCoord } from './types';
 
-export default function useMapMovement(wheelCoord: { x: number; y: number } | null) {
+export default function MovementComponent(
+  props: {
+    mapViewer: TypeMapViewer;
+    imageSize: TypeMapImageSize;
+    zoomPoint: TypeZoomPoint | null;
+    movementCoord: TypeMovementCoord;
+    onChangeMovementCoord: (value: TypeMovementCoord) => void;
+    children?: React.ReactNode;
+  }
+) {
   const MIN_MOVE_DISTANCE = 4;
 
   const refMoveStartPointX = useRef<number>(0);
@@ -12,23 +23,52 @@ export default function useMapMovement(wheelCoord: { x: number; y: number } | nu
   const refLastMovePointX = useRef<number>(0);
   const refLastMovePointY = useRef<number>(0);
 
-  const [movementCoord, setMovementCoord] = useState<{ x: number, y: number }>({ x: 0, y: 0 });
+  // TODO Deps warning 해결 필요
+  useEffect(() => {
+    initImageAlignCenter();
+  }, []);
 
+  useEffect(() => {
+    if (props.zoomPoint === null) return;
+    setupMovementCoordByZoomPoint(props.zoomPoint);
+  }, [props.zoomPoint]);
 
-  function updateImageMovementCoord(x: number, y: number) {
+  function updateMovementCoord(x: number, y: number) {
     refLastMovePointX.current = x;
     refLastMovePointY.current = y;
 
-    setMovementCoord({
+    props.onChangeMovementCoord({
       x: refLastMovePointX.current,
       y: refLastMovePointY.current
     });
   }
 
+  function initImageAlignCenter() {
+    const conWidth = props.mapViewer.width;
+    const conHeight = props.mapViewer.height;
+    const imgWidth = props.imageSize.width;
+    const imgHeight = props.imageSize.height;
+    const centerX = utils.convertNumberWithDecimal((conWidth - imgWidth) / 2, 2);
+    const centerY = utils.convertNumberWithDecimal((conHeight - imgHeight) / 2, 2);
+
+    updateMovementCoord(centerX, centerY);
+  }
+
+  // TODO 깜빡거리는 이슈 체크
+  function setupMovementCoordByZoomPoint(zoomPoint: TypeZoomPoint) {
+    const mouseX = zoomPoint.x;
+    const mouseY = zoomPoint.y;
+
+    const testNewX = (-props.movementCoord.x + mouseX) * (zoomPoint.newScale / zoomPoint.oldScale) - mouseX;
+    const testNewY = (-props.movementCoord.y + mouseY) * (zoomPoint.newScale / zoomPoint.oldScale) - mouseY;
+
+    updateMovementCoord(-testNewX, -testNewY);
+  }
+
   // TODO 이동 관련해서 생각해 봐야할 이슈
   // addEventListener, removeEventListener 적절하게 작동하는지 확인 필요 - 필요한만큼(1개겠지) 추가되고 삭제된다.
   // mouseMove는 아주 많은 이벤트를 발생 시킨다. - 성능 이슈 발생하려나?? + 이를 해결하기 위해 Throttling을 사용한다면... 매끄럽게 보일까?
-  function handleMouseDownMap(e: React.MouseEvent) {
+  function handleMouseDownMovementContainer(e: React.MouseEvent) {
     refMoveStartPointX.current = e.clientX;
     refMoveStartPointY.current = e.clientY;
 
@@ -52,7 +92,7 @@ export default function useMapMovement(wheelCoord: { x: number; y: number } | nu
     refMovePointX.current = utils.convertNumberWithDecimal(refLastMovePointX.current - movePointX, 2);
     refMovePointY.current = utils.convertNumberWithDecimal(refLastMovePointY.current - movePointY, 2);
 
-    setMovementCoord({
+    props.onChangeMovementCoord({
       x: refMovePointX.current,
       y: refMovePointY.current
     });
@@ -69,9 +109,15 @@ export default function useMapMovement(wheelCoord: { x: number; y: number } | nu
     window.removeEventListener('mouseup', handleMouseUpWindow);
   }
 
-  return {
-    handleMouseDownMap,
-    movementCoord,
-    updateImageMovementCoord,
-  };
+  return (
+    <Box
+      onMouseDown={handleMouseDownMovementContainer}
+      sx={{
+        width: '100%',
+        height: '100%'
+      }}
+    >
+      { props.children }
+    </Box>
+  );
 }
