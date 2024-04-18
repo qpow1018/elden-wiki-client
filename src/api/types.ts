@@ -8,6 +8,24 @@ type ResMap = {
   height: number;
 }
 
+type ResMapItem = {
+  location: {
+    type: string;
+    name: string;
+    nickname?: string;
+    x: number;
+    y: number;
+    desc: string;
+    additionalIcon: string;
+  };
+  items: {
+    itemType: string;
+    name: string;
+    count: number;
+  }[];
+}
+
 export type {
   ResMap,
+  ResMapItem,
 }

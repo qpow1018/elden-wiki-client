@@ -4,7 +4,7 @@ import { Box } from '@mui/material';
 
 import theme from '@/styles/theme';
 
-import { ResMap } from '@/api/types';
+import { ResMap, ResMapItem } from '@/api/types';
 
 import Layout from '@/components/Layout';
 import MapViewer from '@/components/MapViewer';
@@ -12,11 +12,9 @@ import MapViewer from '@/components/MapViewer';
 export default function MapDetail(
   props: {
     mapData: ResMap;
-    itemsData: any;
+    itemsData: ResMapItem[];
   }
 ) {
-  console.log(props.itemsData);
-
   return (
     <Layout>
       <Box

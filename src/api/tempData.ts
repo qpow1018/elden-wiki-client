@@ -2,6 +2,8 @@
 
 import { ResMap } from './types';
 
+import testMap1 from './testMap1';
+
 import MapTest1 from '@/assets/images/map-test-1.jpg';
 // import MapTest2 from '@/assets/images/map-test2.jpg';
 // import MapTest3 from '@/assets/images/map-test3.jpg';
@@ -38,40 +40,7 @@ const resMapList: ResMap[] = [
 ];
 
 // Item 관련
-const resTestItems = [
-  {
-    // id: 1,
-    locationType: '던전',
-    icon: '던전아이콘',
-    name: '높은 길 아래 동굴',
-    coord: {
-      x: 19,
-      y: 50
-    },
-    items: [
-      {
-        itemType: '강화재료? 단석?',
-        name: '단석[1]',
-        count: 3,
-      },
-      {
-        itemType: '강화재료? 단석?',
-        name: '단석[2]',
-        count: 1,
-      },
-      {
-        itemType: '무기? 곡검?',
-        name: '샴시르',
-        count: 1,
-      },
-      {
-        itemType: '탈리스만 - 필수? / 반필수?',
-        name: '푸른 무희',
-        count: 1,
-      },
-    ]
-  }
-];
+const resTestItems = testMap1;
 
 export {
   resMapData1,

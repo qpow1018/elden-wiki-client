@@ -2,20 +2,20 @@ import { useState, useEffect, useRef } from 'react';
 import { Box } from '@mui/material';
 
 import { utils } from '@/libs';
-import { ResMap } from '@/api/types';
+import { ResMap, ResMapItem } from '@/api/types';
 import { TypeMapViewer, TypeMapImageSize, TypeZoomPoint, TypeMovementCoord } from './types';
 
 import ZoomContainer from './ZoomContainer';
 import MovementContainer from './MovementContainer';
 import MapDataContainer from './MapDataContainer';
 import MapImage from './MapImage';
-import ItemMarker from './ItemMarker';
+import ItemMarkerContainer from './ItemMarkerContainer';
 import MapCoordContainer from './MapCoordContainer';
 
 export default function MapViewer(
   props: {
     mapData: ResMap;
-    itemsData: any;
+    itemsData: ResMapItem[];
   }
 ) {
   const { mapData, itemsData } = props;
@@ -121,8 +121,9 @@ export default function MapViewer(
                 <MapImage
                   imageUrl={mapData.imageUrl}
                 />
-                <ItemMarker
-                
+                <ItemMarkerContainer
+                  scale={imageSize.scale}
+                  itemsData={itemsData}
                 />
                 <MapCoordContainer
                   mapViewerTop={mapViewer.top}
