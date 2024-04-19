@@ -13,11 +13,15 @@ export default function MapDataContainer(
     <Box
       sx={{
         position: 'relative',
+        transformOrigin: '0 0',
+        background: 'red',
+        // transitionProperty: 'transform',
+        // transition: '0.4s ease'
+      }}
+      style={{
         width: props.width,
         height: props.height,
-        transformOrigin: '0 0',
         transform: `translate(${props.movementX}px, ${props.movementY}px)`,
-        background: 'red'
       }}
     >
       { props.children }

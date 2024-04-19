@@ -3,7 +3,13 @@ import { Box } from '@mui/material';
 
 import { utils } from '@/libs';
 import { ResMap, ResMapItem } from '@/api/types';
-import { TypeMapViewer, TypeMapImageSize, TypeZoomPoint, TypeMovementCoord } from './types';
+import {
+  TypeScale,
+  TypeMapViewer,
+  TypeMapImageSize,
+  TypeZoomPoint,
+  TypeMovementCoord,
+} from './types';
 
 import ZoomContainer from './ZoomContainer';
 import MovementContainer from './MovementContainer';
@@ -20,15 +26,12 @@ export default function MapViewer(
 ) {
   const { mapData, itemsData } = props;
 
-  const SCALE_UNIT = 0.05;
-  const MAX_SCALE = 1;
-
   const refMapViewer = useRef<HTMLElement | null>(null);
+  const refScale = useRef<TypeScale>({ unit: 0.05, max: 1, min: 0 });
 
   const [mapViewer, setMapViewer] = useState<TypeMapViewer | null>(null);
-
-  const [minScale, setMinScale] = useState<number | null>(null);
   const [imageSizeMap, setImageSizeMap] = useState<Map<number, TypeMapImageSize> | null>(null);
+
   const [imageSize, setImageSize] = useState<TypeMapImageSize | null>(null);
   const [zoomPoint, setZoomPoint] = useState<TypeZoomPoint | null>(null);
   const [movementCoord, setMovementCoord] = useState<TypeMovementCoord>({ x: 0, y: 0 });
@@ -55,19 +58,24 @@ export default function MapViewer(
 
     // 최소, 시작 이미지 크기 정의
     const minImageSize = Array.from(_imageSizeMap)[_imageSizeMap.size-1][1];
-    setMinScale(minImageSize.scale);
+    refScale.current.min = minImageSize.scale;
     setImageSize(minImageSize);
+
+    // 시작 이미지 중앙 정렬
+    initImageAlignCenter(mapViewerWidth, mapViewerHeight, minImageSize.width, minImageSize.height);
+
   }, [mapData]);
 
   function getImageSizeMapInfo(mapData: ResMap, mapViewerWidth: number, mapViewerHeight: number) {
     const _imageSizeMap = new Map<number, TypeMapImageSize>();
 
-    const scale = MAX_SCALE;
+    const maxScale = refScale.current.max;
+    const scaleUnit = refScale.current.unit;
     const imageWidth = mapData.width;
     const imageHeight = mapData.height;
 
-    for (let i = 0; i < (scale / SCALE_UNIT) - 1; i++) {
-      const curScale = utils.convertNumberWithDecimal(scale - (SCALE_UNIT * i), 2);
+    for (let i = 0; i < (maxScale / scaleUnit) - 1; i++) {
+      const curScale = utils.convertNumberWithDecimal(maxScale - (scaleUnit * i), 2);
       const curImageWidth = utils.convertNumberWithDecimal(imageWidth * curScale, 1);
       const curImageHeight = utils.convertNumberWithDecimal(imageHeight * curScale, 1);
 
@@ -85,6 +93,41 @@ export default function MapViewer(
     return _imageSizeMap;
   }
 
+  function changeImageSizeByScale(scale: number) {
+    if (imageSizeMap === null) return;
+    const imageSize = imageSizeMap.get(scale) || null;
+    setImageSize(imageSize);
+  }
+
+  function initImageAlignCenter(conWidth: number, conHeight: number, imgWidth: number, imgHeight: number) {
+    const centerX = utils.convertNumberWithDecimal((conWidth - imgWidth) / 2, 2);
+    const centerY = utils.convertNumberWithDecimal((conHeight - imgHeight) / 2, 2);
+    setMovementCoord({
+      x: centerX,
+      y: centerY
+    });
+  }
+
+  useEffect(() => {
+    if (zoomPoint === null || mapViewer === null) return;
+    setupMovementCoordByZoomPoint(zoomPoint, mapViewer);
+  }, [zoomPoint, mapViewer]);
+
+  // TODO 덜컹거리는 원인 체크
+  function setupMovementCoordByZoomPoint(zoomPoint: TypeZoomPoint, mapViewer: TypeMapViewer) {
+    const mouseX = zoomPoint.x;
+    const mouseY = zoomPoint.y;
+
+    setMovementCoord(prev => {
+      const newX = (-prev.x + mouseX) * (zoomPoint.newScale / zoomPoint.oldScale) - mouseX;
+      const newY = (-prev.y + mouseY) * (zoomPoint.newScale / zoomPoint.oldScale) - mouseY;
+      return {
+        x: -newX,
+        y: -newY,
+      };
+    });
+  }
+
   return (
     <Box
       ref={refMapViewer}
@@ -94,47 +137,43 @@ export default function MapViewer(
         overflow: 'hidden',
       }}
     >
-      { (mapViewer !== null && imageSizeMap !== null && minScale !== null) &&
+      { (mapViewer !== null && imageSizeMap !== null && imageSize !== null) &&
         <ZoomContainer
-          mapViewer={mapViewer}
-          scaleUnit={SCALE_UNIT}
-          maxScale={MAX_SCALE}
-          minScale={minScale}
-          imageSizeMap={imageSizeMap}
-          onChangeImageSize={(value) => setImageSize(value)}
+          scaleUnit={refScale.current.unit}
+          maxScale={refScale.current.max}
+          minScale={refScale.current.min}
+          currentScale={imageSize.scale}
+          onChangeImageSizeByScale={(value) => changeImageSizeByScale(value)}
           onChangeZoomPoint={(value) => setZoomPoint(value)}
+          mapViewerTop={mapViewer.top}
+          mapViewerLeft={mapViewer.left}
         >
-          { imageSize !== null &&
-            <MovementContainer
-              mapViewer={mapViewer}
-              imageSize={imageSize}
-              zoomPoint={zoomPoint}
-              movementCoord={movementCoord}
-              onChangeMovementCoord={(value) => setMovementCoord(value)}
+          <MovementContainer
+            movementCoord={movementCoord}
+            onChangeMovementCoord={(value) => setMovementCoord(value)}
+          >
+            <MapDataContainer
+              width={imageSize.width}
+              height={imageSize.height}
+              movementX={movementCoord.x}
+              movementY={movementCoord.y}
             >
-              <MapDataContainer
-                width={imageSize.width}
-                height={imageSize.height}
+              <MapImage
+                imageUrl={mapData.imageUrl}
+              />
+              <ItemMarkerContainer
+                scale={imageSize.scale}
+                itemsData={itemsData}
+              />
+              <MapCoordContainer
+                mapViewerTop={mapViewer.top}
+                mapViewerLeft={mapViewer.left}
+                scale={imageSize.scale}
                 movementX={movementCoord.x}
                 movementY={movementCoord.y}
-              >
-                <MapImage
-                  imageUrl={mapData.imageUrl}
-                />
-                <ItemMarkerContainer
-                  scale={imageSize.scale}
-                  itemsData={itemsData}
-                />
-                <MapCoordContainer
-                  mapViewerTop={mapViewer.top}
-                  mapViewerLeft={mapViewer.left}
-                  scale={imageSize.scale}
-                  movementX={movementCoord.x}
-                  movementY={movementCoord.y}
-                />
-              </MapDataContainer>
-            </MovementContainer>
-          }
+              />
+            </MapDataContainer>
+          </MovementContainer>
         </ZoomContainer>
       }
     </Box>

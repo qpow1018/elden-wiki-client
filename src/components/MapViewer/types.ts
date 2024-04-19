@@ -1,3 +1,9 @@
+type TypeScale = {
+  unit: number;
+  min: number;
+  max: number;
+}
+
 type TypeMapViewer = {
   width: number;
   height: number;
@@ -24,6 +30,7 @@ type TypeMovementCoord = {
 }
 
 export type {
+  TypeScale,
   TypeMapViewer,
   TypeMapImageSize,
   TypeZoomPoint,

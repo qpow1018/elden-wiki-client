@@ -69,6 +69,7 @@
 - Map 확대, 축소 로직 체크
 - Map 이동 로직 체크
 - useEffect deps warning 체크
+- 소수점 계산 시 오차 발생
 
 
 ## 해결 정리
