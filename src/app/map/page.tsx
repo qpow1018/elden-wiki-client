@@ -1,4 +1,4 @@
-import { resMapList } from '@/api/tempData';
+import resMapList from '@/api/tempData/mapList';
 
 import MapContainer from '@/containers/Map';
 

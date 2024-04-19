@@ -8,6 +8,7 @@ type ResMap = {
   height: number;
 }
 
+
 type ResMapItem = {
   location: {
     type: string;
