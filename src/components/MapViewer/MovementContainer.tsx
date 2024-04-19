@@ -86,8 +86,6 @@ export default function MovementComponent(
     window.removeEventListener('mouseup', handleMouseUpWindow);
   }
 
-
-
   function handleTouchStartMoveContainer(e: React.TouchEvent) {
     if (e.touches.length !== 1) return;
     const touch = e.touches[0];
