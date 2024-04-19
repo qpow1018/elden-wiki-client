@@ -26,7 +26,7 @@ export default function MapDetail(
           sx={{
             margin: 'auto',
             maxWidth: 1002,
-            height: 602,
+            height: 542,
             border: `1px solid ${theme.color.border.dark}`,
           }}
         >
