@@ -2,7 +2,7 @@
 
 import { Box } from '@mui/material';
 
-import { ResMap } from '@/api/types';
+import { ResMap } from '@/tempDb/map';
 
 import Layout from '@/components/Layout';
 import Link from '@/components/Base/Link';

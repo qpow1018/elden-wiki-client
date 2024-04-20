@@ -4,7 +4,8 @@ import { Box } from '@mui/material';
 
 import theme from '@/styles/theme';
 
-import { ResMap, ResMapItem } from '@/api/types';
+import { ResMap } from '@/tempDb/map';
+import { ResMapItem } from '@/api/types';
 
 import Layout from '@/components/Layout';
 import MapViewer from '@/components/MapViewer';

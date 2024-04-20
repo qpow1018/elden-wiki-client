@@ -24,13 +24,13 @@ export default function ItemMarkerContainer(
         zIndex: 1,
       }}
     >
-      { props.itemsData.map((data, index) =>
+      {/* { props.itemsData.map((data, index) =>
         <ItemMarker
           key={index}
           scale={props.scale}
           data={data}
         />
-      )}
+      )} */}
     </Box>
   );
 }
