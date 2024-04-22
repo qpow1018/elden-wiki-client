@@ -7,6 +7,7 @@ import theme from '@/styles/theme';
 import { ResMap } from '@/tempDb/map';
 
 import Layout from '@/components/Layout';
+import Container from '@/components/Base/Container';
 import Link from '@/components/Base/Link';
 import Text from '@/components/Base/Text';
 
@@ -19,7 +20,7 @@ export default function Map(
 ) {
   return (
     <Layout>
-      <Box
+      <Container
         sx={{
           padding: '16px'
         }}
@@ -62,9 +63,7 @@ export default function Map(
             />
           </Link>
         )}
-      </Box>
+      </Container>
     </Layout>
   );
 }
-
-

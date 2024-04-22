@@ -3,11 +3,13 @@
 import { Box } from '@mui/material';
 
 import theme from '@/styles/theme';
+import useWindowSize from '@/hooks/useWindowSize';
 
 import { ResMap } from '@/tempDb/map';
 import { ResMapItem } from '@/api/types';
 
 import Layout from '@/components/Layout';
+import Container from '@/components/Base/Container';
 import MapViewer from '@/components/MapViewer';
 
 export default function MapDetail(
@@ -16,27 +18,36 @@ export default function MapDetail(
     itemsData: ResMapItem[];
   }
 ) {
+  const { isDesktop } = useWindowSize();
+
   return (
     <Layout>
-      <Box
-        sx={{
-          padding: '16px',
-        }}
+      <Container
+        useFullPage={isDesktop === false ? true : false}
+        sx={[
+          isDesktop && {
+            paddingTop: '24px',
+          },
+        ]}
       >
         <Box
-          sx={{
-            margin: 'auto',
-            maxWidth: 1002,
-            height: 542,
-            border: `1px solid ${theme.color.border.dark}`,
-          }}
+          sx={[
+            {
+              width: '100%',
+              height: '100%'
+            },
+            isDesktop && {
+              border: `1px solid ${theme.color.border.default}`,
+              height: 680,
+            }
+          ]}
         >
           <MapViewer
             mapData={props.mapData}
             itemsData={props.itemsData}
           />
         </Box>
-      </Box>
+      </Container>
     </Layout>
   );
 }

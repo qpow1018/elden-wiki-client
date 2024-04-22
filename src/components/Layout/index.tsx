@@ -11,19 +11,12 @@ export default function Layout(
   }
 ) {
   return (
-    <Box
-      sx={{
-        height: '100vh',
-        display: 'flex',
-        flexDirection: 'column',
-      }}
-    >
+    <Box>
       <Header />
 
       <Box
         sx={{
-          flex: 1,
-          // marginBottom: `${theme.size.bottomNaviHeight}px`,
+          minHeight: `calc(100svh - ${theme.size.headerHeight}px - ${theme.size.bottomNaviHeight}px)`,
         }}
       >
         { props.children }

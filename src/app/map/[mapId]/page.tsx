@@ -6,6 +6,7 @@ import MapDetailContainer from '@/containers/Map/MapDetail';
 export default function MapDetail({ params }: { params: { mapId: string } }) {
   const mapId = Number(params.mapId);
   const mapData = resMapList.find(item => item.id === mapId);
+
   const itemsData = resMapItems[mapId];
 
   return (
