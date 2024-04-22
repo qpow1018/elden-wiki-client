@@ -11,14 +11,14 @@ export default function BaseLink(
   }
 ) {
   return (
-    <Box
-      sx={[
-        ...(Array.isArray(props.sx) ? props.sx : [props.sx])
-      ]}
-    >
-      <Link href={props.href} className='el-base-link'>
+    <Link href={props.href} className='el-base-link'>
+      <Box
+        sx={[
+          ...(Array.isArray(props.sx) ? props.sx : [props.sx])
+        ]}
+      >
         { props.children }
-      </Link>
-    </Box>
+      </Box>
+    </Link>
   );
 }
