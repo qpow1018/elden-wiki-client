@@ -71,6 +71,7 @@
 - useEffect deps warning 체크
 - 소수점 계산 시 오차 발생
 - 맵 이미지 최적화
+- useWindowSize를 사용했을 때 생기는 이슈 (렌더링 순서 관련)
 
 
 ## 해결 정리
