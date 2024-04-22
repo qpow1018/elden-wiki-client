@@ -4,7 +4,8 @@ import { Box } from '@mui/material';
 import theme from '@/styles/theme';
 
 import { utils } from '@/libs';
-import { ResMap, ResMapItem } from '@/api/types';
+import { ResMap } from '@/tempDb/map';
+import { ResMapItem } from '@/tempDb/mapItem';
 import { TypeMapViewer, TypeMapImageSize, TypeCoord } from './types';
 
 export default function ItemMarkerContainer(
@@ -47,8 +48,8 @@ function ItemMarker(
     <Box
       sx={{
         position: 'absolute',
-        top: `calc(${data.location.y * scale}px - 4px)`,
-        left: `calc(${data.location.x * scale}px - 4px)`,
+        // top: `calc(${data.location.y * scale}px - 4px)`,
+        // left: `calc(${data.location.x * scale}px - 4px)`,
         // background: 'red',
       }}
     >

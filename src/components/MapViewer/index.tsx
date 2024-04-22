@@ -2,7 +2,8 @@ import { useState, useEffect, useRef } from 'react';
 import { Box } from '@mui/material';
 
 import { utils } from '@/libs';
-import { ResMap, ResMapItem } from '@/api/types';
+import { ResMap } from '@/tempDb/map';
+import { ResMapItem } from '@/tempDb/mapItem';
 import {
   TypeScale,
   TypeMapViewer,

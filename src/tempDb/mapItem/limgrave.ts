@@ -1,7 +1,19 @@
-import { ResMapItem } from '../../types';
+import { ResMapItem } from './index';
+import {
+
+
+} from './define';
 
 const limgraveItems: ResMapItem[] = [
+  // {
+  //   location: {
+  //     type: ''
 
+  //   },
+  //   items: [
+
+  //   ]
+  // }
 ]
 
 // 림그레이브 서쪽 아이템

@@ -1,8 +1,8 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { Box } from '@mui/material';
 
 import { utils } from '@/libs';
-import { TypeMapViewer, TypeMapImageSize, TypeCoord } from './types';
+import { TypeCoord } from './types';
 
 export default function MapCoordContainer(
   props: {
@@ -16,7 +16,7 @@ export default function MapCoordContainer(
 ) {
   const [clickPointCoord, setClickPointCoord] = useState<TypeCoord | null>(null);
 
-  function handleClickMapCoordContainer(e: React.MouseEvent) {
+  function createClickPointCoordAndCoordCopy(e: React.MouseEvent) {
     if (props.isMoving === true) return;
 
     const x = e.clientX - props.mapViewerLeft;
@@ -39,14 +39,21 @@ export default function MapCoordContainer(
       y: resultY
     });
 
-    // TODO 좌표 카피
+    copyClipBoard('카피 테스트');
+  }
 
-    
+  function copyClipBoard(text: string) {
+    navigator.clipboard.writeText(text);
+  }
+
+  function removeClickPointCoord(e: React.MouseEvent) {
+    e.stopPropagation();
+    setClickPointCoord(null);
   }
 
   return (
     <Box
-      onClick={handleClickMapCoordContainer}
+      onClick={createClickPointCoordAndCoordCopy}
       sx={{
         position: 'absolute',
         top: 0,
@@ -58,6 +65,7 @@ export default function MapCoordContainer(
     >
       { clickPointCoord !== null &&
         <Box
+          onClick={removeClickPointCoord}
           sx={{
             position: 'absolute',
             top: `calc(${clickPointCoord.y * props.scale}px - 6px)`,
