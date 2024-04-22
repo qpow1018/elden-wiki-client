@@ -23,7 +23,7 @@ export default function Layout(
       <Box
         sx={{
           flex: 1,
-          marginBottom: `${theme.size.bottomNaviHeight}px`,
+          // marginBottom: `${theme.size.bottomNaviHeight}px`,
         }}
       >
         { props.children }

@@ -15,9 +15,9 @@ export default function BaseText(
         {
           fontFamily: theme.common.fontFamily,
           letterSpacing: theme.common.letterSpacing,
-          color: theme.color.text.primary,
-          fontSize: '14px',
-          lineHeight: 1.5,
+          color: 'inherit',
+          fontSize: 'inherit',
+          lineHeight: 'inherit',
         },
         ...(Array.isArray(props.sx) ? props.sx : [props.sx])
       ]}

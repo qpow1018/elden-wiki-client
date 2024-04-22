@@ -22,7 +22,8 @@ const theme = {
     },
     text: {
       primary: '#f1f1f1',
-      secondary: '#aaa',
+      secondary: '#cacaca',
+      dark: '#a3a3a3',
     },
     border: {
       default: '#505050',
