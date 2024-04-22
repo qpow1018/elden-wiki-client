@@ -8,7 +8,7 @@ import {
   TypeMapViewer,
   TypeMapImageSize,
   TypeZoomPoint,
-  TypeMovementCoord,
+  TypeCoord,
 } from './types';
 
 import ZoomContainer from './ZoomContainer';
@@ -34,7 +34,8 @@ export default function MapViewer(
 
   const [imageSize, setImageSize] = useState<TypeMapImageSize | null>(null);
   const [zoomPoint, setZoomPoint] = useState<TypeZoomPoint | null>(null);
-  const [movementCoord, setMovementCoord] = useState<TypeMovementCoord>({ x: 0, y: 0 });
+  const [movementCoord, setMovementCoord] = useState<TypeCoord>({ x: 0, y: 0 });
+  const [isMoving, setIsMoving] = useState<boolean>(false);
 
   useEffect(() => {
     const mapViewerElm = refMapViewer.current;
@@ -136,6 +137,7 @@ export default function MapViewer(
         height: '100%',
         overflow: 'hidden',
         touchAction: 'none',
+        userSelect: 'none',
       }}
     >
       { (mapViewer !== null && imageSizeMap !== null && imageSize !== null) &&
@@ -152,6 +154,7 @@ export default function MapViewer(
           <MovementContainer
             movementCoord={movementCoord}
             onChangeMovementCoord={(value) => setMovementCoord(value)}
+            onChangeIsMoving={(value) => setIsMoving(value)}
           >
             <MapDataContainer
               width={imageSize.width}
@@ -172,6 +175,7 @@ export default function MapViewer(
                 scale={imageSize.scale}
                 movementX={movementCoord.x}
                 movementY={movementCoord.y}
+                isMoving={isMoving}
               />
             </MapDataContainer>
           </MovementContainer>

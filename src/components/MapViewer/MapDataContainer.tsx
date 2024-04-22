@@ -1,5 +1,7 @@
 import { Box } from '@mui/material';
 
+import theme from '@/styles/theme';
+
 export default function MapDataContainer(
   props: {
     width: number;
@@ -14,7 +16,7 @@ export default function MapDataContainer(
       sx={{
         position: 'relative',
         transformOrigin: '0 0',
-        background: 'red',
+        background: theme.color.background.default,
         // transitionProperty: 'transform',
         // transition: '0.4s ease'
       }}

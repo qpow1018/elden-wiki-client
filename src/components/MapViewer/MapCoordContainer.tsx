@@ -1,8 +1,8 @@
-import Image, { StaticImageData } from 'next/image';
+import { useState } from 'react';
 import { Box } from '@mui/material';
 
 import { utils } from '@/libs';
-import { TypeMapViewer, TypeMapImageSize, TypeMovementCoord } from './types';
+import { TypeMapViewer, TypeMapImageSize, TypeCoord } from './types';
 
 export default function MapCoordContainer(
   props: {
@@ -11,9 +11,14 @@ export default function MapCoordContainer(
     scale: number;
     movementX: number;
     movementY: number;
+    isMoving: boolean;
   }
 ) {
+  const [clickPointCoord, setClickPointCoord] = useState<TypeCoord | null>(null);
+
   function handleClickMapCoordContainer(e: React.MouseEvent) {
+    if (props.isMoving === true) return;
+
     const x = e.clientX - props.mapViewerLeft;
     const y = e.clientY - props.mapViewerTop;
 
@@ -28,6 +33,15 @@ export default function MapCoordContainer(
     const resultY = utils.convertNumberWithDecimal(mouseY / props.scale, 2);
 
     console.log(resultX, resultY);
+
+    setClickPointCoord({
+      x: resultX,
+      y: resultY
+    });
+
+    // TODO 좌표 카피
+
+    
   }
 
   return (
@@ -42,6 +56,19 @@ export default function MapCoordContainer(
         zIndex: 1,
       }}
     >
+      { clickPointCoord !== null &&
+        <Box
+          sx={{
+            position: 'absolute',
+            top: `calc(${clickPointCoord.y * props.scale}px - 6px)`,
+            left: `calc(${clickPointCoord.x * props.scale}px - 6px)`,
+            width: '12px',
+            height: '12px',
+            borderRadius: '50%',
+            backgroundColor: 'red'
+          }}
+        />
+      }
     </Box>
   );
 }

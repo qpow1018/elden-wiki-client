@@ -3,18 +3,19 @@ import { Box } from '@mui/material';
 
 import useWindowSize from '@/hooks/useWindowSize';
 import { utils } from '@/libs';
-import { TypeMovementCoord } from './types';
+import { TypeCoord } from './types';
 
 export default function MovementComponent(
   props: {
-    movementCoord: TypeMovementCoord;
-    onChangeMovementCoord: (value: TypeMovementCoord) => void;
+    movementCoord: TypeCoord;
+    onChangeMovementCoord: (value: TypeCoord) => void;
+    onChangeIsMoving: (value: boolean) => void;
     children?: React.ReactNode;
   }
 ) {
   const { isDesktop } = useWindowSize();
 
-  const { movementCoord, onChangeMovementCoord } = props;
+  const { movementCoord, onChangeMovementCoord, onChangeIsMoving } = props;
 
   const MIN_MOVE_DISTANCE = 4;
 
@@ -66,7 +67,6 @@ export default function MovementComponent(
   // addEventListener, removeEventListener 적절하게 작동하는지 확인 필요 - 필요한만큼(1개겠지) 추가되고 삭제된다.
   // mouseMove는 아주 많은 이벤트를 발생 시킨다. - 성능 이슈 발생하려나?? + 이를 해결하기 위해 Throttling을 사용한다면... 매끄럽게 보일까?
   function handleMouseDownMovementContainer(e: React.MouseEvent) {
-    console.log('mouseDown');
     setupEventInitInfo(e.clientX, e.clientY);
 
     // 맵에서 해당 이벤트 위치가 맵크기를 넘어갈 수 있기 때문에 window에 이벤트를 건다.
@@ -75,10 +75,15 @@ export default function MovementComponent(
   }
 
   function handleMouseMoveWindow(e: MouseEvent) {
+    onChangeIsMoving(true);
     updateMovementCoord(e.clientX, e.clientY);
   }
 
   function handleMouseUpWindow(e: MouseEvent) {
+    setTimeout(() => {
+      onChangeIsMoving(false);
+    }, 0);
+
     clearMovePoints();
 
     // 관련된 이벤트를 제거해야 한다.

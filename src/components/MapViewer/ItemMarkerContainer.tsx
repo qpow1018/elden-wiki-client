@@ -5,7 +5,7 @@ import theme from '@/styles/theme';
 
 import { utils } from '@/libs';
 import { ResMap, ResMapItem } from '@/api/types';
-import { TypeMapViewer, TypeMapImageSize, TypeMovementCoord } from './types';
+import { TypeMapViewer, TypeMapImageSize, TypeCoord } from './types';
 
 export default function ItemMarkerContainer(
   props: {

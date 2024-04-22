@@ -24,7 +24,7 @@ type TypeZoomPoint = {
   newScale: number;
 }
 
-type TypeMovementCoord = {
+type TypeCoord = {
   x: number;
   y: number;
 }
@@ -34,5 +34,5 @@ export type {
   TypeMapViewer,
   TypeMapImageSize,
   TypeZoomPoint,
-  TypeMovementCoord,
+  TypeCoord,
 }
