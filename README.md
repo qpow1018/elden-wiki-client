@@ -70,6 +70,7 @@
 - Map 이동 로직 체크
 - useEffect deps warning 체크
 - 소수점 계산 시 오차 발생
+- 맵 이미지 최적화
 
 
 ## 해결 정리
