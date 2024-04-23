@@ -3,10 +3,12 @@ const theme = {
     primary: {
       main: '#008f88', // rgb(0, 143, 136)
       light: 'rgba(0, 143, 136, 0.8)',
+      faint: 'rgba(0, 143, 136, 0.08)',
     },
     secondary: {
       main: '#ca000a', // rgb(202, 0, 10)
       light: 'rgba(202, 0, 10, 0.8)',
+      faint: 'rgba(202, 0, 10, 0.08)',
     },
     dark: {
       gray1: '#1f1f1f',
