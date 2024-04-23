@@ -53,6 +53,8 @@ class DataStorage {
 }
 
 enum DataStorageKey {
+  allCheckLists = 'STORAGE_KEY_ALL_CHECK_LISTS',
+
 
 }
 
