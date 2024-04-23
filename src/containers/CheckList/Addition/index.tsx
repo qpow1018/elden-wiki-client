@@ -1,14 +1,13 @@
 'use client';
 
 import { useState } from 'react';
-import { Box } from '@mui/material';
+import { useRouter } from 'next/navigation';
 import { v4 as uuidv4 } from 'uuid';
-
+import { Box } from '@mui/material';
 import theme from '@/styles/theme';
 
 import { utils } from '@/libs';
 import checkListDB from '@/tempDb/checkList/checkListDB';
-
 import checkListUtils from '@/containers/CheckList/checkListUtils';
 
 import Layout from '@/components/Layout';
@@ -21,8 +20,11 @@ import TextInput from '@/components/Form/TextInput';
 import Button, { ButtonTheme } from '@/components/Button';
 
 export default function CheckListAddition() {
+  const router = useRouter();
+
   const [characterName, setCharacterName] = useState<string>('');
   const [ngPlus, setNgPlus] = useState<string>('');
+  const [memo, setMemo] = useState<string>('');
 
   function handleChangeNgPlusInput(value: string) {
     const _value = utils.removeStringExcludingInteger(value);
@@ -55,9 +57,10 @@ export default function CheckListAddition() {
       id: uuidv4(),
       characterName: _characterName,
       ngPlus: _ngPlus,
+      memo: memo
     });
 
-    // TODO 라우팅
+    router.back();
   }
 
   return (
@@ -97,6 +100,14 @@ export default function CheckListAddition() {
               value={ngPlus}
               onChange={(value) => handleChangeNgPlusInput(value)}
               placeholder='회차 정보 - 숫자 또는 빈칸'
+            />
+          </FormRow>
+          <FormRow>
+            <FormLabel>간단 메모</FormLabel>
+            <TextInput
+              value={memo}
+              onChange={(value) => setMemo(value)}
+              placeholder='간단한 메모'
             />
           </FormRow>
         </Box>

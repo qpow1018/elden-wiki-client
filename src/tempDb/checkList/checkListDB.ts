@@ -4,9 +4,8 @@ type ResCheckList = {
   id: string;
   characterName: string;
   ngPlus: number;
+  memo: string;
 }
-
-
 
 class CheckListDB {
   public getAllCheckLists(): ResCheckList[] {
@@ -21,9 +20,14 @@ class CheckListDB {
     // TODO detail 데이터 생성 필요
   }
 
+  public deleteAllCheckLists() {
+    dataStorage.local.remove(DataStorageKey.allCheckLists);
+  }
 
+}
 
-
+export type {
+  ResCheckList,
 }
 
 const _instance = new CheckListDB();
