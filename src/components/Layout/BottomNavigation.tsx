@@ -24,6 +24,7 @@ export default function BottomNavigation() {
         height: theme.size.bottomNaviHeight,
         backgroundColor: theme.color.background.default,
         display: 'flex',
+        borderTop: `1px solid ${theme.color.border.dark}`
       }}
     >
       <BottomNavigationButton
