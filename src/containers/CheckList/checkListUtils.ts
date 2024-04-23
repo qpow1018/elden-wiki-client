@@ -2,7 +2,7 @@ import define from '@/define';
 
 class CheckListUtils {
   public isUnderMaxCheckListCount(arrLength: number) {
-    if (arrLength > define.maxCheckListCount) {
+    if (arrLength >= define.maxCheckListCount) {
       return false;
     }
 
