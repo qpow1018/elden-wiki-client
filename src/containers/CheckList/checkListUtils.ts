@@ -1,6 +1,12 @@
-class CheckListUtils {
-  public isOverMaxCheckListCount(checkLists: any) {
+import define from '@/define';
 
+class CheckListUtils {
+  public isUnderMaxCheckListCount(arrLength: number) {
+    if (arrLength > define.maxCheckListCount) {
+      return false;
+    }
+
+    return true;
   }
 
   public isValidCharacterName(characterName: string) {

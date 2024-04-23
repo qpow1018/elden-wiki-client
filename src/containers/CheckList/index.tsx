@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 import { Box } from '@mui/material';
 
 import theme from '@/styles/theme';
@@ -14,9 +15,13 @@ import Text from '@/components/Base/Text';
 import Button, { ButtonTheme } from '@/components/Button';
 
 export default function CheckList() {
+  const router = useRouter();
 
   function handleClickCreateButton() {
-    alert('갯수 체크 후 페이지 이동');
+    // TODO 갯수 체크
+
+
+    router.push('/check-list/addition');
   }
 
 

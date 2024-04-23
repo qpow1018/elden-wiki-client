@@ -1,17 +1,24 @@
 import { dataStorage, DataStorageKey } from '@/libs';
 
-// type ResCj
+type ResCheckList = {
+  id: string;
+  characterName: string;
+  ngPlus: number;
+}
+
 
 
 class CheckListDB {
-  public getAllCheckLists() {
-    const testValue = dataStorage.local.get(DataStorageKey.allCheckLists, []);
-
-    return testValue;
+  public getAllCheckLists(): ResCheckList[] {
+    return dataStorage.local.get(DataStorageKey.allCheckLists, []);
   }
 
-  public addCheckList(value: any) {
-    dataStorage.local.set(DataStorageKey.allCheckLists, value);
+  public addCheckList(value: ResCheckList) {
+    const prevCheckLists = this.getAllCheckLists();
+    const newList = [ ...prevCheckLists, value ];
+    dataStorage.local.set(DataStorageKey.allCheckLists, newList);
+
+    // TODO detail 데이터 생성 필요
   }
 
 
