@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import { Box } from '@mui/material';
 import theme from '@/styles/theme';
 
-import define from '@/define';
+import { DEFINE } from '@/define';
 import checkListDB, { ResCheckList } from '@/tempDb/checkList/checkListDB';
 import checkListUtils from '@/containers/CheckList/checkListUtils';
 
@@ -72,7 +72,7 @@ export default function CheckList() {
               color: theme.color.text.dark,
             }}
           >
-            체크리스트는 최대 { define.maxCheckListCount }개까지 생성할 수 있습니다.
+            체크리스트는 최대 { DEFINE.maxCheckListCount }개까지 생성할 수 있습니다.
           </Text>
         </Box>
 

@@ -1,8 +1,8 @@
-import define from '@/define';
+import { DEFINE } from '@/define';
 
 class CheckListUtils {
   public isUnderMaxCheckListCount(arrLength: number) {
-    if (arrLength >= define.maxCheckListCount) {
+    if (arrLength >= DEFINE.maxCheckListCount) {
       return false;
     }
 

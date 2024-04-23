@@ -1,6 +1,7 @@
-const define = {
+const DEFINE = {
   maxCheckListCount: 5,
-
 }
 
-export default define;
+export {
+  DEFINE,
+};
