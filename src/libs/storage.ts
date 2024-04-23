@@ -32,7 +32,7 @@ class DataStorage {
       return this.convertsStringToJson(_data);
     },
     remove: (key: string) => {
-      window.sessionStorage.getItem(key);
+      window.sessionStorage.removeItem(key);
     }
   }
 
@@ -47,7 +47,7 @@ class DataStorage {
       return this.convertsStringToJson(_data);
     },
     remove: (key: string) => {
-      window.localStorage.getItem(key);
+      window.localStorage.removeItem(key);
     }
   }
 }
