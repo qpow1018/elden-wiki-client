@@ -3,6 +3,11 @@ class Utils {
     return Number(num.toFixed(decimal));
   }
 
+  public removeStringExcludingInteger(str: string) {
+    const regex = /[^0-9]/g;
+    return str.replace(regex, '');
+  }
+
 }
 
 const _instance = new Utils();
