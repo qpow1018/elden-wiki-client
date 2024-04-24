@@ -155,7 +155,7 @@ function CheckListItem(
           sx={{
             marginTop: '4px',
             fontSize: '12px',
-            color: theme.color.text.dark,
+            color: theme.color.text.secondary,
           }}
         >
           <Text>

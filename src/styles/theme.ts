@@ -23,9 +23,10 @@ const theme = {
       overlay: 'rgba(0, 0, 0, 0.4)',
     },
     text: {
-      primary: '#f1f1f1',
-      secondary: '#cacaca',
-      dark: '#a3a3a3',
+      primary: '#d4d4d4',
+      secondary: '#b6b6b6',
+      dark: '#999999',
+      light: '#e7e7e7',
     },
     border: {
       default: '#505050',

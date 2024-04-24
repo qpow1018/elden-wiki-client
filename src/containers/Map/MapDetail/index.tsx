@@ -6,7 +6,7 @@ import theme from '@/styles/theme';
 import useWindowSize from '@/hooks/useWindowSize';
 
 import { ResMap } from '@/tempDb/map';
-import { ResMapItem } from '@/api/types';
+import { ResMapItem } from '@/tempDb/mapItem';
 
 import Layout from '@/components/Layout';
 import Container from '@/components/Base/Container';

@@ -9,6 +9,25 @@ type ResCheckList = {
   memo: string;
 }
 
+type ResCheckListDetail = {
+  areaId: number;
+  name: string;
+  list: ResCheckListDetailItem[];
+  isOpen: boolean;
+}
+
+type ResCheckListDetailItem = {
+  todoId: number;
+  isBoss: boolean;
+  locationName: string;
+  targetName: string;
+  rune: number;
+  bossRewards: string[];
+  additionalInfo: string[];
+  isComplete: boolean;
+  isSkip: boolean;
+}
+
 class CheckListDB {
   public getAllCheckLists(): ResCheckList[] {
     return dataStorage.local.get(DataStorageKey.allCheckLists, []);
@@ -26,15 +45,16 @@ class CheckListDB {
     dataStorage.local.remove(DataStorageKey.allCheckLists);
   }
 
-
-  public makeCheckListInitialData() {
-    console.log('makeCheckListInitialData', initialData);
+  public getCheckListInitialData(): ResCheckListDetail[] {
+    return initialData;
   }
 
 }
 
 export type {
   ResCheckList,
+  ResCheckListDetail,
+  ResCheckListDetailItem,
 }
 
 const _instance = new CheckListDB();
