@@ -1,0 +1,66 @@
+const list = [
+  {
+    todoId: 1,
+    isBoss: false,
+    locationName: '개미굴',
+    targetName: '희인의 룬 x5',
+    rune: 0,
+    bossRewards: [],
+    additionalInfo: [],
+    isComplete: false,
+    isSkip: false,
+  },
+  {
+    todoId: 2,
+    isBoss: true,
+    locationName: '',
+    targetName: '황금 나무의 화신',
+    rune: 10621,
+    bossRewards: ['화신의 의장'],
+    additionalInfo: [],
+    isComplete: false,
+    isSkip: false,
+  },
+  {
+    todoId: 3,
+    isBoss: true,
+    locationName: '',
+    targetName: '도가니의 기사 실루리아',
+    rune: 25000,
+    bossRewards: ['실루리아의 나무창'],
+    additionalInfo: ['도가니 방어구'],
+    isComplete: false,
+    isSkip: false,
+  },
+  {
+    todoId: 4,
+    isBoss: true,
+    locationName: '',
+    targetName: '피아의 영웅',
+    rune: 40000,
+    bossRewards: ['피아의 안개'],
+    additionalInfo: [],
+    isComplete: false,
+    isSkip: false,
+  },
+  {
+    todoId: 5,
+    isBoss: true,
+    locationName: '',
+    targetName: '사룡 포르삭스',
+    rune: 90000,
+    bossRewards: [],
+    additionalInfo: [],
+    isComplete: false,
+    isSkip: false,
+  },
+]
+
+const resData = {
+  areaId: 11,
+  name: '깊은 뿌리 밑바닥',
+  list: list,
+  isOpen: true,
+}
+
+export default resData;

@@ -1,5 +1,7 @@
 import { dataStorage, DataStorageKey } from '@/libs';
 
+import initialData from './initialData';
+
 type ResCheckList = {
   id: string;
   characterName: string;
@@ -22,6 +24,11 @@ class CheckListDB {
 
   public deleteAllCheckLists() {
     dataStorage.local.remove(DataStorageKey.allCheckLists);
+  }
+
+
+  public makeCheckListInitialData() {
+    console.log('makeCheckListInitialData', initialData);
   }
 
 }
