@@ -10,13 +10,17 @@ type ResCheckList = {
 }
 
 type ResCheckListDetail = {
+  [id: string]: ResCheckListDetailArea[];
+}
+
+type ResCheckListDetailArea = {
   areaId: number;
   name: string;
-  list: ResCheckListDetailItem[];
+  list: ResCheckListDetailAreaItem[];
   isOpen: boolean;
 }
 
-type ResCheckListDetailItem = {
+type ResCheckListDetailAreaItem = {
   todoId: number;
   isBoss: boolean;
   locationName: string;
@@ -38,23 +42,54 @@ class CheckListDB {
     const newList = [ ...prevCheckLists, value ];
     dataStorage.local.set(DataStorageKey.allCheckLists, newList);
 
-    // TODO detail 데이터 생성 필요
+    this.addCheckListDetail(value.id);
   }
+
+  public getAllCheckListDetails(): ResCheckListDetail {
+    return dataStorage.local.get(DataStorageKey.checkListDetails, {});
+  }
+
+  public getCheckListInitialData(): ResCheckListDetailArea[] {
+    return initialData;
+  }
+
+  public addCheckListDetail(id: string) {
+    const prevData = this.getAllCheckListDetails();
+    const initData = this.getCheckListInitialData();
+
+    const newData = {
+      ...prevData,
+      [id]: initData,
+    }
+
+    dataStorage.local.set(DataStorageKey.checkListDetails, newData);
+  }
+
+  public getCheckListDetail(id: string): ResCheckListDetailArea[] | null {
+    const allData = this.getAllCheckListDetails();
+    const data = allData[id];
+
+    if (data === undefined || data === null) {
+      return null;
+    }
+
+    return data;
+  }
+
+
+
+
 
   public deleteAllCheckLists() {
     dataStorage.local.remove(DataStorageKey.allCheckLists);
   }
-
-  public getCheckListInitialData(): ResCheckListDetail[] {
-    return initialData;
-  }
-
 }
 
 export type {
   ResCheckList,
   ResCheckListDetail,
-  ResCheckListDetailItem,
+  ResCheckListDetailArea,
+  ResCheckListDetailAreaItem,
 }
 
 const _instance = new CheckListDB();

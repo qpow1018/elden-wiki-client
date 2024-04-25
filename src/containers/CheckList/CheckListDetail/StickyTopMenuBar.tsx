@@ -10,6 +10,7 @@ export default function StickyTopMenuBar() {
         zIndex: 1,
         display: 'flex',
         alignItems: 'center',
+        justifyContent: 'space-between',
         padding: '0 16px',
         height: '52px',
         borderBottom: `1px solid ${theme.color.border.default}`,
@@ -17,7 +18,13 @@ export default function StickyTopMenuBar() {
         backgroundColor: theme.color.background.base,
       }}
     >
-      목록 바로가기 기능 / 스킵 표시 비표시 / 초기화 / 수정 / 삭제
+      <Box>
+        목록 바로가기 기능
+      </Box>
+
+      <Box>
+        초기화 / 수정 / 삭제
+      </Box>
     </Box>
   );
 }

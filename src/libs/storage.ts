@@ -54,8 +54,7 @@ class DataStorage {
 
 enum DataStorageKey {
   allCheckLists = 'STORAGE_KEY_ALL_CHECK_LISTS',
-
-
+  checkListDetails = 'STORAGE_KEY_CHECK_LIST_DETAILS',
 }
 
 const dataStorage = new DataStorage();

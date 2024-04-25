@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 
-import checkListDB, { ResCheckListDetail } from '@/tempDb/checkList/checkListDB';
+import checkListDB, { ResCheckListDetailArea } from '@/tempDb/checkList/checkListDB';
 
 import Layout from '@/components/Layout';
 import Container from '@/components/Base/Container';
@@ -16,36 +16,42 @@ export default function CheckListDetail(
     checkListId: string;
   }
 ) {
+  const { checkListId } = props;
+
   const router = useRouter();
 
-  const [checkListDetail, setCheckListDetail] = useState<ResCheckListDetail[]>([]);
+  const [checkListData, setCheckListData] = useState<ResCheckListDetailArea[] | null>([]);
 
   useEffect(() => {
-    setupTest();
-  }, []);
+    setupCheckListDataFromStorage(checkListId);
+  }, [checkListId]);
 
-  function setupTest() {
-    const resData = checkListDB.getCheckListInitialData();
-    console.log('resData', resData);
-    setCheckListDetail(resData);
+  function setupCheckListDataFromStorage(checkListId: string) {
+    const resData = checkListDB.getCheckListDetail(checkListId);
+    setCheckListData(resData);
   }
+
 
   return (
     <Layout>
       <Container>
-        <StickyTopMenuBar
-        
-        />
+        { checkListData !== null &&
+          <>
+            <StickyTopMenuBar
+            
+            />
 
-        { checkListDetail.map(item =>
-          <DetailItemByArea
-            key={item.areaId}
-            areaId={item.areaId}
-            name={item.name}
-            todoList={item.list}
-            isOpen={item.isOpen}
-          />
-        )}
+            { checkListData.map(item =>
+              <DetailItemByArea
+                key={item.areaId}
+                areaId={item.areaId}
+                name={item.name}
+                todoList={item.list}
+                isOpen={item.isOpen}
+              />
+            )}
+          </>
+        }
       </Container>
     </Layout>
   );

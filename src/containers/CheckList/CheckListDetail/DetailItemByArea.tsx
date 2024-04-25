@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { Box } from '@mui/material';
 import theme from '@/styles/theme';
 
-import { ResCheckListDetailItem } from '@/tempDb/checkList/checkListDB';
+import { ResCheckListDetailAreaItem } from '@/tempDb/checkList/checkListDB';
 
 import Text from '@/components/Base/Text';
 import TodoItem from './TodoItem';
@@ -13,7 +13,7 @@ export default function DetailItemByArea(
   props: {
     areaId: number;
     name: string;
-    todoList: ResCheckListDetailItem[];
+    todoList: ResCheckListDetailAreaItem[];
     isOpen: boolean;
   }
 ) {
@@ -27,7 +27,7 @@ export default function DetailItemByArea(
   return (
     <Box
       sx={{
-        borderBottom: `4px solid ${theme.color.border.dark}`,
+        borderBottom: `2px solid ${theme.color.border.dark}`,
         '&:last-of-type': {
           borderBottom: 'none'
         }
