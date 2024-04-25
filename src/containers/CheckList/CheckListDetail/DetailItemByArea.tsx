@@ -11,6 +11,7 @@ import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 
 export default function DetailItemByArea(
   props: {
+    appendRefAreaElms: (elm: HTMLElement) => void;
     areaId: number;
     name: string;
     todoList: ResCheckListDetailAreaItem[];
@@ -22,10 +23,9 @@ export default function DetailItemByArea(
 
   // TODO 갯수 체크 필요
 
-  // TODO Skip 모드가 필요하겠다
-
   return (
     <Box
+      ref={(elm: HTMLElement) => props.appendRefAreaElms(elm)}
       sx={{
         borderBottom: `2px solid ${theme.color.border.dark}`,
         '&:last-of-type': {

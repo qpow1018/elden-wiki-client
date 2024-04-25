@@ -42,10 +42,7 @@ const theme = {
     maxContainerWidth: 1000,
     buttonHeight: 40,
     inputHeight: 48,
-
-
-    modalHeaderHeight: 48,
-    iconButtonSize: 36,
+    checkListStickyHeaderHeight: 52,
   },
   common: {
     fontFamily: `'Noto Sans KR', sans-serif`,

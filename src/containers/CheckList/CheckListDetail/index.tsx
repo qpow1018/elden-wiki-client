@@ -1,7 +1,8 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
+import theme from '@/styles/theme';
 
 import checkListDB, { ResCheckListDetailArea } from '@/tempDb/checkList/checkListDB';
 
@@ -20,6 +21,8 @@ export default function CheckListDetail(
 
   const router = useRouter();
 
+  const refAreaElms = useRef<{ [areaId: number]: HTMLElement }>({});
+
   const [checkListData, setCheckListData] = useState<ResCheckListDetailArea[] | null>([]);
 
   useEffect(() => {
@@ -31,6 +34,18 @@ export default function CheckListDetail(
     setCheckListData(resData);
   }
 
+  function appendRefAreaElms(areaId: number, elm: HTMLElement) {
+    const prevData = refAreaElms.current;
+    refAreaElms.current = { ...prevData, [areaId]: elm };
+  }
+
+  function handleClickAreaShortcutButton(areaId: number) {
+    const targetElm = refAreaElms.current[areaId];
+    const elmOffsetTop = targetElm.offsetTop;
+    const top = elmOffsetTop - theme.size.checkListStickyHeaderHeight + 1;
+    window.scrollTo(0, top);
+  }
+
 
   return (
     <Layout>
@@ -38,12 +53,14 @@ export default function CheckListDetail(
         { checkListData !== null &&
           <>
             <StickyTopMenuBar
-            
+              checkListData={checkListData}
+              onClickAreaShortcutButton={handleClickAreaShortcutButton}
             />
 
             { checkListData.map(item =>
               <DetailItemByArea
                 key={item.areaId}
+                appendRefAreaElms={(elm) => appendRefAreaElms(item.areaId, elm)}
                 areaId={item.areaId}
                 name={item.name}
                 todoList={item.list}
