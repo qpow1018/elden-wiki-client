@@ -105,11 +105,11 @@ export default function CheckList() {
 
         {/* <Button
           onClick={() => {
-            checkListDB.deleteAllCheckLists();
+            checkListDB.clearAllLocalStorage();
           }}
           theme={ButtonTheme.bgSec}
         >
-          전체 삭제
+          로컬 스토리지 초기화
         </Button> */}
       </Container>
     </Layout>

@@ -80,7 +80,8 @@ class CheckListDB {
 
 
 
-  public deleteAllCheckLists() {
+  public clearAllLocalStorage() {
+    dataStorage.local.remove(DataStorageKey.allCheckLists);
     dataStorage.local.remove(DataStorageKey.allCheckLists);
   }
 }
