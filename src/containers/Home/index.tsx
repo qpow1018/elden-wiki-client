@@ -8,6 +8,7 @@ export default function Home() {
       <Box sx={{ padding: '16px' }}>
         <Box sx={{ marginBottom: '8px' }}>작업 예정</Box>
 
+        <Box>- MAP ITEM data 추가해보고 UI 고민 필요</Box>
         <Box>- alert 처리를 snackBar로 변경</Box>
         <Box>- 유효성 검사 checker 모듈 제작</Box>
         <Box>- 회차 Input - 좀 더 편하게 변경 (현재 TextInput)</Box>

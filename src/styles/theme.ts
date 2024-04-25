@@ -43,6 +43,7 @@ const theme = {
     buttonHeight: 40,
     inputHeight: 48,
     checkListStickyHeaderHeight: 52,
+    modalHeaderHeight: 52,
   },
   common: {
     fontFamily: `'Noto Sans KR', sans-serif`,
