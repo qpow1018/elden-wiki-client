@@ -19,6 +19,10 @@ export default function Menu(
         vertical: props.vertical !== undefined ? props.vertical : 'bottom',
         horizontal: props.horizontal !== undefined ? props.horizontal : 'left',
       }}
+      transformOrigin={{
+        vertical: 'top',
+        horizontal: props.horizontal !== undefined ? props.horizontal : 'left',
+      }}
       sx={{
         '& > .MuiPaper-root': {
           backgroundColor: theme.color.background.popover,

@@ -1,22 +1,29 @@
-import { useState } from 'react';
 import { Box, ButtonBase } from '@mui/material';
 import theme from '@/styles/theme';
 
-import { ResCheckListDetailArea } from '@/tempDb/checkList/checkListDB';
+import { ResCheckList, ResCheckListDetailArea } from '@/tempDb/checkList/checkListDB';
 
 import Text from '@/components/Base/Text';
 import Menu from '@/components/Menu';
 
-import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
+import {
+  LowPriority as LowPriorityIcon,
+  MoreVert as MoreVertIcon,
+} from '@mui/icons-material';
 
 export default function StickyTopMenuBar(
   props: {
+    characterInfo: ResCheckList;
+    shortcutMenuElm: HTMLElement | null;
+    openShortCutMenu: (elm: HTMLElement) => void;
+    closeShortCutMenu: () => void;
+    onClickShortcutAreaButton: (areaId: number) => void;
     checkListData: ResCheckListDetailArea[];
-    onClickAreaShortcutButton: (areaId: number) => void;
+    subMenuElm: HTMLElement | null;
+    openSubMenu: (elm: HTMLElement) => void;
+    closeSubMenu: () => void;
   }
 ) {
-  const [areaShortcutEl, setAreaShortcutEl] = useState<HTMLElement | null>(null);
-
   return (
     <Box
       sx={{
@@ -30,104 +37,189 @@ export default function StickyTopMenuBar(
         backgroundColor: theme.color.background.default,
         borderTop: `1px solid ${theme.color.border.default}`,
         borderBottom: `1px solid ${theme.color.border.default}`,
+        padding: '0 8px 0 16px',
       }}
     >
-      <AreaShortcut
-        areaShortcutEl={areaShortcutEl}
-        onClickOpenButton={(elm) => setAreaShortcutEl(elm)}
-        onClose={() => setAreaShortcutEl(null)}
-        checkListData={props.checkListData}
-        onClickAreaShortcutButton={(areaId) => {
-          props.onClickAreaShortcutButton(areaId);
-          setAreaShortcutEl(null);
-        }}
+      <CharacterInfo
+        characterName={props.characterInfo.characterName}
+        ngPlus={props.characterInfo.ngPlus}
+        memo={props.characterInfo.memo}
       />
 
-      <Box>
-        초기화 / 수정 / 삭제
+      <Box
+        sx={{
+          display: 'flex',
+          alignItems: 'center',
+        }}
+      >
+        <>
+          <ButtonBase
+            onClick={(e) => props.openShortCutMenu(e.currentTarget)}
+            sx={{
+              borderRadius: '50%',
+              width: 40,
+              height: 40,
+              marginRight: '8px'
+            }}
+          >
+            <LowPriorityIcon sx={{ fontSize: '24px' }} />
+          </ButtonBase>
+
+          <ShortcutMenu
+            shortcutMenuElm={props.shortcutMenuElm}
+            closeShortCutMenu={props.closeShortCutMenu}
+            onClickShortcutAreaButton={props.onClickShortcutAreaButton}
+            checkListData={props.checkListData}
+          />
+        </>
+
+        <>
+          <ButtonBase
+            onClick={(e) => props.openSubMenu(e.currentTarget)}
+            sx={{
+              borderRadius: '50%',
+              width: 40,
+              height: 40,
+            }}
+          >
+            <MoreVertIcon sx={{ fontSize: '24px' }} />
+          </ButtonBase>
+
+          <SubMenu
+            subMenuElm={props.subMenuElm}
+            closeSubMenu={props.closeSubMenu}
+          />
+        </>
       </Box>
     </Box>
   );
 }
 
-function AreaShortcut(
+function CharacterInfo(
   props: {
-    areaShortcutEl: HTMLElement | null;
-    onClickOpenButton: (elm: HTMLElement) => void;
-    onClose: () => void;
-    checkListData: ResCheckListDetailArea[];
-    onClickAreaShortcutButton: (areaId: number) => void;
+    characterName: string;
+    ngPlus: number;
+    memo: string;
   }
 ) {
   return (
-    <>
-      <Box
-        onClick={(e) => props.onClickOpenButton(e.currentTarget)}
+    <Box>
+      <Text
         sx={{
-          display: 'flex',
-          alignItems: 'center',
-          padding: '6px 16px',
+          fontSize: '12px',
         }}
       >
-        <Text
-          sx={{
-            fontSize: '13px',
-          }}
-        >
-          지역 바로가기
-        </Text>
-        <KeyboardArrowRightIcon
-          sx={{
-            fontSize: '16px',
-          }}
-        />
-      </Box>
-
-      <Menu
-        anchorEl={props.areaShortcutEl}
-        onClose={props.onClose}
+        { `${props.characterName} (${props.ngPlus}회차)` }
+      </Text>
+      <Text
+        sx={{
+          fontSize: '11px',
+          color: theme.color.text.dark,
+        }}
       >
-        <Box
-          sx={{
-            display: 'flex',
-            flexDirection: 'column',
-            flexWrap: 'wrap',
-            width: 300,
-            height: 464,
-            padding: '8px 0',
-          }}
-        >
-          { props.checkListData.map(item =>
-            <AreaButton
-              key={item.areaId}
-              onClick={() => props.onClickAreaShortcutButton(item.areaId)}
-              name={item.name}
-            />
-          )}
-        </Box>
-      </Menu>
-    </>
+        { props.memo.length !== 0 ? props.memo : '-' }
+      </Text>
+    </Box>
   );
 }
 
-function AreaButton(
+function ShortcutMenu(
   props: {
-    onClick: () => void;
-    name: string;
+    shortcutMenuElm: HTMLElement | null;
+    closeShortCutMenu: () => void;
+    onClickShortcutAreaButton: (areaId: number) => void;
+    checkListData: ResCheckListDetailArea[];
+  }
+) {
+  return (
+    <Menu
+      anchorEl={props.shortcutMenuElm}
+      onClose={props.closeShortCutMenu}
+      horizontal='right'
+    >
+      <Box
+        sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          flexWrap: 'wrap',
+          width: 300,
+          height: 464,
+          padding: '8px 0',
+        }}
+      >
+        { props.checkListData.map(item =>
+          <ButtonBase
+            key={item.areaId}
+            onClick={() => {
+              props.closeShortCutMenu();
+              props.onClickShortcutAreaButton(item.areaId);
+            }}
+            sx={{
+              width: 150,
+              height: 32,
+              fontSize: '12px',
+              justifyContent: 'flex-start',
+              paddingLeft: '8px',
+            }}
+          >
+            { item.name }
+          </ButtonBase>
+        )}
+      </Box>
+    </Menu>
+  );
+}
+
+function SubMenu(
+  props: {
+    subMenuElm: HTMLElement | null;
+    closeSubMenu: () => void;
+  }
+) {
+  return (
+    <Menu
+      anchorEl={props.subMenuElm}
+      onClose={props.closeSubMenu}
+      horizontal='right'
+    >
+      <Box
+        sx={{
+          width: 120,
+          padding: '8px 0',
+        }}
+      >
+        <SubMenuButton
+          text='초기화하기'
+        />
+        <SubMenuButton
+          text='수정하기'
+        />
+        <SubMenuButton
+          text='삭제하기'
+        />
+      </Box>
+    </Menu>
+  );
+}
+
+function SubMenuButton(
+  props: {
+    text: string;
   }
 ) {
   return (
     <ButtonBase
-      onClick={props.onClick}
       sx={{
-        width: 150,
-        height: 32,
-        fontSize: '12px',
-        justifyContent: 'flex-start',
-        paddingLeft: '8px',
+        width: '100%',
+        height: 36,
+        fontSize: '13px',
+        borderBottom: `1px solid ${theme.color.border.default}`,
+        '&:last-of-type': {
+          borderBottom: 'none'
+        }
       }}
     >
-      { props.name }
+      { props.text }
     </ButtonBase>
   );
 }

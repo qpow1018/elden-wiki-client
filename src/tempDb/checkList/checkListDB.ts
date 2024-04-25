@@ -37,6 +37,17 @@ class CheckListDB {
     return dataStorage.local.get(DataStorageKey.allCheckLists, []);
   }
 
+  public getCheckList(id: string): ResCheckList | null {
+    const allData = this.getAllCheckLists();
+    const data = allData.find(item => item.id === id);
+
+    if (data === undefined || data === null) {
+      return null;
+    }
+
+    return data;
+  }
+
   public addCheckList(value: ResCheckList) {
     const prevCheckLists = this.getAllCheckLists();
     const newList = [ ...prevCheckLists, value ];
@@ -45,12 +56,23 @@ class CheckListDB {
     this.addCheckListDetail(value.id);
   }
 
+  public getCheckListInitialData(): ResCheckListDetailArea[] {
+    return initialData;
+  }
+
   public getAllCheckListDetails(): ResCheckListDetail {
     return dataStorage.local.get(DataStorageKey.checkListDetails, {});
   }
 
-  public getCheckListInitialData(): ResCheckListDetailArea[] {
-    return initialData;
+  public getCheckListDetail(id: string): ResCheckListDetailArea[] | null {
+    const allData = this.getAllCheckListDetails();
+    const data = allData[id];
+
+    if (data === undefined || data === null) {
+      return null;
+    }
+
+    return data;
   }
 
   public addCheckListDetail(id: string) {
@@ -65,16 +87,7 @@ class CheckListDB {
     dataStorage.local.set(DataStorageKey.checkListDetails, newData);
   }
 
-  public getCheckListDetail(id: string): ResCheckListDetailArea[] | null {
-    const allData = this.getAllCheckListDetails();
-    const data = allData[id];
 
-    if (data === undefined || data === null) {
-      return null;
-    }
-
-    return data;
-  }
 
 
 
