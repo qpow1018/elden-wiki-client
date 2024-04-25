@@ -75,6 +75,8 @@
 - alert => snackBar로 변경
 - 유효성 검사 checker 모듈 생성
 - 체크리스트 생성, 수정 회차 Input - 좀 더 편하게 변경
+- 체크리스트 Skip 기능
+- 체크리스트 templete 기능
 
 
 ## 해결 정리
