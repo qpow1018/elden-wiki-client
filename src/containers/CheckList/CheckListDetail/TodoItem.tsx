@@ -69,6 +69,7 @@ function CheckButton(
     <ButtonBase
       onClick={props.onClick}
       sx={{
+        flexShrink: 0,
         backgroundColor: props.isComplete === true ? theme.color.primary.faint : theme.color.dark.gray2,
         width: '64px',
         height: '100%',

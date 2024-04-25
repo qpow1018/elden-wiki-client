@@ -89,42 +89,42 @@ function ItemHeader(
         alignItems: 'center',
         justifyContent: 'space-between',
         height: 48,
-        padding: '0 16px',
-        cursor: 'pointer'
+        cursor: 'pointer',
       }}
     >
       <Box
         sx={{
           display: 'flex',
-          alignItems: 'center'
+          alignItems: 'center',
         }}
       >
         <Text
           sx={{
-            fontSize: '14px',
+            marginRight: '12px',
+            width: '64px',
+            textAlign: 'center',
+            fontSize: '11px',
+            fontWeight: 500,
+            color: props.completedTodoCount !== props.allTodoCount ? theme.color.text.dark : theme.color.text.primary,
+          }}
+        >
+          { props.completedTodoCount } / { props.allTodoCount }
+        </Text>
+        <Text
+          sx={{
+            fontSize: '13px',
             fontWeight: 500,
           }}
         >
           { props.areaName }
-
-        </Text>
-
-        <Text
-          sx={{
-            fontSize: '12px',
-            fontWeight: 500,
-            marginLeft: '4px',
-            color: theme.color.primary.main
-          }}
-        >
-          { props.completedTodoCount } / { props.allTodoCount }
         </Text>
       </Box>
 
       <KeyboardArrowDownIcon
         sx={{
+          marginRight: '18px',
           fontSize: '18px',
-          transform: `rotate(${props.isOpen === true ? 180 : 0}deg)`
+          transform: `rotate(${props.isOpen === true ? 180 : 0}deg)`,
         }}
       />
     </Box>
