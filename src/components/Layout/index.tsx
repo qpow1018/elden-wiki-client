@@ -13,7 +13,7 @@ export default function Layout(
     children: React.ReactNode;
   }
 ) {
-  // TODO mapViewerElm.offsetTop 값이 desktop에서도 mobile값을 가져오는 이슈 (useWindowSize)
+  // // TODO WORK mapViewerElm.offsetTop 값이 desktop에서도 mobile값을 가져오는 이슈 (useWindowSize)
   const [isRender, setIsRender] = useState(false);
 
   useEffect(() => {
