@@ -11,6 +11,7 @@ const theme = {
       faint: 'rgba(202, 0, 10, 0.08)',
     },
     dark: {
+      gray0: '#0b0b0b',
       gray1: '#1f1f1f',
       gray2: '#292929',
       gray3: '#3c3c3c',
@@ -21,6 +22,7 @@ const theme = {
       default: '#292929',
       base: '#1f1f1f',
       overlay: 'rgba(0, 0, 0, 0.4)',
+      popover: '#464646',
     },
     text: {
       primary: '#d4d4d4',
