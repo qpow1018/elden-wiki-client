@@ -75,6 +75,10 @@ class CheckListDB {
     return data;
   }
 
+  public setCheckListDetail(value: ResCheckListDetail) {
+    dataStorage.local.set(DataStorageKey.checkListDetails, value);
+  }
+
   public addCheckListDetail(id: string) {
     const prevData = this.getAllCheckListDetails();
     const initData = this.getCheckListInitialData();
@@ -84,7 +88,20 @@ class CheckListDB {
       [id]: initData,
     }
 
-    dataStorage.local.set(DataStorageKey.checkListDetails, newData);
+    this.setCheckListDetail(newData);
+  }
+
+  public updateCheckListTodoItemComplete(checkListId: string, areaId: number, todoId: number, isComplete: boolean) {
+    const details = this.getAllCheckListDetails();
+
+    const targetDetailData = details[checkListId];
+    const targetAreaIndex = targetDetailData.findIndex(item => item.areaId === areaId);
+    const targetTodoIndex = targetDetailData[targetAreaIndex].list.findIndex(item => item.todoId === todoId);
+
+    const targetTodoItem = targetDetailData[targetAreaIndex].list[targetTodoIndex];
+    targetTodoItem.isComplete = isComplete;
+
+    this.setCheckListDetail(details);
   }
 
 

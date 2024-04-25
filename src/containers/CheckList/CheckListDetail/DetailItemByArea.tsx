@@ -15,13 +15,23 @@ export default function DetailItemByArea(
     areaId: number;
     name: string;
     todoList: ResCheckListDetailAreaItem[];
-    isOpen: boolean;
+    getAllTodoCount: () => number;
+    getCompletedTodoCount: () => number;
+    updateTodoItemCompleteFromStorage: (todoId: number, isComplete: boolean) => void;
   }
 ) {
-  // TODO props.isOpen을 쓰지말고 skip을 제외한 모든 todo가 완료되어 있으면 초기값 닫힘
-  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [allTodoCount, setAllTodoCount] = useState<number>(() => props.getAllTodoCount());
+  const [completedTodoCount, setCompletedTodoCount] = useState<number>(() => props.getCompletedTodoCount());
+  const [isOpen, setIsOpen] = useState<boolean>(() => {
+    const _allTodoCount = props.getAllTodoCount();
+    const _completedTodoCount = props.getCompletedTodoCount();
+    return _allTodoCount === _completedTodoCount ? false : true;
+  });
 
-  // TODO 갯수 체크 필요
+  function handleClickTodoItemCheckButton(todoId: number, isComplete: boolean) {
+    setCompletedTodoCount(prev => isComplete === true ? prev + 1 : prev - 1);
+    props.updateTodoItemCompleteFromStorage(todoId, isComplete);
+  }
 
   return (
     <Box
@@ -37,6 +47,8 @@ export default function DetailItemByArea(
         isOpen={isOpen}
         onClickHeader={() => setIsOpen(prev => !prev)}
         areaName={props.name}
+        allTodoCount={allTodoCount}
+        completedTodoCount={completedTodoCount}
       />
 
       { isOpen === true && (
@@ -52,6 +64,7 @@ export default function DetailItemByArea(
             additionalInfo={item.additionalInfo}
             isComplete={item.isComplete}
             isSkip={item.isSkip}
+            onClickTodoItemCheckButton={(isComplete) => handleClickTodoItemCheckButton(item.todoId, isComplete)}
           />
         )
       )}
@@ -64,6 +77,8 @@ function ItemHeader(
     isOpen: boolean;
     onClickHeader: () => void;
     areaName: string;
+    allTodoCount: number;
+    completedTodoCount: number;
   }
 ) {
   return (
@@ -91,16 +106,18 @@ function ItemHeader(
           }}
         >
           { props.areaName }
+
         </Text>
 
         <Text
           sx={{
             fontSize: '12px',
             fontWeight: 500,
-            marginLeft: '4px'
+            marginLeft: '4px',
+            color: theme.color.primary.main
           }}
         >
-          (0/22) todo
+          { props.completedTodoCount } / { props.allTodoCount }
         </Text>
       </Box>
 

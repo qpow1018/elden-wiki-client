@@ -4,7 +4,7 @@ import { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import theme from '@/styles/theme';
 
-import checkListDB, { ResCheckList, ResCheckListDetailArea } from '@/tempDb/checkList/checkListDB';
+import checkListDB, { ResCheckList, ResCheckListDetailArea, ResCheckListDetailAreaItem } from '@/tempDb/checkList/checkListDB';
 
 import Layout from '@/components/Layout';
 import Container from '@/components/Base/Container';
@@ -67,17 +67,19 @@ export default function CheckListDetail(
     setSubMenuElm(null);
   }
 
+  function getAllTodoCount(todoList: ResCheckListDetailAreaItem[]) {
+    const res = todoList.filter(item => item.isSkip === false);
+    return res.length;
+  }
 
+  function getCompletedTodoCount(todoList: ResCheckListDetailAreaItem[]) {
+    const res = todoList.filter(item => item.isSkip === false && item.isComplete === true);
+    return res.length;
+  }
 
-
-
-
-
-
-
-
-
-
+  function updateTodoItemCompleteFromStorage(areaId: number, todoId: number, isComplete: boolean) {
+    checkListDB.updateCheckListTodoItemComplete(checkListId, areaId, todoId, isComplete);
+  }
 
   return (
     <Layout>
@@ -103,7 +105,9 @@ export default function CheckListDetail(
                 areaId={item.areaId}
                 name={item.name}
                 todoList={item.list}
-                isOpen={item.isOpen}
+                getAllTodoCount={() => getAllTodoCount(item.list)}
+                getCompletedTodoCount={() => getCompletedTodoCount(item.list)}
+                updateTodoItemCompleteFromStorage={(todoId, isComplete) => updateTodoItemCompleteFromStorage(item.areaId, todoId, isComplete)}
               />
             )}
           </>

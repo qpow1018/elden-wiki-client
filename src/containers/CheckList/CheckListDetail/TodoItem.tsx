@@ -4,6 +4,8 @@ import theme from '@/styles/theme';
 
 import Text from '@/components/Base/Text';
 
+import CheckBoxOutlinedIcon from '@mui/icons-material/CheckBoxOutlined';
+
 export default function TodoItem(
   props: {
     todoId: number;
@@ -15,8 +17,11 @@ export default function TodoItem(
     additionalInfo: string[];
     isComplete: boolean;
     isSkip: boolean;
+    onClickTodoItemCheckButton: (isComplete: boolean) => void;
   }
 ) {
+  const [isComplete, setIsComplete] = useState<boolean>(props.isComplete);
+
   return (
     <Box
       sx={{
@@ -32,6 +37,15 @@ export default function TodoItem(
           minHeight: 48,
         }}
       >
+        <CheckButton
+          isComplete={isComplete}
+          onClick={() => setIsComplete(prev => {
+            const newValue = !prev;
+            props.onClickTodoItemCheckButton(newValue);
+            return newValue;
+          })}
+        />
+
         <InfomationPanel
           isBoss={props.isBoss}
           locationName={props.locationName}
@@ -41,11 +55,32 @@ export default function TodoItem(
           additionalInfo={props.additionalInfo}
         />
       </Box>
-
-      <CheckButton
-      
-      />
     </Box>
+  );
+}
+
+function CheckButton(
+  props: {
+    isComplete: boolean;
+    onClick: () => void;
+  }
+) {
+  return (
+    <ButtonBase
+      onClick={props.onClick}
+      sx={{
+        backgroundColor: props.isComplete === true ? theme.color.primary.faint : theme.color.dark.gray2,
+        width: '64px',
+        height: '100%',
+      }}
+    >
+      <CheckBoxOutlinedIcon
+        sx={{
+          fontSize: '20px',
+          color: props.isComplete === true ? theme.color.primary.main : theme.color.text.secondary,
+        }}
+      />
+    </ButtonBase>
   );
 }
 
@@ -59,19 +94,18 @@ function InfomationPanel(
     additionalInfo: string[];
   }
 ) {
-
-
   return (
     <Box
       sx={{
         width: '100%',
-        padding: '12px 8px 12px 16px',
+        padding: '12px',
       }}
     >
       <Text
         sx={{
           fontSize: '11px',
-          marginBottom: '2px'
+          color: theme.color.text.secondary,
+          marginBottom: '2px',
         }}
       >
         { props.locationName }
@@ -99,7 +133,6 @@ function InfomationPanel(
             marginTop: '4px',
             display: 'flex',
             fontSize: '11px',
-            color: theme.color.text.secondary,
           }}
         >
           <Box sx={{ flex: 1 }}>
@@ -119,24 +152,5 @@ function InfomationPanel(
         </Box>
       }
     </Box>
-  );
-}
-
-function CheckButton(
-  props: {
-
-  }
-) {
-  return (
-    <ButtonBase
-      sx={{
-        // backgroundColor: theme.color.primary.main,
-        backgroundColor: theme.color.dark.gray2,
-        width: '80px',
-      }}
-    >
-
-      체크
-    </ButtonBase>
   );
 }
