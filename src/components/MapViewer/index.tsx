@@ -115,7 +115,7 @@ export default function MapViewer(
     setupMovementCoordByZoomPoint(zoomPoint, mapViewer);
   }, [zoomPoint, mapViewer]);
 
-  // TODO 덜컹거리는 원인 체크
+  // TODO WORK 덜컹거리는 원인 체크
   function setupMovementCoordByZoomPoint(zoomPoint: TypeZoomPoint, mapViewer: TypeMapViewer) {
     const mouseX = zoomPoint.x;
     const mouseY = zoomPoint.y;

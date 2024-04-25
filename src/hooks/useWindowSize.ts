@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-// TODO 추후 전역 상태로 변경하는게 좋지않을까??
+// TODO WORK 추후 전역 상태로 변경하는게 좋지않을까??
 export default function useWindowSize() {
   const [windowSize, setWindowSize] = useState<{ width: number; height: number }>({ width: 0, height: 0 });
   const [isDesktop, setIsDesktop] = useState<boolean>(false);

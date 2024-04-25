@@ -42,7 +42,7 @@ export default function MovementComponent(
       return;
     }
 
-    // TODO 이미지가 맵 영역 끝에 도달하면 더 이상 이동되면 안된다.
+    // TODO WORK 이미지가 맵 영역 끝에 도달하면 더 이상 이동되면 안된다.
     // 추가 작업 필요
 
     refMovePointX.current = utils.convertNumberWithDecimal(refLastMovePointX.current - movePointX, 2);
@@ -63,7 +63,7 @@ export default function MovementComponent(
     refLastMovePointY.current = 0;
   }
 
-  // TODO 이동 관련해서 생각해 봐야할 이슈
+  // TODO WORK 이동 관련해서 생각해 봐야할 이슈
   // addEventListener, removeEventListener 적절하게 작동하는지 확인 필요 - 필요한만큼(1개겠지) 추가되고 삭제된다.
   // mouseMove는 아주 많은 이벤트를 발생 시킨다. - 성능 이슈 발생하려나?? + 이를 해결하기 위해 Throttling을 사용한다면... 매끄럽게 보일까?
   function handleMouseDownMovementContainer(e: React.MouseEvent) {
