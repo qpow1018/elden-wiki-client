@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { Box } from '@mui/material';
 import theme from '@/styles/theme';
 
@@ -18,14 +18,14 @@ import TextInput from '@/components/Form/TextInput';
 
 import Button, { ButtonTheme } from '@/components/Button';
 
-export default function CheckListEditing(
-  props: {
-    checkListId: string;
-  }
-) {
-  const { checkListId } = props;
-
+export default function CheckListEditing() {
   const router = useRouter();
+
+  const searchParams = useSearchParams();
+  const checkListId = searchParams.get('id');
+  if (checkListId === null) {
+    throw new Error('invalid checkListId');
+  }
 
   const [characterName, setCharacterName] = useState<string>('');
   const [ngPlus, setNgPlus] = useState<string>('');
@@ -49,7 +49,7 @@ export default function CheckListEditing(
     setNgPlus(_value);
   }
 
-  function handleClickCreateButton() {
+  function handleClickCreateButton(checkListId: string) {
     const _characterName = characterName.trim();
     const isValidCharacterName = checkListUtils.isValidCharacterName(_characterName);
     if (isValidCharacterName === false) {
@@ -124,7 +124,7 @@ export default function CheckListEditing(
         </Box>
 
         <Button
-          onClick={handleClickCreateButton}
+          onClick={() => handleClickCreateButton(checkListId)}
           theme={ButtonTheme.bgPri}
           sx={{
             width: '100%',

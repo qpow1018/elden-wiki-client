@@ -17,6 +17,7 @@ export default function Home() {
         <Box>- 버튼 disabled, loading 속성 추가</Box>
         <Box>- PC UI 체크</Box>
         <Box>- Window 히스토리 제어 - 추가, 수정, 삭제 등</Box>
+        <Box>- 에러 처리</Box>
 
       </Box>
     </Layout>

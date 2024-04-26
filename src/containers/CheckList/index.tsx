@@ -134,7 +134,7 @@ function CheckListItem(
       }}
     >
       <Link
-        href={`/check-list/${props.id}`}
+        href={`/check-list/detail?id=${props.id}`}
         sx={{
           borderRadius: theme.common.borderRadius,
           width: '100%',

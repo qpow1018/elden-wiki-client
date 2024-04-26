@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import theme from '@/styles/theme';
 
 import { utils } from '@/libs';
@@ -17,14 +17,14 @@ import FixedLoading from '@/components/Loading/FixedLoading';
 import StickyTopMenuBar from './StickyTopMenuBar';
 import DetailItemByArea from './DetailItemByArea';
 
-export default function CheckListDetail(
-  props: {
-    checkListId: string;
-  }
-) {
-  const { checkListId } = props;
-
+export default function CheckListDetail() {
   const router = useRouter();
+
+  const searchParams = useSearchParams();
+  const checkListId = searchParams.get('id');
+  if (checkListId === null) {
+    throw new Error('invalid checkListId');
+  }
 
   const refAreaElms = useRef<{ [areaId: number]: HTMLElement }>({});
 
@@ -78,7 +78,7 @@ export default function CheckListDetail(
     setSubMenuElm(null);
   }
 
-  async function resetCheckListDetailFromStorage() {
+  async function resetCheckListDetailFromStorage(checkListId: string) {
     setIsResetLoading(true);
     checkListDB.resetCheckListDetail(checkListId);
 
@@ -93,10 +93,10 @@ export default function CheckListDetail(
   }
 
   function goToCheckListEditPage() {
-    router.push(`/check-list/${checkListId}/editing`);
+    router.push(`/check-list/editing?id=${checkListId}`);
   }
 
-  async function deleteCheckListFromStorage() {
+  async function deleteCheckListFromStorage(checkListId: string) {
     setIsDeleteLoading(true);
     checkListDB.deleteCheckListAndDetail(checkListId);
 
@@ -121,7 +121,7 @@ export default function CheckListDetail(
     return res.length;
   }
 
-  function updateTodoItemCompleteFromStorage(areaId: number, todoId: number, isComplete: boolean) {
+  function updateTodoItemCompleteFromStorage(checkListId: string, areaId: number, todoId: number, isComplete: boolean) {
     checkListDB.updateCheckListTodoItemComplete(checkListId, areaId, todoId, isComplete);
   }
 
@@ -158,7 +158,7 @@ export default function CheckListDetail(
                 todoList={item.list}
                 getAllTodoCount={() => getAllTodoCount(item.list)}
                 getCompletedTodoCount={() => getCompletedTodoCount(item.list)}
-                updateTodoItemCompleteFromStorage={(todoId, isComplete) => updateTodoItemCompleteFromStorage(item.areaId, todoId, isComplete)}
+                updateTodoItemCompleteFromStorage={(todoId, isComplete) => updateTodoItemCompleteFromStorage(checkListId, item.areaId, todoId, isComplete)}
               />
             )}
 
@@ -169,7 +169,7 @@ export default function CheckListDetail(
                 title='체크리스트 초기화'
                 message='정말 체크리스트를 초기화 하시겠습니까?'
                 submitButtonText='초기화하기'
-                onSubmit={resetCheckListDetailFromStorage}
+                onSubmit={() => resetCheckListDetailFromStorage(checkListId)}
               />
             }
 
@@ -181,7 +181,7 @@ export default function CheckListDetail(
                 message='정말 체크리스트를 삭제 하시겠습니까?'
                 submitButtonText='삭제하기'
                 submitButtonTheme={ButtonTheme.bgSec}
-                onSubmit={deleteCheckListFromStorage}
+                onSubmit={() => deleteCheckListFromStorage(checkListId)}
               />
             }
           </>
