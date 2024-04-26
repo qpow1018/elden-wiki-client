@@ -8,6 +8,15 @@ class Utils {
     return str.replace(regex, '');
   }
 
+  public async waitFor(milliseconds: number) {
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        resolve('');
+      }, milliseconds);
+    });
+  }
+
+
 }
 
 const _instance = new Utils();
