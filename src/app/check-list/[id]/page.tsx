@@ -7,3 +7,7 @@ export default function CheckListDetail({ params }: { params: { id: string } }) 
     />
   );
 }
+
+export async function generateStaticParams() {
+  return [{ id: 'testId'}];
+}

@@ -16,3 +16,7 @@ export default function MapDetail({ params }: { params: { mapId: string } }) {
     />
   );
 }
+
+export async function generateStaticParams() {
+  return [{ mapId: 'testMapId'}];
+}
