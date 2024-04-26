@@ -5,7 +5,7 @@
   "homepage": "https://qpow1018.github.io/elden-wiki-client/",
   "scripts": {
     "dev": "next dev",
-    "build": "next build && next export",
+    "build": "next build",
     "start": "next start",
     "lint": "next lint",
     "predeploy": "npm run build",
