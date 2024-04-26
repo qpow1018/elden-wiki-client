@@ -52,7 +52,7 @@ const theme = {
     transition: '0.25s ease',
   },
   zIndex: {
-    fixedLoading: 5000,
+    fixedLoading: 1000,
   },
 }
 
