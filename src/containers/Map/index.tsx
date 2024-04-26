@@ -1,7 +1,5 @@
 'use client';
 
-import { Box } from '@mui/material';
-
 import theme from '@/styles/theme';
 
 import { ResMap } from '@/tempDb/map';
@@ -38,7 +36,7 @@ export default function Map(
         { props.mapList.map(item =>
           <Link
             key={item.id}
-            href={`/map/${item.id}`}
+            href={`/map/detail?id=${item.id}`}
             sx={{
               display: 'flex',
               alignItems: 'center',

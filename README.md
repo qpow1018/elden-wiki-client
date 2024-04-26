@@ -86,6 +86,7 @@
 - 맵 이미지 최적화
 - useWindowSize를 사용했을 때 생기는 이슈 (렌더링 순서 관련)
 - 배포 시 발생한 generateStaticParams 관련 이슈 (동적 라우팅 페이지)
+- next export 와 image loader
 
 
 ## 해결 정리
