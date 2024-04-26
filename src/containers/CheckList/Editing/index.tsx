@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, Suspense } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { Box } from '@mui/material';
 import theme from '@/styles/theme';
@@ -81,61 +81,59 @@ export default function CheckListEditing() {
           padding: '16px'
         }}
       >
-        <Suspense>
-          <Text
-            sx={{
-              fontSize: '15px',
-              fontWeight: 500,
-              color: theme.color.text.dark,
-              marginBottom: '24px',
-            }}
-          >
-            체크리스트 수정
-          </Text>
+        <Text
+          sx={{
+            fontSize: '15px',
+            fontWeight: 500,
+            color: theme.color.text.dark,
+            marginBottom: '24px',
+          }}
+        >
+          체크리스트 수정
+        </Text>
 
-          <Box
-            sx={{
-              marginBottom: '24px'
-            }}
-          >
-            <FormRow>
-              <FormLabel>캐릭터 이름</FormLabel>
-              <TextInput
-                value={characterName}
-                onChange={(value) => setCharacterName(value)}
-                placeholder='캐릭터 이름'
-              />
-            </FormRow>
-            <FormRow>
-              <FormLabel>회차</FormLabel>
-              <TextInput
-                value={ngPlus}
-                onChange={(value) => handleChangeNgPlusInput(value)}
-                placeholder='회차 정보 - 숫자 또는 빈칸'
-              />
-            </FormRow>
-            <FormRow>
-              <FormLabel>간단 메모</FormLabel>
-              <TextInput
-                value={memo}
-                onChange={(value) => setMemo(value)}
-                placeholder='간단한 메모'
-              />
-            </FormRow>
-          </Box>
+        <Box
+          sx={{
+            marginBottom: '24px'
+          }}
+        >
+          <FormRow>
+            <FormLabel>캐릭터 이름</FormLabel>
+            <TextInput
+              value={characterName}
+              onChange={(value) => setCharacterName(value)}
+              placeholder='캐릭터 이름'
+            />
+          </FormRow>
+          <FormRow>
+            <FormLabel>회차</FormLabel>
+            <TextInput
+              value={ngPlus}
+              onChange={(value) => handleChangeNgPlusInput(value)}
+              placeholder='회차 정보 - 숫자 또는 빈칸'
+            />
+          </FormRow>
+          <FormRow>
+            <FormLabel>간단 메모</FormLabel>
+            <TextInput
+              value={memo}
+              onChange={(value) => setMemo(value)}
+              placeholder='간단한 메모'
+            />
+          </FormRow>
+        </Box>
 
-          <Button
-            onClick={() => handleClickCreateButton(checkListId)}
-            theme={ButtonTheme.bgPri}
-            sx={{
-              width: '100%',
-              height: 48,
-              fontSize: '15px'
-            }}
-          >
-            수정하기
-          </Button>
-        </Suspense>
+        <Button
+          onClick={() => handleClickCreateButton(checkListId)}
+          theme={ButtonTheme.bgPri}
+          sx={{
+            width: '100%',
+            height: 48,
+            fontSize: '15px'
+          }}
+        >
+          수정하기
+        </Button>
       </Container>
     </Layout>
   );

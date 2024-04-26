@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useRef, Suspense } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import theme from '@/styles/theme';
 
@@ -128,70 +128,68 @@ export default function CheckListDetail() {
   return (
     <Layout>
       <Container>
-        <Suspense>
-          { isResetLoading === true &&
-            <BoxLoading sx={{ height: 480 }} />
-          }
+        { isResetLoading === true &&
+          <BoxLoading sx={{ height: 480 }} />
+        }
 
-          { (isResetLoading === false && characterInfo !== null && checkListData !== null) &&
-            <>
-              <StickyTopMenuBar
-                characterInfo={characterInfo}
-                shortcutMenuElm={shortcutMenuElm}
-                openShortCutMenu={openShortCutMenu}
-                closeShortCutMenu={closeShortCutMenu}
-                onClickShortcutAreaButton={handleClickShortcutAreaButton}
-                checkListData={checkListData}
-                subMenuElm={subMenuElm}
-                openSubMenu={openSubMenu}
-                closeSubMenu={closeSubMenu}
-                onClickResetButton={() => setIsResetDialogOpen(true)}
-                onClickEditButton={goToCheckListEditPage}
-                onClickDeleteButton={() => setIsDeleteDialogOpen(true)}
+        { (isResetLoading === false && characterInfo !== null && checkListData !== null) &&
+          <>
+            <StickyTopMenuBar
+              characterInfo={characterInfo}
+              shortcutMenuElm={shortcutMenuElm}
+              openShortCutMenu={openShortCutMenu}
+              closeShortCutMenu={closeShortCutMenu}
+              onClickShortcutAreaButton={handleClickShortcutAreaButton}
+              checkListData={checkListData}
+              subMenuElm={subMenuElm}
+              openSubMenu={openSubMenu}
+              closeSubMenu={closeSubMenu}
+              onClickResetButton={() => setIsResetDialogOpen(true)}
+              onClickEditButton={goToCheckListEditPage}
+              onClickDeleteButton={() => setIsDeleteDialogOpen(true)}
+            />
+
+            { checkListData.map(item =>
+              <DetailItemByArea
+                key={item.areaId}
+                appendRefAreaElms={(elm) => appendRefAreaElms(item.areaId, elm)}
+                areaId={item.areaId}
+                name={item.name}
+                todoList={item.list}
+                getAllTodoCount={() => getAllTodoCount(item.list)}
+                getCompletedTodoCount={() => getCompletedTodoCount(item.list)}
+                updateTodoItemCompleteFromStorage={(todoId, isComplete) => updateTodoItemCompleteFromStorage(checkListId, item.areaId, todoId, isComplete)}
               />
+            )}
 
-              { checkListData.map(item =>
-                <DetailItemByArea
-                  key={item.areaId}
-                  appendRefAreaElms={(elm) => appendRefAreaElms(item.areaId, elm)}
-                  areaId={item.areaId}
-                  name={item.name}
-                  todoList={item.list}
-                  getAllTodoCount={() => getAllTodoCount(item.list)}
-                  getCompletedTodoCount={() => getCompletedTodoCount(item.list)}
-                  updateTodoItemCompleteFromStorage={(todoId, isComplete) => updateTodoItemCompleteFromStorage(checkListId, item.areaId, todoId, isComplete)}
-                />
-              )}
+            { isResetDialogOpen === true &&
+              <Dialog
+                isOpen={isResetDialogOpen}
+                onClose={() => setIsResetDialogOpen(false)}
+                title='체크리스트 초기화'
+                message='정말 체크리스트를 초기화 하시겠습니까?'
+                submitButtonText='초기화하기'
+                onSubmit={() => resetCheckListDetailFromStorage(checkListId)}
+              />
+            }
 
-              { isResetDialogOpen === true &&
-                <Dialog
-                  isOpen={isResetDialogOpen}
-                  onClose={() => setIsResetDialogOpen(false)}
-                  title='체크리스트 초기화'
-                  message='정말 체크리스트를 초기화 하시겠습니까?'
-                  submitButtonText='초기화하기'
-                  onSubmit={() => resetCheckListDetailFromStorage(checkListId)}
-                />
-              }
+            { isDeleteDialogOpen === true &&
+              <Dialog
+                isOpen={isDeleteDialogOpen}
+                onClose={() => setIsDeleteDialogOpen(false)}
+                title='체크리스트 삭제'
+                message='정말 체크리스트를 삭제 하시겠습니까?'
+                submitButtonText='삭제하기'
+                submitButtonTheme={ButtonTheme.bgSec}
+                onSubmit={() => deleteCheckListFromStorage(checkListId)}
+              />
+            }
+          </>
+        }
 
-              { isDeleteDialogOpen === true &&
-                <Dialog
-                  isOpen={isDeleteDialogOpen}
-                  onClose={() => setIsDeleteDialogOpen(false)}
-                  title='체크리스트 삭제'
-                  message='정말 체크리스트를 삭제 하시겠습니까?'
-                  submitButtonText='삭제하기'
-                  submitButtonTheme={ButtonTheme.bgSec}
-                  onSubmit={() => deleteCheckListFromStorage(checkListId)}
-                />
-              }
-            </>
-          }
-
-          { isDeleteLoading === true &&
-            <FixedLoading />
-          }
-        </Suspense>
+        { isDeleteLoading === true &&
+          <FixedLoading />
+        }
       </Container>
     </Layout>
   );
