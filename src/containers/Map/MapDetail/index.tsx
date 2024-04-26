@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { Box } from '@mui/material';
 
@@ -48,25 +48,27 @@ export default function MapDetail() {
           },
         ]}
       >
-        <Box
-          sx={[
-            {
-              width: '100%',
-              height: '100%'
-            },
-            isDesktop && {
-              border: `1px solid ${theme.color.border.default}`,
-              height: 680,
+        <Suspense>
+          <Box
+            sx={[
+              {
+                width: '100%',
+                height: '100%'
+              },
+              isDesktop && {
+                border: `1px solid ${theme.color.border.default}`,
+                height: 680,
+              }
+            ]}
+          >
+            { (mapData !== null && itemsData !== null) &&
+              <MapViewer
+                mapData={mapData}
+                itemsData={itemsData}
+              />
             }
-          ]}
-        >
-          { (mapData !== null && itemsData !== null) &&
-            <MapViewer
-              mapData={mapData}
-              itemsData={itemsData}
-            />
-          }
-        </Box>
+          </Box>
+        </Suspense>
       </Container>
     </Layout>
   );
