@@ -22,6 +22,9 @@ export default function StickyTopMenuBar(
     subMenuElm: HTMLElement | null;
     openSubMenu: (elm: HTMLElement) => void;
     closeSubMenu: () => void;
+    onClickResetButton: () => void;
+    onClickEditButton: () => void;
+    onClickDeleteButton: () => void;
   }
 ) {
   return (
@@ -88,6 +91,9 @@ export default function StickyTopMenuBar(
           <SubMenu
             subMenuElm={props.subMenuElm}
             closeSubMenu={props.closeSubMenu}
+            onClickResetButton={props.onClickResetButton}
+            onClickEditButton={props.onClickEditButton}
+            onClickDeleteButton={props.onClickDeleteButton}
           />
         </>
       </Box>
@@ -174,6 +180,9 @@ function SubMenu(
   props: {
     subMenuElm: HTMLElement | null;
     closeSubMenu: () => void;
+    onClickResetButton: () => void;
+    onClickEditButton: () => void;
+    onClickDeleteButton: () => void;
   }
 ) {
   return (
@@ -189,12 +198,15 @@ function SubMenu(
         }}
       >
         <SubMenuButton
+          onClick={props.onClickResetButton}
           text='초기화하기'
         />
         <SubMenuButton
+          onClick={props.onClickEditButton}
           text='수정하기'
         />
         <SubMenuButton
+          onClick={props.onClickDeleteButton}
           text='삭제하기'
         />
       </Box>
@@ -204,11 +216,13 @@ function SubMenu(
 
 function SubMenuButton(
   props: {
+    onClick?: () => void;
     text: string;
   }
 ) {
   return (
     <ButtonBase
+      onClick={props.onClick}
       sx={{
         width: '100%',
         height: 36,

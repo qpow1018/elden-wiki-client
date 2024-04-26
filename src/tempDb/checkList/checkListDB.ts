@@ -91,6 +91,18 @@ class CheckListDB {
     this.setCheckListDetail(newData);
   }
 
+  public resetCheckListDetail(id: string) {
+    const prevData = this.getAllCheckListDetails();
+    const initData = this.getCheckListInitialData();
+
+    const newData = {
+      ...prevData,
+      [id]: initData,
+    }
+
+    this.setCheckListDetail(newData);
+  }
+
   public updateCheckListTodoItemComplete(checkListId: string, areaId: number, todoId: number, isComplete: boolean) {
     const details = this.getAllCheckListDetails();
 
@@ -103,6 +115,7 @@ class CheckListDB {
 
     this.setCheckListDetail(details);
   }
+
 
 
 
