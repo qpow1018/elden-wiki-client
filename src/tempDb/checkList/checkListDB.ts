@@ -48,10 +48,14 @@ class CheckListDB {
     return data;
   }
 
+  public setCheckList(value: ResCheckList[]) {
+    dataStorage.local.set(DataStorageKey.allCheckLists, value);
+  }
+
   public addCheckList(value: ResCheckList) {
     const prevCheckLists = this.getAllCheckLists();
     const newList = [ ...prevCheckLists, value ];
-    dataStorage.local.set(DataStorageKey.allCheckLists, newList);
+    this.setCheckList(newList);
 
     this.addCheckListDetail(value.id);
   }
@@ -116,9 +120,18 @@ class CheckListDB {
     this.setCheckListDetail(details);
   }
 
+  public deleteCheckListAndDetail(id: string) {
+    // 배열에서 삭제
+    const list = this.getAllCheckLists();
+    const targetListIndex = list.findIndex(item => item.id === id);
+    list.splice(targetListIndex, 1);
+    this.setCheckList(list);
 
-
-
+    // 객체에서 삭제
+    const detail = this.getAllCheckListDetails();
+    delete detail[id];
+    this.setCheckListDetail(detail);
+  }
 
 
 

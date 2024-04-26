@@ -15,6 +15,9 @@ export default function Home() {
         <Box>- 체크리스트 Skip 기능</Box>
         <Box>- 체크리스트 templete 기능 (1회차, All보스런, Main보스런 등)</Box>
         <Box>- 버튼 disabled, loading 속성 추가</Box>
+        <Box>- PC UI 체크</Box>
+        <Box>- 체크리스트 수정 페이지</Box>
+        <Box>- Window 히스토리 제어 - 추가, 수정, 삭제 등</Box>
 
       </Box>
     </Layout>

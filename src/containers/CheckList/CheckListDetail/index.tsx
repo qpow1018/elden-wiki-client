@@ -12,6 +12,7 @@ import Container from '@/components/Base/Container';
 import Dialog from '@/components/Modal/Dialog';
 import { ButtonTheme } from '@/components/Button';
 import BoxLoading from '@/components/Loading/BoxLoading';
+import FixedLoading from '@/components/Loading/FixedLoading';
 
 import StickyTopMenuBar from './StickyTopMenuBar';
 import DetailItemByArea from './DetailItemByArea';
@@ -35,6 +36,7 @@ export default function CheckListDetail(
   const [isResetDialogOpen, setIsResetDialogOpen] = useState<boolean>(false);
   const [isResetLoading, setIsResetLoading] = useState<boolean>(false);
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState<boolean>(false);
+  const [isDeleteLoading, setIsDeleteLoading] = useState<boolean>(false);
 
   useEffect(() => {
     setupCheckListDataFromStorage(checkListId);
@@ -76,9 +78,8 @@ export default function CheckListDetail(
     setSubMenuElm(null);
   }
 
-  async function resetCheckListDetail() {
+  async function resetCheckListDetailFromStorage() {
     setIsResetLoading(true);
-
     checkListDB.resetCheckListDetail(checkListId);
 
     setCheckListData(null);
@@ -96,7 +97,20 @@ export default function CheckListDetail(
     alert('수정 페이지 제작 필요 todo');
   }
 
-  // TODO WORK 삭제 기능
+  async function deleteCheckListFromStorage() {
+    setIsDeleteLoading(true);
+    checkListDB.deleteCheckListAndDetail(checkListId);
+
+    setIsDeleteDialogOpen(false);
+    closeSubMenu();
+
+    await utils.waitFor(250);
+
+    setIsDeleteLoading(false);
+
+    // 목록으로 라우팅
+    router.push('/check-list');
+  }
 
 
   function getAllTodoCount(todoList: ResCheckListDetailAreaItem[]) {
@@ -158,7 +172,7 @@ export default function CheckListDetail(
                 title='체크리스트 초기화'
                 message='정말 체크리스트를 초기화 하시겠습니까?'
                 submitButtonText='초기화하기'
-                onSubmit={resetCheckListDetail}
+                onSubmit={resetCheckListDetailFromStorage}
               />
             }
 
@@ -170,10 +184,14 @@ export default function CheckListDetail(
                 message='정말 체크리스트를 삭제 하시겠습니까?'
                 submitButtonText='삭제하기'
                 submitButtonTheme={ButtonTheme.bgSec}
-                onSubmit={() => {}}
+                onSubmit={deleteCheckListFromStorage}
               />
             }
           </>
+        }
+
+        { isDeleteLoading === true &&
+          <FixedLoading />
         }
       </Container>
     </Layout>
