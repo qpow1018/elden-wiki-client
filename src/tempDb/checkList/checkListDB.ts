@@ -60,6 +60,13 @@ class CheckListDB {
     this.addCheckListDetail(value.id);
   }
 
+  public updateCheckList(id: string, newValue: ResCheckList) {
+    const list = this.getAllCheckLists();
+    const targetIndex = list.findIndex(item => item.id === id);
+    list[targetIndex] = newValue;
+    this.setCheckList(list);
+  }
+
   public getCheckListInitialData(): ResCheckListDetailArea[] {
     return initialData;
   }

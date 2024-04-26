@@ -92,9 +92,8 @@ export default function CheckListDetail(
     setIsResetLoading(false);
   }
 
-  // TODO WORK 수정 기능
   function goToCheckListEditPage() {
-    alert('수정 페이지 제작 필요 todo');
+    router.push(`/check-list/${checkListId}/editing`);
   }
 
   async function deleteCheckListFromStorage() {
@@ -112,7 +111,6 @@ export default function CheckListDetail(
     router.push('/check-list');
   }
 
-
   function getAllTodoCount(todoList: ResCheckListDetailAreaItem[]) {
     const res = todoList.filter(item => item.isSkip === false);
     return res.length;
@@ -126,7 +124,6 @@ export default function CheckListDetail(
   function updateTodoItemCompleteFromStorage(areaId: number, todoId: number, isComplete: boolean) {
     checkListDB.updateCheckListTodoItemComplete(checkListId, areaId, todoId, isComplete);
   }
-
 
   return (
     <Layout>
