@@ -4,10 +4,14 @@ import { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import theme from '@/styles/theme';
 
+import { utils } from '@/libs';
 import checkListDB, { ResCheckList, ResCheckListDetailArea, ResCheckListDetailAreaItem } from '@/tempDb/checkList/checkListDB';
 
 import Layout from '@/components/Layout';
 import Container from '@/components/Base/Container';
+import Dialog from '@/components/Modal/Dialog';
+import { ButtonTheme } from '@/components/Button';
+import BoxLoading from '@/components/Loading/BoxLoading';
 
 import StickyTopMenuBar from './StickyTopMenuBar';
 import DetailItemByArea from './DetailItemByArea';
@@ -24,9 +28,13 @@ export default function CheckListDetail(
   const refAreaElms = useRef<{ [areaId: number]: HTMLElement }>({});
 
   const [characterInfo, setCharacterInfo] = useState<ResCheckList | null>(null);
-  const [checkListData, setCheckListData] = useState<ResCheckListDetailArea[] | null>([]);
+  const [checkListData, setCheckListData] = useState<ResCheckListDetailArea[] | null>(null);
+
   const [shortcutMenuElm, setShortcutMenuElm] = useState<HTMLElement | null>(null);
   const [subMenuElm, setSubMenuElm] = useState<HTMLElement | null>(null);
+  const [isResetDialogOpen, setIsResetDialogOpen] = useState<boolean>(false);
+  const [isResetLoading, setIsResetLoading] = useState<boolean>(false);
+  const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState<boolean>(false);
 
   useEffect(() => {
     setupCheckListDataFromStorage(checkListId);
@@ -35,6 +43,7 @@ export default function CheckListDetail(
   function setupCheckListDataFromStorage(checkListId: string) {
     const resCheckList = checkListDB.getCheckList(checkListId);
     setCharacterInfo(resCheckList);
+
     const resresCheckListDetail = checkListDB.getCheckListDetail(checkListId);
     setCheckListData(resresCheckListDetail);
   }
@@ -67,6 +76,29 @@ export default function CheckListDetail(
     setSubMenuElm(null);
   }
 
+  async function resetCheckListDetail() {
+    setIsResetLoading(true);
+
+    checkListDB.resetCheckListDetail(checkListId);
+
+    setCheckListData(null);
+    setIsResetDialogOpen(false);
+    closeSubMenu();
+
+    await utils.waitFor(250);
+
+    setupCheckListDataFromStorage(checkListId);
+    setIsResetLoading(false);
+  }
+
+  // TODO WORK 수정 기능
+  function goToCheckListEditPage() {
+    alert('수정 페이지 제작 필요 todo');
+  }
+
+  // TODO WORK 삭제 기능
+
+
   function getAllTodoCount(todoList: ResCheckListDetailAreaItem[]) {
     const res = todoList.filter(item => item.isSkip === false);
     return res.length;
@@ -81,10 +113,15 @@ export default function CheckListDetail(
     checkListDB.updateCheckListTodoItemComplete(checkListId, areaId, todoId, isComplete);
   }
 
+
   return (
     <Layout>
       <Container>
-        { (characterInfo !== null && checkListData !== null) &&
+        { isResetLoading === true &&
+          <BoxLoading sx={{ height: 480 }} />
+        }
+
+        { (isResetLoading === false && characterInfo !== null && checkListData !== null) &&
           <>
             <StickyTopMenuBar
               characterInfo={characterInfo}
@@ -96,6 +133,9 @@ export default function CheckListDetail(
               subMenuElm={subMenuElm}
               openSubMenu={openSubMenu}
               closeSubMenu={closeSubMenu}
+              onClickResetButton={() => setIsResetDialogOpen(true)}
+              onClickEditButton={goToCheckListEditPage}
+              onClickDeleteButton={() => setIsDeleteDialogOpen(true)}
             />
 
             { checkListData.map(item =>
@@ -110,6 +150,29 @@ export default function CheckListDetail(
                 updateTodoItemCompleteFromStorage={(todoId, isComplete) => updateTodoItemCompleteFromStorage(item.areaId, todoId, isComplete)}
               />
             )}
+
+            { isResetDialogOpen === true &&
+              <Dialog
+                isOpen={isResetDialogOpen}
+                onClose={() => setIsResetDialogOpen(false)}
+                title='체크리스트 초기화'
+                message='정말 체크리스트를 초기화 하시겠습니까?'
+                submitButtonText='초기화하기'
+                onSubmit={resetCheckListDetail}
+              />
+            }
+
+            { isDeleteDialogOpen === true &&
+              <Dialog
+                isOpen={isDeleteDialogOpen}
+                onClose={() => setIsDeleteDialogOpen(false)}
+                title='체크리스트 삭제'
+                message='정말 체크리스트를 삭제 하시겠습니까?'
+                submitButtonText='삭제하기'
+                submitButtonTheme={ButtonTheme.bgSec}
+                onSubmit={() => {}}
+              />
+            }
           </>
         }
       </Container>
