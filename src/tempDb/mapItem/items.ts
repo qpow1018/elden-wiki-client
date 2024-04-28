@@ -912,7 +912,14 @@ const npcDb = {
   [1401]: { mainCategory: Main.npc, subCategory: Npc.default, name: '보크' },
   [1402]: { mainCategory: Main.npc, subCategory: Npc.default, name: '알렉산더' },
   [1403]: { mainCategory: Main.npc, subCategory: Npc.default, name: '유라' },
-  [1404]: { mainCategory: Main.npc, subCategory: Npc.default, name: 'NPC 추가 정리 필요' },
+  [1404]: { mainCategory: Main.npc, subCategory: Npc.default, name: '백면 바레' },
+  [1405]: { mainCategory: Main.npc, subCategory: Npc.default, name: '블라이드' },
+  [1406]: { mainCategory: Main.npc, subCategory: Npc.default, name: '케네스 하이트' },
+  [1407]: { mainCategory: Main.npc, subCategory: Npc.default, name: '패치' },
+  [1408]: { mainCategory: Main.npc, subCategory: Npc.default, name: '로데리카' },
+  [1431]: { mainCategory: Main.npc, subCategory: Npc.merchant, name: '방랑 상인 칼레' },
+  [1432]: { mainCategory: Main.npc, subCategory: Npc.merchant, name: '방랑 민족 상인(해안가)' },
+  [1433]: { mainCategory: Main.npc, subCategory: Npc.merchant, name: '방랑 민족 상인(하이트요새)' },
 }
 
 const generalItemDb = {
@@ -1159,6 +1166,7 @@ const generalItemDb = {
   [2634]: { mainCategory: Main.generalItem, subCategory: Item.consumables, name: '프로즌 레이즌' },
   [2635]: { mainCategory: Main.generalItem, subCategory: Item.consumables, name: '축복의 기억' },
   [2636]: { mainCategory: Main.generalItem, subCategory: Item.consumables, name: '유사 축복' },
+  [2641]: { mainCategory: Main.generalItem, subCategory: Item.consumables, name: '불화살' },
 
   [2701]: { mainCategory: Main.generalItem, subCategory: Item.bowl, name: '금 간 항아리' },
   [2702]: { mainCategory: Main.generalItem, subCategory: Item.bowl, name: '의식 항아리' },
