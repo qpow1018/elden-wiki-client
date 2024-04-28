@@ -1,17 +1,16 @@
-import Image, { StaticImageData } from 'next/image';
 import { Box } from '@mui/material';
 
 import theme from '@/styles/theme';
 
 import { utils } from '@/libs';
 import { ResMap } from '@/tempDb/map';
-import { ResMapItem } from '@/tempDb/mapItem';
+import { ResItemLocation } from '@/tempDb/mapItem';
 import { TypeMapViewer, TypeMapImageSize, TypeCoord } from './types';
 
 export default function ItemMarkerContainer(
   props: {
     scale: number;
-    itemsData: ResMapItem[];
+    itemsData: ResItemLocation[];
   }
 ) {
   return (
@@ -25,13 +24,13 @@ export default function ItemMarkerContainer(
         zIndex: 1,
       }}
     >
-      {/* { props.itemsData.map((data, index) =>
+      { props.itemsData.map((data, index) =>
         <ItemMarker
           key={index}
           scale={props.scale}
           data={data}
         />
-      )} */}
+      )}
     </Box>
   );
 }
@@ -39,7 +38,7 @@ export default function ItemMarkerContainer(
 function ItemMarker(
   props: {
     scale: number;
-    data: ResMapItem;
+    data: ResItemLocation;
   }
 ) {
   const { data, scale } = props;
@@ -48,8 +47,8 @@ function ItemMarker(
     <Box
       sx={{
         position: 'absolute',
-        // top: `calc(${data.location.y * scale}px - 4px)`,
-        // left: `calc(${data.location.x * scale}px - 4px)`,
+        top: `calc(${data.coord.y * scale}px - 4px)`,
+        left: `calc(${data.coord.x * scale}px - 4px)`,
         // background: 'red',
       }}
     >

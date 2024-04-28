@@ -1,19 +1,39 @@
-import { ResMapItem } from './index';
+import { ResItemLocation } from './index';
 import {
+  EnumImportance,
 
-
+  EnumLocationType,
 } from './define';
 
-const limgraveItems: ResMapItem[] = [
-  // {
-  //   location: {
-  //     type: ''
-
-  //   },
-  //   items: [
-
-  //   ]
-  // }
+const limgraveItems: ResItemLocation[] = [
+  {
+    importance: EnumImportance.middle,
+    type: EnumLocationType.field,
+    name: null,
+    displayName: null,
+    description: null,
+    coord: { x: 0, y: 0 },
+    stairs: null,
+    bossName: null,
+    bossRune: null,
+    items: [
+      { itemId: 1, count: 1, isVisible: true },
+    ],
+  },
+  {
+    importance: EnumImportance.middle,
+    type: EnumLocationType.field,
+    name: 'test',
+    displayName: null,
+    description: null,
+    coord: { x: 4009.23, y: 2604.62 },
+    stairs: null,
+    bossName: null,
+    bossRune: null,
+    items: [
+      { itemId: 1, count: 1, isVisible: true },
+    ],
+  },
 ]
 
 // 림그레이브 서쪽 아이템

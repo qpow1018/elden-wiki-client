@@ -1,60 +1,55 @@
 import limgraveItems from './limgrave';
 
-export type ResMapItem = {
+export type ResItemLocation = {
   // id: number;
   importance: number;
-  location: {
-    type: string;
-    name: string | null;
-    displayName: string | null;
-    coord: {
-      x: number;
-      y: number;
-    };
-    description: string | null;
-    stairs: number | null;
-  };
-  boss: {
-    name: string;
-    rune: number;
-  };
+  type: number;
+  name: string | null;
+  displayName: string | null;
+  description: string | null;
+  coord: { x: number; y: number; };
+  stairs: number | null;
+  bossName: string | null;
+  bossRune: number | null;
   items: {
-    type: string;
-    name: string;
+    itemId: number;
     count: number;
+    isVisible: boolean;
   }[];
 }
 
-type ResMapItems = {
-  [n: number]: ResMapItem[];
+type ResItemLocations = {
+  [n: number]: ResItemLocation[];
 };
 
-const resMapItems: ResMapItems = {
+const emptyArr: ResItemLocation[] = [];
+
+const resMapItems: ResItemLocations = {
   1: limgraveItems,
-  2: limgraveItems,
-  3: limgraveItems,
-  4: limgraveItems,
-  5: limgraveItems,
-  6: limgraveItems,
-  7: limgraveItems,
-  8: limgraveItems,
-  9: limgraveItems,
-  10: limgraveItems,
-  11: limgraveItems,
-  12: limgraveItems,
-  13: limgraveItems,
-  14: limgraveItems,
-  15: limgraveItems,
-  16: limgraveItems,
-  17: limgraveItems,
-  18: limgraveItems,
-  19: limgraveItems,
-  20: limgraveItems,
-  21: limgraveItems,
-  22: limgraveItems,
-  23: limgraveItems,
-  24: limgraveItems,
-  25: limgraveItems,
+  2: emptyArr,
+  3: emptyArr,
+  4: emptyArr,
+  5: emptyArr,
+  6: emptyArr,
+  7: emptyArr,
+  8: emptyArr,
+  9: emptyArr,
+  10: emptyArr,
+  11: emptyArr,
+  12: emptyArr,
+  13: emptyArr,
+  14: emptyArr,
+  15: emptyArr,
+  16: emptyArr,
+  17: emptyArr,
+  18: emptyArr,
+  19: emptyArr,
+  20: emptyArr,
+  21: emptyArr,
+  22: emptyArr,
+  23: emptyArr,
+  24: emptyArr,
+  25: emptyArr,
 }
 
 export default resMapItems;

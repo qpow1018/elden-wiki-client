@@ -3,7 +3,7 @@ import { Box } from '@mui/material';
 
 import { utils } from '@/libs';
 import { ResMap } from '@/tempDb/map';
-import { ResMapItem } from '@/tempDb/mapItem';
+import { ResItemLocation } from '@/tempDb/mapItem';
 import {
   TypeScale,
   TypeMapViewer,
@@ -22,7 +22,7 @@ import MapCoordContainer from './MapCoordContainer';
 export default function MapViewer(
   props: {
     mapData: ResMap;
-    itemsData: ResMapItem[];
+    itemsData: ResItemLocation[];
   }
 ) {
   const { mapData, itemsData } = props;
