@@ -93,6 +93,7 @@
 - useWindowSize를 사용했을 때 생기는 이슈 (렌더링 순서 관련)
 - 배포 시 발생한 generateStaticParams 관련 이슈 (동적 라우팅 페이지)
 - next export 와 image loader
+- Item Marker 요소 처리방식 - DOM에 요소 추가 or Canvas (비교 필요)
 
 
 ## 해결 정리

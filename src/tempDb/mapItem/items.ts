@@ -9,6 +9,10 @@ import {
   SubCategoryIngGeneralItem as Item,
 } from './define';
 
+type ResItemDb = {
+  [itemId: number]: any;
+}
+
 const weaponDb = {
   [1]: { mainCategory: Main.weapon, subCategory: Weapon.dagger, name: '대거' },
   [2]: { mainCategory: Main.weapon, subCategory: Weapon.dagger, name: '패링 대거' },
@@ -1439,7 +1443,7 @@ const generalItemDb = {
   [3376]: { mainCategory: Main.generalItem, subCategory: Item.material, name: '조약돌' },
 }
 
-const itemDb = {
+const itemDb: ResItemDb = {
   ...weaponDb,
   ...subWeaponDb,
   ...armorDb,

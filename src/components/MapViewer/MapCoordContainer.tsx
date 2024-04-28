@@ -39,7 +39,7 @@ export default function MapCoordContainer(
       y: resultY
     });
 
-    copyClipBoard('카피 테스트');
+    copyClipBoard(`coord: { x: ${resultX}, y: ${resultY} },`);
   }
 
   function copyClipBoard(text: string) {
