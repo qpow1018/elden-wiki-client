@@ -33,6 +33,16 @@ export default function Map(
           지역 목록
         </Text>
 
+        <Text
+          sx={{
+            fontSize: '12px',
+            color: theme.color.text.dark,
+            marginBottom: '12px',
+          }}
+        >
+          현재 림그레이브에만 test data가 있습니다.
+        </Text>
+
         { props.mapList.map(item =>
           <Link
             key={item.id}
