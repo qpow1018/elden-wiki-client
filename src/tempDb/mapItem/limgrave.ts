@@ -20,8 +20,6 @@ const limgraveItems: ResItemLocation[] = [
       { itemId: 1404, count: 1, isVisible: true }, // 백면 바레
     ],
   },
-
-  
   {
     importance: EnumImportance.veryHigh,
     type: EnumLocationType.field,
@@ -50,14 +48,14 @@ const limgraveItems: ResItemLocation[] = [
     bossName: null,
     bossRune: null,
     items: [
-      { itemId: 2855, count: 4, isVisible: true }, // 쿠쿠리
+      { itemId: 2855, count: 4, isVisible: false }, // 쿠쿠리
     ],
   },
   {
     importance: EnumImportance.veryHigh,
     type: EnumLocationType.field,
     name: '관문 앞 폐허',
-    displayName: null,
+    displayName: '관문 앞 폐허',
     description: null,
     coord: { x: 1786, y: 2211 },
     stairs: null,
@@ -68,7 +66,7 @@ const limgraveItems: ResItemLocation[] = [
       { itemId: 868, count: 1, isVisible: true }, // 남각
       { itemId: 44, count: 1, isVisible: true }, // 군주군의 대검
       { itemId: 221, count: 1, isVisible: true }, // 철퇴
-      { itemId: 2870, count: 3, isVisible: true }, // 유적석
+      { itemId: 2870, count: 3, isVisible: false }, // 유적석
     ],
   },
   {
@@ -82,14 +80,14 @@ const limgraveItems: ResItemLocation[] = [
     bossName: null,
     bossRune: null,
     items: [
-      { itemId: 3346, count: 1, isVisible: true }, // 아르테리아의 잎
+      { itemId: 3346, count: 1, isVisible: false }, // 아르테리아의 잎
     ],
   },
   {
     importance: EnumImportance.middle,
     type: EnumLocationType.dungeon,
     name: '숲 옆 동굴',
-    displayName: null,
+    displayName: '숲 옆 동굴',
     description: '엘레의 교회 북쪽',
     coord: { x: 1404, y: 2512 },
     stairs: null,
@@ -97,8 +95,8 @@ const limgraveItems: ResItemLocation[] = [
     bossRune: 1000,
     items: [
       { itemId: 2701, count: 1, isVisible: true }, // 금 간 항아리
-      { itemId: 2875, count: 3, isVisible: true }, // 등불 돌
-      { itemId: 3101, count: 1, isVisible: true }, // 황금의 룬 [1]
+      { itemId: 2875, count: 3, isVisible: false }, // 등불 돌
+      { itemId: 3101, count: 1, isVisible: false }, // 황금의 룬 [1]
       { itemId: 724, count: 1, isVisible: true }, // 보스 - 염룡 표식의 탈리스만
     ],
   },
@@ -106,18 +104,18 @@ const limgraveItems: ResItemLocation[] = [
     importance: EnumImportance.middle,
     type: EnumLocationType.dungeon,
     name: '폭풍 기슭의 지하 묘지',
-    displayName: null,
+    displayName: '폭풍 기슭의 지하 묘지',
     description: '엘레의 교회 북서쪽',
     coord: { x: 907, y: 2504 },
     stairs: null,
     bossName: '환수의 파수견',
     bossRune: 1300,
     items: [
-      { itemId: 3367, count: 2, isVisible: true }, // 뿌리기름
+      { itemId: 3367, count: 2, isVisible: false }, // 뿌리기름
       { itemId: 2221, count: 5, isVisible: true }, // 묘 은방울꽃
-      { itemId: 3021, count: 1, isVisible: true }, // 말하는 머리 안녕
+      { itemId: 3021, count: 1, isVisible: false }, // 말하는 머리 안녕
       { itemId: 2231, count: 1, isVisible: true }, // 영혼 묘 은방울꽃 [1]
-      { itemId: 3323, count: 3, isVisible: true }, // 연기나비
+      { itemId: 3323, count: 3, isVisible: false }, // 연기나비
       { itemId: 1281, count: 1, isVisible: true }, // 헤매는 귀인의 뼛가루
       { itemId: 1282, count: 1, isVisible: true }, // 보스 - 귀인 마술사의 뼛가루
     ],
@@ -133,7 +131,7 @@ const limgraveItems: ResItemLocation[] = [
     bossName: null,
     bossRune: null,
     items: [
-      { itemId: 3302, count: 1, isVisible: true }, // 흰 저민 고기
+      { itemId: 3302, count: 1, isVisible: false }, // 흰 저민 고기
     ],
   },
   {
@@ -147,7 +145,7 @@ const limgraveItems: ResItemLocation[] = [
     bossName: null,
     bossRune: null,
     items: [
-      { itemId: 3315, count: 1, isVisible: true }, // 문어알
+      { itemId: 3315, count: 1, isVisible: false }, // 문어알
     ],
   },
   {
@@ -182,7 +180,7 @@ const limgraveItems: ResItemLocation[] = [
     importance: EnumImportance.middle,
     type: EnumLocationType.dungeon,
     name: '해안 동굴',
-    displayName: null,
+    displayName: '해안 동굴',
     description: '해안가 / 용찬 교회 길뚫',
     coord: { x: 916, y: 3345 },
     stairs: null,
@@ -190,9 +188,9 @@ const limgraveItems: ResItemLocation[] = [
     bossRune: 900,
     items: [
       { itemId: 1401, count: 1, isVisible: true }, // 보크
-      { itemId: 3315, count: 1, isVisible: true }, // 문어알
+      { itemId: 3315, count: 1, isVisible: false }, // 문어알
       { itemId: 2101, count: 1, isVisible: true }, // 재봉도구 + 재봉바늘
-      { itemId: 3323, count: 1, isVisible: true }, // 연기나비
+      { itemId: 3323, count: 1, isVisible: false }, // 연기나비
     ],
   },
   {
@@ -206,7 +204,7 @@ const limgraveItems: ResItemLocation[] = [
     bossName: null,
     bossRune: null,
     items: [
-      { itemId: 3319, count: 4, isVisible: true }, // 큰 잠자리 머리
+      { itemId: 3319, count: 4, isVisible: false }, // 큰 잠자리 머리
     ],
   },
   {
@@ -220,7 +218,7 @@ const limgraveItems: ResItemLocation[] = [
     bossName: null,
     bossRune: null,
     items: [
-      { itemId: 2604, count: 1, isVisible: true }, // 용사의 고깃덩어리
+      { itemId: 2604, count: 1, isVisible: false }, // 용사의 고깃덩어리
     ],
   },
   {
@@ -320,7 +318,7 @@ const limgraveItems: ResItemLocation[] = [
     bossName: null,
     bossRune: null,
     items: [
-      { itemId: 3101, count: 1, isVisible: true }, // 황금의 룬 [1]
+      { itemId: 3101, count: 1, isVisible: false }, // 황금의 룬 [1]
     ],
   },
   {
@@ -352,7 +350,7 @@ const limgraveItems: ResItemLocation[] = [
     bossRune: null,
     items: [
       { itemId: 2010, count: 1, isVisible: true }, // 황금 종자
-      { itemId: 3356, count: 8, isVisible: true }, // 피의 장미
+      { itemId: 3356, count: 8, isVisible: false }, // 피의 장미
       { itemId: 3206, count: 1, isVisible: true }, // 방랑 전사의 제작서 [6]
       { itemId: 942, count: 1, isVisible: true }, // 피의 참격
       { itemId: 2039, count: 1, isVisible: true }, // 덱타스의 부절 좌
@@ -391,8 +389,8 @@ const limgraveItems: ResItemLocation[] = [
   {
     importance: EnumImportance.middle,
     type: EnumLocationType.field,
-    name: '시프라 강 우물',
-    displayName: null,
+    name: null,
+    displayName: '시프라 강 우물',
     description: '시프라 강 우물',
     coord: { x: 4150, y: 2413 },
     stairs: null,
@@ -411,7 +409,7 @@ const limgraveItems: ResItemLocation[] = [
     bossName: null,
     bossRune: null,
     items: [
-      { itemId: 3302, count: 3, isVisible: true }, // 흰 저민 고기
+      { itemId: 3302, count: 3, isVisible: false }, // 흰 저민 고기
     ],
   },
   {
@@ -439,7 +437,7 @@ const limgraveItems: ResItemLocation[] = [
     bossName: null,
     bossRune: null,
     items: [
-      { itemId: 3316, count: 3, isVisible: true }, // 가는 짐승 뼈
+      { itemId: 3316, count: 3, isVisible: false }, // 가는 짐승 뼈
     ],
   },
   {
@@ -467,9 +465,9 @@ const limgraveItems: ResItemLocation[] = [
     bossName: null,
     bossRune: null,
     items: [
-      { itemId: 2854, count: 5, isVisible: true }, // 투척 단검
+      { itemId: 2854, count: 5, isVisible: false }, // 투척 단검
       { itemId: 3105, count: 1, isVisible: true }, // 황금의 룬 [5]
-      { itemId: 3329, count: 5, isVisible: true }, // 금 배설물
+      { itemId: 3329, count: 5, isVisible: false }, // 금 배설물
     ],
   },
   {
@@ -483,7 +481,7 @@ const limgraveItems: ResItemLocation[] = [
     bossName: null,
     bossRune: null,
     items: [
-      { itemId: 3101, count: 1, isVisible: true }, // 황금의 룬 [1]
+      { itemId: 3101, count: 1, isVisible: false }, // 황금의 룬 [1]
     ],
   },
   {
@@ -497,14 +495,14 @@ const limgraveItems: ResItemLocation[] = [
     bossName: null,
     bossRune: null,
     items: [
-      { itemId: 818, count: 1, isVisible: true }, // 희생의 가는 가지
+      { itemId: 818, count: 1, isVisible: false }, // 희생의 가는 가지
     ],
   },
   {
     importance: EnumImportance.middle,
     type: EnumLocationType.field,
     name: '안개 낀 숲의 폐허',
-    displayName: null,
+    displayName: '안개 낀 숲의 폐허',
     description: '안개 낀 숲의 폐허',
     coord: { x: 3687, y: 2793 },
     stairs: null,
@@ -527,7 +525,7 @@ const limgraveItems: ResItemLocation[] = [
     bossName: null,
     bossRune: null,
     items: [
-      { itemId: 3101, count: 1, isVisible: true }, // 황금의 룬 [1]
+      { itemId: 3101, count: 1, isVisible: false }, // 황금의 룬 [1]
     ],
   },
   {
@@ -541,7 +539,7 @@ const limgraveItems: ResItemLocation[] = [
     bossName: null,
     bossRune: null,
     items: [
-      { itemId: 2902, count: 1, isVisible: true }, // 마력기름
+      { itemId: 2902, count: 1, isVisible: false }, // 마력기름
     ],
   },
   {
@@ -614,7 +612,7 @@ const limgraveItems: ResItemLocation[] = [
     bossName: null,
     bossRune: null,
     items: [
-      { itemId: 2612, count: 1, isVisible: true }, // 독 이끼약
+      { itemId: 2612, count: 1, isVisible: false }, // 독 이끼약
     ],
   },
   {
@@ -628,7 +626,7 @@ const limgraveItems: ResItemLocation[] = [
     bossName: null,
     bossRune: null,
     items: [
-      { itemId: 2202, count: 1, isVisible: true }, // 단석 [2]
+      { itemId: 2202, count: 1, isVisible: false }, // 단석 [2]
     ],
   },
   {
@@ -642,14 +640,14 @@ const limgraveItems: ResItemLocation[] = [
     bossName: null,
     bossRune: null,
     items: [
-      { itemId: 3102, count: 1, isVisible: true }, // 황금의 룬 [2]
+      { itemId: 3102, count: 1, isVisible: false }, // 황금의 룬 [2]
     ],
   },
   {
     importance: EnumImportance.middle,
-    type: EnumLocationType.field,
+    type: EnumLocationType.boss,
     name: '주인 잃은 사냥개의 봉인감옥',
-    displayName: null,
+    displayName: '사냥개기사 대리윌',
     description: '주인 잃은 사냥개의 봉인감옥',
     coord: { x: 3041, y: 4327 },
     stairs: null,
@@ -686,7 +684,7 @@ const limgraveItems: ResItemLocation[] = [
     bossName: null,
     bossRune: null,
     items: [
-      { itemId: 2870, count: 3, isVisible: true }, // 유적석
+      { itemId: 2870, count: 3, isVisible: false }, // 유적석
     ],
   },
   {
@@ -716,7 +714,7 @@ const limgraveItems: ResItemLocation[] = [
     items: [
       { itemId: 2016, count: 1, isVisible: true }, // 왕가의 스크롤
       { itemId: 101, count: 1, isVisible: true }, // 그레이트 에페
-      { itemId: 3101, count: 1, isVisible: true }, // 황금의 룬 [1]
+      { itemId: 3101, count: 1, isVisible: false }, // 황금의 룬 [1]
     ],
   },
   {
@@ -730,7 +728,7 @@ const limgraveItems: ResItemLocation[] = [
     bossName: null,
     bossRune: null,
     items: [
-      { itemId: 2602, count: 1, isVisible: true }, // 별빛 조각
+      { itemId: 2602, count: 1, isVisible: false }, // 별빛 조각
     ],
   },
   {
@@ -744,7 +742,7 @@ const limgraveItems: ResItemLocation[] = [
     bossName: null,
     bossRune: null,
     items: [
-      { itemId: 3101, count: 1, isVisible: true }, // 황금의 룬 [1]
+      { itemId: 3101, count: 1, isVisible: false }, // 황금의 룬 [1]
     ],
   },
   {
@@ -758,7 +756,7 @@ const limgraveItems: ResItemLocation[] = [
     bossName: null,
     bossRune: null,
     items: [
-      { itemId: 3314, count: 1, isVisible: true }, // 게알
+      { itemId: 3314, count: 1, isVisible: false }, // 게알
     ],
   },
   {
@@ -786,7 +784,7 @@ const limgraveItems: ResItemLocation[] = [
     bossName: null,
     bossRune: null,
     items: [
-      { itemId: 3301, count: 1, isVisible: true }, // 저민 고기
+      { itemId: 3301, count: 1, isVisible: false }, // 저민 고기
     ],
   },
   {
@@ -800,7 +798,7 @@ const limgraveItems: ResItemLocation[] = [
     bossName: null,
     bossRune: null,
     items: [
-      { itemId: 3314, count: 1, isVisible: true }, // 게알
+      { itemId: 3314, count: 1, isVisible: false }, // 게알
     ],
   },
   {
@@ -828,7 +826,7 @@ const limgraveItems: ResItemLocation[] = [
     bossName: null,
     bossRune: null,
     items: [
-      { itemId: 3304, count: 3, isVisible: true }, // 짐승 고기 덩어리
+      { itemId: 3304, count: 3, isVisible: false }, // 짐승 고기 덩어리
     ],
   },
   {
@@ -856,14 +854,14 @@ const limgraveItems: ResItemLocation[] = [
     bossName: null,
     bossRune: null,
     items: [
-      { itemId: 3101, count: 1, isVisible: true }, // 황금의 룬 [1]
+      { itemId: 3101, count: 1, isVisible: false }, // 황금의 룬 [1]
     ],
   },
   {
     importance: EnumImportance.middle,
-    type: EnumLocationType.field,
+    type: EnumLocationType.painting,
     name: null,
-    displayName: null,
+    displayName: '그림 - 귀소',
     description: '아길 호수 아래 - 그림 귀소 - 기도 스카라베',
     coord: { x: 2060, y: 3523 },
     stairs: null,
@@ -884,14 +882,14 @@ const limgraveItems: ResItemLocation[] = [
     bossName: null,
     bossRune: null,
     items: [
-      { itemId: 2201, count: 1, isVisible: true }, // 단석 [1]
+      { itemId: 2201, count: 1, isVisible: false }, // 단석 [1]
     ],
   },
   {
     importance: EnumImportance.middle,
     type: EnumLocationType.boss,
     name: null,
-    displayName: null,
+    displayName: '트리가드',
     description: '트리가드',
     coord: { x: 1555, y: 3143 },
     stairs: null,
@@ -905,16 +903,16 @@ const limgraveItems: ResItemLocation[] = [
     importance: EnumImportance.middle,
     type: EnumLocationType.field,
     name: '용이 불태운 폐허',
-    displayName: null,
+    displayName: '용이 불태운 폐허',
     description: '용이 불태운 폐허 - 전송문 있음',
     coord: { x: 2232, y: 3357 },
     stairs: null,
     bossName: null,
     bossRune: null,
     items: [
-      { itemId: 3314, count: 1, isVisible: true }, // 게알
+      { itemId: 3314, count: 1, isVisible: false }, // 게알
       { itemId: 2031, count: 1, isVisible: true }, // 석검 열쇠
-      { itemId: 3102, count: 1, isVisible: true }, // 황금의 룬 [2]
+      { itemId: 3102, count: 1, isVisible: false }, // 황금의 룬 [2]
       { itemId: 151, count: 1, isVisible: true }, // 트윈 블레이드
     ],
   },
@@ -929,14 +927,14 @@ const limgraveItems: ResItemLocation[] = [
     bossName: null,
     bossRune: null,
     items: [
-      { itemId: 3346, count: 1, isVisible: true }, // 아르테리아의 잎
+      { itemId: 3346, count: 1, isVisible: false }, // 아르테리아의 잎
     ],
   },
   {
     importance: EnumImportance.middle,
     type: EnumLocationType.boss,
     name: '비룡 아길',
-    displayName: null,
+    displayName: '비룡 아길',
     description: '아길 호수',
     coord: { x: 2103, y: 3027 },
     stairs: null,
@@ -950,19 +948,19 @@ const limgraveItems: ResItemLocation[] = [
     importance: EnumImportance.middle,
     type: EnumLocationType.dungeon,
     name: '림그레이브 갱도',
-    displayName: null,
+    displayName: '림그레이브 갱도',
     description: '아길 호수 위쪽',
     coord: { x: 1956, y: 2522 },
     stairs: null,
     bossName: '채석꾼 트롤',
     bossRune: 1800,
     items: [
-      { itemId: 3101, count: 1, isVisible: true }, // 황금의 룬 [1]
-      { itemId: 3104, count: 1, isVisible: true }, // 황금의 룬 [4]
+      { itemId: 3101, count: 1, isVisible: false }, // 황금의 룬 [1]
+      { itemId: 3104, count: 1, isVisible: false }, // 황금의 룬 [4]
       { itemId: 2201, count: 9, isVisible: true }, // 단석 [1]
       { itemId: 2211, count: 1, isVisible: true }, // 색 잃은 단석 [1]
-      { itemId: 2866, count: 5, isVisible: true }, // 큰 부스러기 휘석
-      { itemId: 2865, count: 3, isVisible: true }, // 부스러기 휘석
+      { itemId: 2866, count: 5, isVisible: false }, // 큰 부스러기 휘석
+      { itemId: 2865, count: 3, isVisible: false }, // 부스러기 휘석
       { itemId: 771, count: 1, isVisible: true }, // 보스 - 포효의 메달리온
     ],
   },
@@ -977,19 +975,19 @@ const limgraveItems: ResItemLocation[] = [
     bossName: null,
     bossRune: null,
     items: [
-      { itemId: 2901, count: 1, isVisible: true }, // 불기름
+      { itemId: 2901, count: 1, isVisible: false }, // 불기름
     ],
   },
   {
     importance: EnumImportance.middle,
-    type: EnumLocationType.field,
+    type: EnumLocationType.boss,
     name: null,
     displayName: '피 묻은 손가락 네리우스',
     description: '피 묻은 손가락 네리우스',
     coord: { x: 2641, y: 2202 },
     stairs: null,
-    bossName: null,
-    bossRune: null,
+    bossName: '피 묻은 손가락 네리우스',
+    bossRune: 1294,
     items: [
       { itemId: 14, count: 1, isVisible: true }, // 레두비아
     ],
@@ -998,14 +996,14 @@ const limgraveItems: ResItemLocation[] = [
     importance: EnumImportance.middle,
     type: EnumLocationType.dungeon,
     name: '흐린 강 동굴',
-    displayName: null,
+    displayName: '흐린 강 동굴',
     description: '패치 동굴',
     coord: { x: 2590, y: 2262 },
     stairs: null,
     bossName: null,
     bossRune: null,
     items: [
-      { itemId: 3347, count: 5, isVisible: true }, // 버섯
+      { itemId: 3347, count: 5, isVisible: false }, // 버섯
       { itemId: 531, count: 1, isVisible: true }, // 천옷 세트
       { itemId: 1407, count: 1, isVisible: true }, // 패치
     ],
@@ -1035,7 +1033,7 @@ const limgraveItems: ResItemLocation[] = [
     bossName: null,
     bossRune: null,
     items: [
-      { itemId: 3353, count: 2, isVisible: true }, // 독꽃
+      { itemId: 3353, count: 2, isVisible: false }, // 독꽃
     ],
   },
   {
@@ -1063,7 +1061,7 @@ const limgraveItems: ResItemLocation[] = [
     bossName: null,
     bossRune: null,
     items: [
-      { itemId: 2201, count: 1, isVisible: true }, // 단석 [1]
+      { itemId: 2201, count: 1, isVisible: false }, // 단석 [1]
     ],
   },
   {
@@ -1077,7 +1075,7 @@ const limgraveItems: ResItemLocation[] = [
     bossName: null,
     bossRune: null,
     items: [
-      { itemId: 3102, count: 1, isVisible: true }, // 황금의 룬 [2]
+      { itemId: 3102, count: 1, isVisible: false }, // 황금의 룬 [2]
     ],
   },
   {
@@ -1093,7 +1091,7 @@ const limgraveItems: ResItemLocation[] = [
     items: [
       { itemId: 2221, count: 2, isVisible: true }, // 묘 은방울꽃 [1]
       { itemId: 2231, count: 1, isVisible: true }, // 영혼 묘 은방울꽃 [1]
-      { itemId: 3367, count: 5, isVisible: true }, // 뿌리기름
+      { itemId: 3367, count: 5, isVisible: false }, // 뿌리기름
       { itemId: 1333, count: 1, isVisible: true }, // 땅 잃은 기사 잉바르
     ],
   },
@@ -1108,8 +1106,8 @@ const limgraveItems: ResItemLocation[] = [
     bossName: null,
     bossRune: null,
     items: [
-      { itemId: 3304, count: 1, isVisible: true }, // 짐승 고기 덩어리
-      { itemId: 3101, count: 1, isVisible: true }, // 황금의 룬 [1]
+      { itemId: 3304, count: 1, isVisible: false }, // 짐승 고기 덩어리
+      { itemId: 3101, count: 1, isVisible: false }, // 황금의 룬 [1]
     ],
   },
   {
@@ -1130,7 +1128,7 @@ const limgraveItems: ResItemLocation[] = [
     importance: EnumImportance.middle,
     type: EnumLocationType.field,
     name: '폭풍 언덕의 낡은 집',
-    displayName: null,
+    displayName: '폭풍 언덕의 낡은 집',
     description: '로데리카 오두막',
     coord: { x: 869, y: 1653 },
     stairs: null,
@@ -1185,7 +1183,7 @@ const limgraveItems: ResItemLocation[] = [
     bossName: null,
     bossRune: null,
     items: [
-      { itemId: 3102, count: 1, isVisible: true }, // 황금의 룬 [2]
+      { itemId: 3102, count: 1, isVisible: false }, // 황금의 룬 [2]
     ],
   },
   {
@@ -1199,7 +1197,7 @@ const limgraveItems: ResItemLocation[] = [
     bossName: null,
     bossRune: null,
     items: [
-      { itemId: 3323, count: 5, isVisible: true }, // 연기나비
+      { itemId: 3323, count: 5, isVisible: false }, // 연기나비
     ],
   },
   {
@@ -1220,7 +1218,7 @@ const limgraveItems: ResItemLocation[] = [
     importance: EnumImportance.middle,
     type: EnumLocationType.boss,
     name: '폭풍 언덕의 봉인감옥',
-    displayName: null,
+    displayName: '도가니의 기사',
     description: '도가니 감옥',
     coord: { x: 1359, y: 2320 },
     stairs: null,
@@ -1241,7 +1239,7 @@ const limgraveItems: ResItemLocation[] = [
     bossName: null,
     bossRune: null,
     items: [
-      { itemId: 2602, count: 1, isVisible: true }, // 별빛 조각
+      { itemId: 2602, count: 1, isVisible: false }, // 별빛 조각
     ],
   },
   {
@@ -1269,12 +1267,9 @@ const limgraveItems: ResItemLocation[] = [
     bossName: null,
     bossRune: null,
     items: [
-      { itemId: 2641, count: 5, isVisible: true }, // 불화살
+      { itemId: 2641, count: 5, isVisible: false }, // 불화살
     ],
   },
-
-
-
 
   // {
   //   importance: EnumImportance.middle,
