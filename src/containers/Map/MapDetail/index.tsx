@@ -7,7 +7,7 @@ import { Box } from '@mui/material';
 import theme from '@/styles/theme';
 import useWindowSize from '@/hooks/useWindowSize';
 import resMapList, { ResMap } from '@/tempDb/map';
-import resMapItems, { ResMapItem } from '@/tempDb/mapItem';
+import resMapItems, { ResItemLocation } from '@/tempDb/mapItem';
 
 import Layout from '@/components/Layout';
 import Container from '@/components/Base/Container';
@@ -20,7 +20,7 @@ export default function MapDetail() {
   const mapId = Number(searchParams.get('id'));
 
   const [mapData, setMapData] = useState<ResMap | null>(null);
-  const [itemsData, setItemsData] = useState<ResMapItem[] | null>(null);
+  const [itemsData, setItemsData] = useState<ResItemLocation[] | null>(null);
 
   useEffect(() => {
     setupMapData(mapId);
