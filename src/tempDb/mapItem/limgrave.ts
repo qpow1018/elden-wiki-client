@@ -7,30 +7,6 @@ import {
 
 const limgraveItems: ResItemLocation[] = [
   {
-    importance: EnumImportance.middle,
-    type: EnumLocationType.siteOfGrace,
-    name: '표류 묘지',
-    displayName: null,
-    description: null,
-    coord: { x: 1639, y: 3492 },
-    stairs: null,
-    bossName: null,
-    bossRune: null,
-    items: [],
-  },
-  {
-    importance: EnumImportance.middle,
-    type: EnumLocationType.siteOfGrace,
-    name: '인도의 시작',
-    displayName: null,
-    description: null,
-    coord: { x: 1511, y: 3380 },
-    stairs: null,
-    bossName: null,
-    bossRune: null,
-    items: [],
-  },
-  {
     importance: EnumImportance.high,
     type: EnumLocationType.field,
     name: null,
@@ -44,18 +20,8 @@ const limgraveItems: ResItemLocation[] = [
       { itemId: 1404, count: 1, isVisible: true }, // 백면 바레
     ],
   },
-  {
-    importance: EnumImportance.middle,
-    type: EnumLocationType.siteOfGrace,
-    name: '엘레의 교회',
-    displayName: null,
-    description: null,
-    coord: { x: 1434, y: 2995 },
-    stairs: null,
-    bossName: null,
-    bossRune: null,
-    items: [],
-  },
+
+  
   {
     importance: EnumImportance.veryHigh,
     type: EnumLocationType.field,
@@ -104,18 +70,6 @@ const limgraveItems: ResItemLocation[] = [
       { itemId: 221, count: 1, isVisible: true }, // 철퇴
       { itemId: 2870, count: 3, isVisible: true }, // 유적석
     ],
-  },
-  {
-    importance: EnumImportance.middle,
-    type: EnumLocationType.siteOfGrace,
-    name: '아길 호수 북쪽',
-    displayName: null,
-    description: null,
-    coord: { x: 2084, y: 2289 },
-    stairs: null,
-    bossName: null,
-    bossRune: null,
-    items: [],
   },
   {
     importance: EnumImportance.middle,
@@ -240,18 +194,6 @@ const limgraveItems: ResItemLocation[] = [
       { itemId: 2101, count: 1, isVisible: true }, // 재봉도구 + 재봉바늘
       { itemId: 3323, count: 1, isVisible: true }, // 연기나비
     ],
-  },
-  {
-    importance: EnumImportance.middle,
-    type: EnumLocationType.siteOfGrace,
-    name: '용찬 교회',
-    displayName: null,
-    description: null,
-    coord: { x: 634, y: 4051 },
-    stairs: null,
-    bossName: null,
-    bossRune: null,
-    items: [],
   },
   {
     importance: EnumImportance.middle,
@@ -1334,20 +1276,18 @@ const limgraveItems: ResItemLocation[] = [
 
 
 
-
-
-  {
-    importance: EnumImportance.middle,
-    type: EnumLocationType.siteOfGrace,
-    name: null,
-    displayName: null,
-    description: null,
-    coord: { x: 0, y: 0 },
-    stairs: null,
-    bossName: null,
-    bossRune: null,
-    items: [],
-  },
+  // {
+  //   importance: EnumImportance.middle,
+  //   type: EnumLocationType.siteOfGrace,
+  //   name: null,
+  //   displayName: null,
+  //   description: null,
+  //   coord: { x: 0, y: 0 },
+  //   stairs: null,
+  //   bossName: null,
+  //   bossRune: null,
+  //   items: [],
+  // },
 ]
 
 

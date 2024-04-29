@@ -10,7 +10,11 @@ import {
 } from './define';
 
 type ResItemDb = {
-  [itemId: number]: any;
+  [itemId: number]: {
+    mainCategory: number;
+    subCategory: number | null;
+    name: string;
+  };
 }
 
 const weaponDb = {

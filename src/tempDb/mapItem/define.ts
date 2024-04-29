@@ -121,8 +121,8 @@ enum EnumLocationType {
   field = 1,
   dungeon = 2,
   legacyDungeon = 3,
-  siteOfGrace = 4, // 축복
-  boss = 5, // 보스 관련 - 필드 보스, 봉인 감옥 등
+  painting = 4, // 그림
+  boss = 5, // 필드 보스
 }
 
 export {
