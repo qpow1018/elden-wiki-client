@@ -1,9 +1,10 @@
 import type { Metadata, Viewport } from 'next';
-import Head from 'next/head';
 
 import '@/styles/reset.css';
 import '@/styles/fonts.css';
 import '@/styles/global.css';
+
+import ReactQueryProvider from '@/components/ReactQueryProvider';
 
 // TODO WORK
 export const metadata: Metadata = {
@@ -26,7 +27,9 @@ export default function RootLayout({
   return (
     <html lang="ko">
       <body>
-        {children}
+        <ReactQueryProvider>
+          {children}
+        </ReactQueryProvider>
       </body>
     </html>
   );
