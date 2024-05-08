@@ -32,11 +32,11 @@ export default function BottomNavigation() {
         text='홈'
         routerLink='/'
       />
-      {/* <BottomNavigationButton
+      <BottomNavigationButton
         iconComponent={<GameDbIcon />}
         text='DB'
-        routerLink='/db'
-      /> */}
+        routerLink='/item'
+      />
       <BottomNavigationButton
         iconComponent={<MapIcon />}
         text='지도'
