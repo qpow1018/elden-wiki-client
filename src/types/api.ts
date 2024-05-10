@@ -6,6 +6,14 @@ type AppError = {
   name?: string;
 }
 
+type ResItemMainCategory = {
+  id: number;
+  categoryNo: number;
+  value: string;
+  name: string;
+}
+
 export type {
   AppError,
+  ResItemMainCategory,
 }

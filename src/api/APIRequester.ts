@@ -34,25 +34,27 @@ class APIRequester {
       console.error('api error', method, url)
       console.error('api error', error);
 
-      throw APIRequester.makeAppError(error);
+      const appError = APIRequester.makeAppError(error);
+      throw appError;
     }
   }
 
   private static makeAppError(error: any): AppError {
-    // 서버에서 error를 응답
-    if (error.response !== undefined) {
+    // 서버에서 정의된 error를 응답
+    if (error.response?.data !== undefined) {
       return {
-        httpResponseCode: error.response.httpResponseCode,
-        code: error.response.code,
-        message: error.response.message,
-        detailMessage: error.response.detailMessage,
+        httpResponseCode: error.response.status,
+        code: error.response.data.code,
+        message: error.response.data.msg,
+        detailMessage: error.response.data.detailMessage,
       }
+
     } else {
       return {
         httpResponseCode: null,
         code: error.code || null,
         message: error.message,
-        name: error.name || '',
+        name: error.name || 'undefined error',
       }
     }
   }
