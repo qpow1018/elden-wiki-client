@@ -1,5 +1,7 @@
 import axios from 'axios';
 
+import { AppError } from '@/types/api';
+
 // TODO URL 설정 / env 활용 / dev, prod 나누기
 const axiosInstance = axios.create({
   baseURL: 'http://127.0.0.1:27017/',
@@ -25,12 +27,33 @@ class APIRequester {
 
     try {
       const response = await this.axios(config);
-      console.log('callApi', response); // TODO 서버 데이터 정제하기
-      return response;
+      return response.data.bgData;
 
-    } catch (error) { // TODO 공통 api 에러 핸들링
-      console.error('error - callApi', error);
-      throw error;
+    } catch (error: any) {
+      // TODO Dev일경우 출력
+      console.error('api error', method, url)
+      console.error('api error', error);
+
+      throw APIRequester.makeAppError(error);
+    }
+  }
+
+  private static makeAppError(error: any): AppError {
+    // 서버에서 error를 응답
+    if (error.response !== undefined) {
+      return {
+        httpResponseCode: error.response.httpResponseCode,
+        code: error.response.code,
+        message: error.response.message,
+        detailMessage: error.response.detailMessage,
+      }
+    } else {
+      return {
+        httpResponseCode: null,
+        code: error.code || null,
+        message: error.message,
+        name: error.name || '',
+      }
     }
   }
 
