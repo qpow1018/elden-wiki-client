@@ -3,9 +3,10 @@
 import { useEffect } from 'react';
 import { Box } from '@mui/material';
 
-import { useQuery } from '@tanstack/react-query';
+import { ResItemMainCategory } from '@/types/api';
+import { useGetMainCategory } from '@/queries';
 
-import api from '@/api';
+import { useQuery, QueryKey, QueryFunction } from '@tanstack/react-query';
 
 import Layout from '@/components/Layout';
 
@@ -28,11 +29,13 @@ export default function Item() {
   // }
 
 
-  // TODO key 관리방법 고민, useQuery 공통 훅 설계
-  const { data, isLoading, isError } = useQuery({ queryKey: ['testKey'], queryFn: api.getItemMainCategories });
-  // console.log('허허허 data', data);
-  // console.log('허허허 isLoading', isLoading);
-  // console.log('허허허 isError', isError);
+  const { data: testdata, isLoading, isError, error } = useGetMainCategory<ResItemMainCategory[]>();
+  console.log('허허허 data', testdata);
+  console.log('허허허 isLoading', isLoading);
+  console.log('허허허 isError', isError);
+  console.log('허허허 error', error);
+
+
 
   return (
     <Layout>
