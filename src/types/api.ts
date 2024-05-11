@@ -11,9 +11,19 @@ type ResItemMainCategory = {
   categoryNo: number;
   value: string;
   name: string;
+  subCategories: ResItemSubCategory[];
+}
+
+type ResItemSubCategory = {
+  id: number;
+  categoryNo: number;
+  subCategoryNo: number;
+  value: string;
+  name: string;
 }
 
 export type {
   AppError,
   ResItemMainCategory,
+  ResItemSubCategory,
 }
