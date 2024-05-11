@@ -14,9 +14,14 @@ export async function prefetchGetMainCategory() {
   return queryClient;
 }
 
-export function useGetMainCategory<T>() {
-  return useDefaultQuery<T>(
+export function useGetMainCategory<T>(initValue: T) {
+  const resData = useDefaultQuery<T>(
     key.mainCategories,
     api.getItemMainCategories,
-  );
+  )
+
+  return {
+    ...resData,
+    data: resData.data !== undefined ? resData.data : initValue
+  };
 }
