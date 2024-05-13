@@ -31,9 +31,9 @@ const theme = {
       light: '#e7e7e7',
     },
     border: {
-      default: '#505050',
-      light: '#818181',
-      dark: '#3c3c3c',
+      default: '#414141',
+      light: '#686868',
+      dark: '#2d2d2d',
     },
   },
   size: {
