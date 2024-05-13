@@ -5,7 +5,7 @@ import * as Types from '@/types/api';
 class APIService extends APIRequester {
   public async getItemMainCategories(): Promise<Types.ResItemMainCategory[]> {
     try {
-      return await APIRequester.get('/api/item/item-categories');
+      return await APIRequester.get('/api/item/main-categories');
     } catch (error) {
       throw error;
     }

@@ -1,5 +1,3 @@
-import { QueryClient, HydrationBoundary, dehydrate } from '@tanstack/react-query';
-
 import api from '@/api';
 
 import key from './key';

@@ -11,7 +11,6 @@ type ResItemMainCategory = {
   categoryNo: number;
   value: string;
   name: string;
-  subCategories: ResItemSubCategory[];
 }
 
 type ResItemSubCategory = {
