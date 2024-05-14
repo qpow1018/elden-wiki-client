@@ -7,7 +7,6 @@ export default function EssentialDataErrorBoundary(
     isLoading: boolean;
     isError: boolean;
     loadingComponent?: React.ReactNode;
-    children: React.ReactNode;
   }
 ) {
   return (
@@ -18,14 +17,8 @@ export default function EssentialDataErrorBoundary(
         />
       }
 
-      { props.isLoading === false &&
-        <>
-          {props.isError === false ? (
-            <>{ props.children }</>
-          ) : (
-            <ErrorComponent />
-          )}
-        </>
+      { (props.isLoading === false && props.isError === true) &&
+        <ErrorComponent />
       }
     </>
   );

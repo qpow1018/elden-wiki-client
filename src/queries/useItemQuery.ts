@@ -1,4 +1,6 @@
 import api from '@/api';
+import { EnumMainCategory } from '@/define';
+
 
 import key from './key';
 import { useDefaultQuery, defaultPrefetchQuery } from './defaultQuery';
@@ -12,14 +14,16 @@ export async function prefetchGetMainCategory() {
   return queryClient;
 }
 
-export function useGetMainCategory<T>(initValue: T) {
-  const resData = useDefaultQuery<T>(
+export function useGetMainCategory<T>() {
+  return useDefaultQuery<T>(
     key.mainCategories,
     api.getItemMainCategories,
-  )
+  );
+}
 
-  return {
-    ...resData,
-    data: resData.data !== undefined ? resData.data : initValue
-  };
+export function useGetItemWeapons<T>() {
+  return useDefaultQuery<T>(
+    key.itemWeapons,
+    api.getItemWeapons,
+  );
 }

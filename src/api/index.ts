@@ -10,6 +10,14 @@ class APIService extends APIRequester {
       throw error;
     }
   }
+
+  public async getItemWeapons(): Promise<Types.ResItemMainCategory[]> {
+    try {
+      return await APIRequester.get(`/api/item/weapons`);
+    } catch (error) {
+      throw error;
+    }
+  }
 }
 
 

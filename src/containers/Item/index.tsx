@@ -8,45 +8,62 @@ import { ResItemMainCategory, ResItemSubCategory } from '@/types/api';
 
 import Layout from '@/components/Layout';
 import Container from '@/components/Base/Container';
-import EssentialDataErrorBoundary from '@/components/EssentialDataErrorBoundary';
+import EssentialDataError from '@/components/EssentialDataError';
 import Text from '@/components/Base/Text';
 import Link from '@/components/Base/Link';
 
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 
 export default function Item() {
-  const { data: itemCategories, isLoading, isError } = useGetMainCategory<ResItemMainCategory[]>([]);
+  const { data: itemCategories, isLoading, isError } = useGetMainCategory<ResItemMainCategory[]>();
 
   return (
     <Layout>
-      <Container>
-        <EssentialDataErrorBoundary isLoading={isLoading} isError={isError}>
-          <Box
-            sx={{
-              borderBottom: `1px solid ${theme.color.border.default}`,
-              padding: '16px',
-            }}
-          >
-            <Text
-              sx={{
-                fontSize: '12px',
-                color: theme.color.text.dark,
-              }}
-            >
-              아이템 DB 목록
-            </Text>
-          </Box>
-
-          { itemCategories.map((item, index) =>
-            <ItemMainCategoryItem
-              key={item.id}
-              href={`/item/category/${item.categoryNo}`}
-              text={`${index + 1}. ${item.name}`}
-            />
-          )}
-        </EssentialDataErrorBoundary>
-      </Container>
+      { (itemCategories !== undefined && isLoading === false && isError === false) ? (
+        <MainView
+          itemCategories={itemCategories}
+        />
+      ) : (
+        <EssentialDataError
+          isLoading={isLoading}
+          isError={isError}
+        />
+      )}
     </Layout>
+  );
+}
+
+function MainView(
+  props: {
+    itemCategories: ResItemMainCategory[];
+  }
+) {
+  return (
+    <Container>
+      <Box
+        sx={{
+          borderBottom: `1px solid ${theme.color.border.default}`,
+          padding: '16px',
+        }}
+      >
+        <Text
+          sx={{
+            fontSize: '12px',
+            color: theme.color.text.dark,
+          }}
+        >
+          아이템 DB 목록
+        </Text>
+      </Box>
+
+      { props.itemCategories.map((item, index) =>
+        <ItemMainCategoryItem
+          key={item.id}
+          href={`/item/category/${item.categoryNo}`}
+          text={`${index + 1}. ${item.name}`}
+        />
+      )}
+    </Container>
   );
 }
 
