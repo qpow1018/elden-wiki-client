@@ -4,7 +4,8 @@ import { AppError } from '@/types/api';
 
 // TODO URL 설정 / env 활용 / dev, prod 나누기
 const axiosInstance = axios.create({
-  baseURL: 'http://127.0.0.1:27017/',
+  // baseURL: 'http://127.0.0.1:27017/',
+  baseURL: 'http://192.168.35.60:27017/',
   timeout: 5000,
 });
 

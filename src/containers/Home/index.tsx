@@ -1,10 +1,38 @@
 'use client';
 
-import { Box } from '@mui/material';
+import { useState } from 'react';
+import { Box, Button } from '@mui/material';
 
 import Layout from '@/components/Layout';
 
 export default function Home() {
+
+  const [inputValue, setInputValue] = useState<string>('');
+
+  function generateInputQuery() {
+    const text = inputValue;
+
+    const arr = text.split('\n').filter(str => str !== '');
+    let value = `INSERT INTO items(category_no, sub_category_no, name, order_no)
+    VALUES
+`;
+
+    for (let i = 0; i < arr.length; i++) {
+      const str = arr[i];
+      const [mainCategoryNo, subCategoryNo, name, orderNo] = str.split('\t');
+      value = value + `        (${mainCategoryNo}, ${subCategoryNo}, '${name}', ${orderNo})`;
+
+      if (i < arr.length - 1) {
+        value = value + ',\n';
+      } else {
+        value = value + ';';
+      }
+    }
+
+    console.log(value);
+    navigator.clipboard.writeText(value);
+  }
+
   return (
     <Layout>
       <Box sx={{ padding: '16px' }}>
@@ -21,6 +49,37 @@ export default function Home() {
         <Box>- Window 히스토리 제어 - 추가, 수정, 삭제 등</Box>
         <Box>- 에러 처리</Box>
 
+        <Box
+          sx={{
+            boxShadow: '0 0 1px red',
+            marginTop: '12px'
+          }}
+        >
+          <Box
+            sx={{
+              marginBottom: '8px'
+            }}
+          >
+            쿼리 제작
+          </Box>
+
+          <Box
+            component={'textarea'}
+            value={inputValue}
+            onChange={(e) => setInputValue(e.currentTarget.value)}
+            sx={{
+              width: '100%',
+              height: '400px'
+            }}
+          />
+
+          <Button
+            onClick={generateInputQuery}
+            variant='contained'
+          >
+            생성하기
+          </Button>
+        </Box>
       </Box>
     </Layout>
   );

@@ -11,13 +11,9 @@ export default function ItemIndex(
     indexContents: TypeItemIndexContents[];
   }
 ) {
-
-  console.log('indexContents', props.indexContents);
-
   return (
     <Box
       sx={{
-        margin: '16px',
         border: `1px solid ${theme.color.border.default}`,
         borderRadius: theme.common.borderRadius,
         padding: '16px 12px',
@@ -25,7 +21,7 @@ export default function ItemIndex(
     >
       <Text
         sx={{
-          fontSize: '14px',
+          fontSize: '15px',
           marginBottom: '12px',
         }}
       >
