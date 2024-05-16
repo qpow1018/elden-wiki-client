@@ -11,7 +11,7 @@ class APIService extends APIRequester {
     }
   }
 
-  public async getItemWeapons(): Promise<Types.ResItemMainCategory[]> {
+  public async getItemWeapons(): Promise<Types.ResWeaponWithSubCategory[]> {
     try {
       return await APIRequester.get(`/api/item/weapons`);
     } catch (error) {

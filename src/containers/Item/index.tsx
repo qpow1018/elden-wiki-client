@@ -4,7 +4,7 @@ import { Box } from '@mui/material';
 import theme from '@/styles/theme';
 
 import { useGetMainCategory } from '@/queries';
-import { ResItemMainCategory, ResItemSubCategory } from '@/types/api';
+import { ResItemMainCategory } from '@/types/api';
 
 import Layout from '@/components/Layout';
 import Container from '@/components/Base/Container';
