@@ -4,39 +4,66 @@ import { Box } from '@mui/material';
 import theme from '@/styles/theme';
 
 import { useGetItemWeapons } from '@/queries';
-import { ResItemMainCategory, ResItemSubCategory } from '@/types/api';
+import { ResWeaponWithSubCategory } from '@/types/api';
+import { TypeItemIndexContents } from '@/types';
 
 import Layout from '@/components/Layout';
 import Container from '@/components/Base/Container';
 import EssentialDataError from '@/components/EssentialDataError';
 import Text from '@/components/Base/Text';
-import Link from '@/components/Base/Link';
+
+import ItemIndex from './ItemIndex';
 
 export default function Weapon() {
-  const { data: testData, isLoading, isError } = useGetItemWeapons<ResItemMainCategory[]>();
-  console.log('testData', testData);
+  const { data, isLoading, isError } = useGetItemWeapons<ResWeaponWithSubCategory[]>();
 
   return (
     <Layout>
-      Weapon
-      {/* { (itemCategories !== undefined && isLoading === false && isError === false) ? (
+      { (data !== undefined && isLoading === false && isError === false) ? (
         <MainView
-          itemCategories={itemCategories}
+          data={data}
         />
       ) : (
         <EssentialDataError
           isLoading={isLoading}
           isError={isError}
         />
-      )} */}
+      )}
     </Layout>
   );
 }
 
-function MainView() {
+function MainView(
+  props: {
+    data: ResWeaponWithSubCategory[];
+  }
+) {
+
+  function makeItemIndexContents() {
+    const arr = [ ...props.data ];
+
+    const newArr = arr.map(category => {
+      const subContents = category.weapons.map(weapon => ({
+        itemId: weapon.itemId,
+        itemName: weapon.itemName,
+      }));
+
+      return {
+        categoryId: category.id,
+        categoryName: category.name,
+        subContents: subContents,
+      }
+    });
+
+    return newArr;
+  }
+
   return (
     <Container>
-      무기 목록
+      <ItemIndex
+        title='무기 목록'
+        indexContents={makeItemIndexContents()}
+      />
 
     </Container>
   );
