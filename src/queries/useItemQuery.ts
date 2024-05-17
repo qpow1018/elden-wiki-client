@@ -5,7 +5,7 @@ import { EnumMainCategory } from '@/define';
 import key from './key';
 import { useDefaultQuery, defaultPrefetchQuery } from './defaultQuery';
 
-export async function prefetchGetMainCategory() {
+export async function prefetchGetMainCategories() {
    const queryClient = await defaultPrefetchQuery(
     key.mainCategories,
     api.getItemMainCategories,
