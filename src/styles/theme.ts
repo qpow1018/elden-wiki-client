@@ -41,6 +41,7 @@ const theme = {
     bottomNaviHeight: 64,
     maxContainerWidth: 1000,
     buttonHeight: 40,
+    iconButtonSize: 36,
     inputHeight: 48,
     checkListStickyHeaderHeight: 52,
     modalHeaderHeight: 52,
