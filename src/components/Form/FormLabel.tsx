@@ -14,7 +14,7 @@ export default function FormLabel(
     <Text
       sx={[
         {
-          fontSize: '13px',
+          fontSize: '14px',
           color: theme.color.text.secondary,
           marginBottom: '8px',
         },
