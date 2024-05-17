@@ -11,6 +11,14 @@ class APIService extends APIRequester {
     }
   }
 
+  public async getItemSubCategory(categoryNo: number): Promise<Types.ResItemSubCategory> {
+    try {
+      return await APIRequester.get(`/api/item/sub-categories/${categoryNo}`);
+    } catch (error) {
+      throw error;
+    }
+  }
+
   public async getItemWeapons(): Promise<Types.ResWeaponWithSubCategory[]> {
     try {
       return await APIRequester.get(`/api/item/weapons`);
@@ -19,7 +27,6 @@ class APIService extends APIRequester {
     }
   }
 }
-
 
 const _inst = new APIService();
 export default _inst;

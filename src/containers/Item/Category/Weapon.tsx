@@ -1,5 +1,6 @@
 'use client';
 
+import { useRouter } from 'next/navigation';
 import React, { Box } from '@mui/material';
 import theme from '@/styles/theme';
 
@@ -40,6 +41,7 @@ function MainView(
     data: ResWeaponWithSubCategory[];
   }
 ) {
+  const router = useRouter();
 
   function makeItemIndexContents() {
     const arr = [ ...props.data ];
@@ -67,9 +69,8 @@ function MainView(
     alert('목차 이동, anchor 활용?');
   }
 
-  // TODO
-  function handleClickCategoryEditButton() {
-    alert('카테고리 수정 페이지로 이동');
+  function goToCSubategoryEditPage(subCategoryNo: number) {
+    router.push(`/item/category/sub-category-edit/${subCategoryNo}`);
   }
 
   return (
@@ -105,7 +106,7 @@ function MainView(
               index={`${categoryIndex + 1}.`}
               name={category.name}
               description={category.description}
-              onClickEditButton={handleClickCategoryEditButton}
+              onClickEditButton={() => goToCSubategoryEditPage(category.subCategoryNo)}
             />
 
             { category.weapons.map((weapon, weaponIndex) =>
