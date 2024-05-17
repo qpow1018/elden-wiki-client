@@ -1,11 +1,11 @@
 import {
   prefetchGetMainCategories,
-  useGetMainCategory,
+  useGetMainCategories,
   useGetItemWeapons,
 } from './useItemQuery';
 
 export {
   prefetchGetMainCategories,
-  useGetMainCategory,
+  useGetMainCategories,
   useGetItemWeapons,
 }

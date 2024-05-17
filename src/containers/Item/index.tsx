@@ -3,7 +3,7 @@
 import { Box } from '@mui/material';
 import theme from '@/styles/theme';
 
-import { useGetMainCategory } from '@/queries';
+import { useGetMainCategories } from '@/queries';
 import { ResItemMainCategory } from '@/types/api';
 
 import Layout from '@/components/Layout';
@@ -15,7 +15,7 @@ import Link from '@/components/Base/Link';
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 
 export default function Item() {
-  const { data: itemCategories, isLoading, isError } = useGetMainCategory<ResItemMainCategory[]>();
+  const { data: itemCategories, isLoading, isError } = useGetMainCategories<ResItemMainCategory[]>();
 
   return (
     <Layout>
