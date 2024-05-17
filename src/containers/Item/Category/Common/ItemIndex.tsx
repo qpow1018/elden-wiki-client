@@ -9,6 +9,7 @@ export default function ItemIndex(
   props: {
     title: string;
     indexContents: TypeItemIndexContents[];
+    onClickItemIndex?: () => void;
   }
 ) {
   return (
@@ -43,6 +44,7 @@ export default function ItemIndex(
           <UpperText
             index={`${contentIndex + 1}.`}
             text={content.categoryName}
+            onClickItemIndex={props.onClickItemIndex}
           />
 
           { content.subContents.map((item, itemIndex) =>
@@ -50,6 +52,7 @@ export default function ItemIndex(
               key={item.itemId}
               index={`${contentIndex + 1}.${itemIndex + 1}.`}
               text={item.itemName}
+              onClickItemIndex={props.onClickItemIndex}
             />
           )}
         </Box>
@@ -62,10 +65,12 @@ function UpperText(
   props: {
     index: string;
     text: string;
+    onClickItemIndex?: () => void;
   }
 ) {
   return (
     <Box
+      onClick={props.onClickItemIndex}
       sx={{
         display: 'inline-flex',
         fontWeight: 500,
@@ -91,11 +96,13 @@ function LowerText(
   props: {
     index: string;
     text: string;
+    onClickItemIndex?: () => void;
   }
 ) {
   return (
     <Box>
       <Box
+        onClick={props.onClickItemIndex}
         sx={{
           display: 'inline-flex',
           padding: '0 16px',
