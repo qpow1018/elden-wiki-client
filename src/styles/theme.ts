@@ -51,6 +51,7 @@ const theme = {
     letterSpacing: '-0.3px',
     borderRadius: '4px',
     transition: '0.25s ease',
+    lineHeight: 1.5,
   },
   zIndex: {
     fixedLoading: 1000,
