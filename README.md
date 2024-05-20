@@ -107,6 +107,7 @@
 - 배포 시 발생한 generateStaticParams 관련 이슈 (동적 라우팅 페이지)
 - next export 와 image loader
 - Item Marker 요소 처리방식 - DOM에 요소 추가 or Canvas (비교 필요)
+- node express cors 라이브러리 대신 cors 해결
 
 
 ## 해결 정리
