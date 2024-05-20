@@ -21,7 +21,7 @@ class APIService extends APIRequester {
 
   public async updateItemSubCategory(param: Types.ReqUpdateSubCategory) {
     try {
-      return await APIRequester.put(`/api/item/sub-categories/${param.subCategoryNo}`, {
+      await APIRequester.put(`/api/item/sub-categories/${param.subCategoryNo}`, {
         description: param.description
       });
     } catch (error) {
