@@ -62,6 +62,11 @@ type ResItemWeaponDetail = {
   description: string | null;
 }
 
+type ReqUpdateSubCategory = {
+  subCategoryNo: number;
+  description: string | null;
+}
+
 export type {
   AppError,
   ResItemMainCategory,
@@ -69,4 +74,5 @@ export type {
   ResWeaponWithSubCategory,
   ResItemWeapon,
   ResItemWeaponDetail,
+  ReqUpdateSubCategory,
 }

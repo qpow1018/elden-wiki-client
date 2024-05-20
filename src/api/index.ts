@@ -11,9 +11,19 @@ class APIService extends APIRequester {
     }
   }
 
-  public async getItemSubCategory(categoryNo: number): Promise<Types.ResItemSubCategory> {
+  public async getItemSubCategory(subCategoryNo: number): Promise<Types.ResItemSubCategory> {
     try {
-      return await APIRequester.get(`/api/item/sub-categories/${categoryNo}`);
+      return await APIRequester.get(`/api/item/sub-categories/${subCategoryNo}`);
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  public async updateItemSubCategory(param: Types.ReqUpdateSubCategory) {
+    try {
+      return await APIRequester.put(`/api/item/sub-categories/${param.subCategoryNo}`, {
+        description: param.description
+      });
     } catch (error) {
       throw error;
     }
